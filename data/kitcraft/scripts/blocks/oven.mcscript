@@ -2,6 +2,11 @@
 
 /function kitcraft:blocks/oven/place/detect
 /function kitcraft:blocks/oven/destroy
+/function kitcraft:blocks/oven/detect_burntime
+/function kitcraft:blocks/oven/visuals
+asat('@e[type=armor_stand,tag=kitcraft_oven]') {
+  /function kitcraft:blocks/oven/cooking/main
+}
 
 #file: ./oven/place/detect
 
@@ -47,4 +52,172 @@ asat('@e[type=armor_stand,tag=kitcraft_oven_init]') {
 asat('@e[type=armor_stand,tag=!kitcraft_oven_init,tag=kitcraft_oven]'),if('block ~ ~ ~ air') {
   /data merge entity @e[limit=1,sort=nearest,type=item,nbt={Item:{id:"minecraft:furnace",Count:1b}}] {Item:{id:"minecraft:armor_stand",Count:1b,tag:{kitcraft:{id:"oven_place"},CustomModelData:705101,display:{Name:"{\"text\":\"Oven\",\"italic\":\"false\"}",Lore:["{\"text\":\"Right-click to place\",\"italic\":\"false\",\"color\":\"dark_green\"}"]},EntityTag:{NoGravity:1b,Invulnerable:1b,Small:1b,Marker:1b,Invisible:1b,PersistenceRequired:1b,Tags:["kitcraft_oven","kitcraft_oven_init"]}}}}
   /kill @s
+}
+
+#file: ./oven/detect_burntime
+
+asat('@e[type=armor_stand,tag=kitcraft_oven]') {
+  /execute store result score @s kc_burntime run data get block ~ ~ ~ BurnTime
+  /execute store result score @s kc_cooktime run data get block ~ ~ ~ CookTime
+}
+
+#file: ./oven/cooking/main
+
+#Item[2]
+/execute store result score @s kc_slot run data get block ~ ~ ~ Items[2].Slot
+if('score @s kc_slot matches 0') {
+  /execute store result score @s kc_slot_in run data get block ~ ~ ~ Items[2].Count
+} else if('score @s kc_slot matches 1') {
+  /execute store result score @s kc_slot_fuel run data get block ~ ~ ~ Items[2].Count
+} else if('score @s kc_slot matches 2') {
+  /execute store result score @s kc_slot_out run data get block ~ ~ ~ Items[2].Count
+}
+/scoreboard players reset @s kc_slot
+if(!'block ~ ~ ~ minecraft:furnace{Items:[{Slot:2b}]}') {
+  /scoreboard players reset @s kc_slot_out
+}
+#
+#Item[1]
+/execute store result score @s kc_slot run data get block ~ ~ ~ Items[1].Slot
+if('score @s kc_slot matches 0') {
+  /execute store result score @s kc_slot_in run data get block ~ ~ ~ Items[1].Count
+} else if('score @s kc_slot matches 1') {
+  /execute store result score @s kc_slot_fuel run data get block ~ ~ ~ Items[1].Count
+} else if('score @s kc_slot matches 2') {
+  /execute store result score @s kc_slot_out run data get block ~ ~ ~ Items[1].Count
+}
+/scoreboard players reset @s kc_slot
+if(!'block ~ ~ ~ minecraft:furnace{Items:[{Slot:1b}]}') {
+  /scoreboard players reset @s kc_slot_fuel
+}
+#
+#Item[0]
+/execute store result score @s kc_slot run data get block ~ ~ ~ Items[0].Slot
+if('score @s kc_slot matches 0') {
+  /execute store result score @s kc_slot_in run data get block ~ ~ ~ Items[0].Count
+} else if('score @s kc_slot matches 1') {
+  /execute store result score @s kc_slot_fuel run data get block ~ ~ ~ Items[0].Count
+} else if('score @s kc_slot matches 2') {
+  /execute store result score @s kc_slot_out run data get block ~ ~ ~ Items[0].Count
+}
+/scoreboard players reset @s kc_slot
+if(!'block ~ ~ ~ minecraft:furnace{Items:[{Slot:0b}]}') {
+  /scoreboard players reset @s kc_slot_in
+}
+#
+/function kitcraft:blocks/oven/cooking/time_main
+if('entity @s[scores={kc_burntime=1..}]') {
+  /function #kitcraft:oven_recipes
+}
+#
+if('block ~ ~ ~ minecraft:furnace{Items:[{Slot:0b,tag:{kitcraft:{Cookable:1}}}]}') {
+  /function kitcraft:blocks/oven/fuel/detect
+}
+
+#file: ./oven/cooking/count
+
+/scoreboard players operation @s kc_slot_in -= 1 kc_numbers
+/scoreboard players operation @s kc_slot_out += 1 kc_numbers
+#
+/execute store result block ~ ~ ~ Items[0].Count byte 1 run scoreboard players get @s kc_slot_in
+#Item[2]
+/execute store result score @s kc_slot run data get block ~ ~ ~ Items[2].Slot
+if('score @s kc_slot matches 2') {
+  /execute store result block ~ ~ ~ Items[2].Count byte 1 run scoreboard players get @s kc_slot_out
+}
+/scoreboard players reset @s kc_slot
+#
+#Item[1]
+/execute store result score @s kc_slot run data get block ~ ~ ~ Items[1].Slot
+if('score @s kc_slot matches 2') {
+  /execute store result block ~ ~ ~ Items[1].Count byte 1 run scoreboard players get @s kc_slot_out
+}
+#
+/scoreboard players operation @s kc_slot_in += 1 kc_numbers
+/scoreboard players operation @s kc_slot_out -= 1 kc_numbers
+
+#file: ./oven/cooking/time_main
+
+if('entity @s[scores={kc_burntime=1..}]') {
+  if('block ~ ~ ~ minecraft:furnace{Items:[{Slot:0b,tag:{kitcraft:{Cookable:1}}}]}') {
+    //execute store result score @s kc_cooktime run data get block ~ ~ ~ CookTime
+    /function kitcraft:blocks/oven/cooking/time
+  }
+} else {
+  //scoreboard players operation @s kc_cooktime_set = @s kc_cooktime
+}
+
+if(!'block ~ ~ ~ minecraft:furnace{Items:[{Slot:0b,tag:{kitcraft:{Cookable:1}}}]}') {
+  /scoreboard players reset @s kc_cooktime_set
+}
+
+#file: ./oven/cooking/time
+
+/*
+//scoreboard players operation @s kc_cooktime_set = @s kc_cooktime
+/scoreboard players operation @s kc_cooktime_set += 1 kc_numbers
+/execute store result block ~ ~ ~ CookTime short 1 run scoreboard players get @s kc_cooktime_set
+//execute store result score @s kc_cooktime run data get block ~ ~ ~ CookTime
+//scoreboard players reset @s kc_cooktime_set
+*/
+
+if(!'entity @s[scores={kc_cooktime_set=199..}]') {
+  /scoreboard players operation @s kc_cooktime_set += 1 kc_numbers
+} else {
+  /scoreboard players set @s kc_cooktime_set 0
+}
+/execute store result block ~ ~ ~ CookTime short 1 run scoreboard players get @s kc_cooktime_set
+/scoreboard players operation @s kc_cooktime = @s kc_cooktime_set
+
+#file: ./oven/fuel/detect
+if(!'entity @s[scores={kc_burntime=1..}]') {
+  if('block ~ ~ ~ minecraft:furnace{Items:[{Slot:1b,id:"minecraft:coal"}]}' || 'block ~ ~ ~ minecraft:furnace{Items:[{Slot:1b,id:"minecraft:charcoal"}]}') {
+    /data merge block ~ ~ ~ {BurnTime:1600s}
+    /function kitcraft:blocks/oven/fuel/remove
+  }
+}
+
+#file: ./oven/fuel/remove
+/scoreboard players operation @s kc_slot_fuel -= 1 kc_numbers
+#
+#Item[1]
+/execute store result score @s kc_slot run data get block ~ ~ ~ Items[1].Slot
+if('score @s kc_slot matches 1') {
+  /execute store result block ~ ~ ~ Items[1].Count short 1 run scoreboard players get @s kc_slot_fuel
+}
+/scoreboard players reset @s kc_slot
+#
+#Item[0]
+/execute store result score @s kc_slot run data get block ~ ~ ~ Items[0].Slot
+if('score @s kc_slot matches 1') {
+  /execute store result block ~ ~ ~ Items[0].Count short 1 run scoreboard players get @s kc_slot_fuel
+}
+/scoreboard players reset @s kc_slot
+#
+/scoreboard players operation @s kc_slot_fuel += 1 kc_numbers
+
+#file: ./oven/visuals
+
+asat('@e[type=armor_stand,tag=kitcraft_oven,scores={kc_burntime=1..}]') {
+  if('entity @s[y_rotation=135..-135]') {
+    /particle flame ~ ~.2 ~-.5 0.1 0.01 0 0 1 normal
+  }
+  if('entity @s[y_rotation=-134.99..-35]') {
+    //function kitcraft:blocks/oven/place/place_east
+  }
+  if('entity @s[y_rotation=-34.99..35]') {
+    /particle flame ~ ~.2 ~.5 0.1 0.01 0 0 1 normal
+  }
+  if('entity @s[y_rotation=35.01..134.99]') {
+    //function kitcraft:blocks/oven/place/place_west
+  }
+}
+
+#file: ./oven/recipes/fries
+
+if('block ~ ~ ~ minecraft:furnace{Items:[{Slot:0b,tag:{kitcraft:{id:"potato_sticks"}}}]}' && 'entity @s[scores={kc_cooktime=198}]') {
+  if(!'block ~ ~ ~ minecraft:furnace{Items:[{Slot:2b}]}' || 'block ~ ~ ~ minecraft:furnace{Items:[{Slot:2b,tag:{kitcraft:{id:"fries"}}}]}') {
+    /replaceitem block ~ ~ ~ container.2 minecraft:fire_charge{kitcraft:{Consumable:1,sat:6,particle:"yellow",id:"fries",NoPlacing:1},CustomModelData:7050003,display:{Name:"{\"text\":\"Fries\",\"italic\":\"false\"}",Lore:["{\"text\":\"Press shift while holding to eat\",\"italic\":\"false\",\"color\":\"dark_green\"}"]}}
+    /function kitcraft:blocks/oven/cooking/count
+  }
 }

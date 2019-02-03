@@ -1,0 +1,108 @@
+#file: ./eating/main
+
+asat('@a') {
+  if('entity @s[nbt={SelectedItem:{tag:{kitcraft:{Consumable:1}}}}]') {
+    /execute store result score @s kc_pl_sat run data get entity @s foodLevel
+  } else {
+    /scoreboard players reset @s kc_pl_sat
+  }
+}
+
+asat(@a), if('entity @s[gamemode=!spectator,gamemode=!creative,scores={kc_sneak=1..,kc_pl_sat=..19},nbt={SelectedItem:{tag:{kitcraft:{Consumable:1}}}}]') {
+  /function kitcraft:eating/set_values
+  //function kitcraft:eating/sounds
+  /function kitcraft:eating/add_eattime
+}
+
+#
+asat(@a[scores={kc_pl_sat=..19}]) {
+  /function #kitcraft:eat_food
+}
+#
+asat(@a[scores={kc_eattime=1..,kc_pl_sat=..19}]) {
+  /function kitcraft:eating/particle
+  /function kitcraft:eating/sounds
+}
+#
+asat(@a[scores={kc_eattime=1..}]) {
+  if(!'entity @s[nbt={SelectedItem:{tag:{kitcraft:{Consumable:1}}}}]') {
+    /scoreboard players reset @s kc_eattime
+  }
+  if(!'entity @s[scores={kc_sneak=1..}]') {
+    /scoreboard players reset @s kc_eattime
+  }
+}
+
+##
+/scoreboard players reset @a kc_sneak
+
+#file: ./eating/set_values
+
+/execute store result score @s kc_sat run data get entity @s SelectedItem.tag.kitcraft.sat
+
+#file: ./eating/add_eattime
+
+if(!'score @s kc_eattime matches 40..') {
+  /scoreboard players add @s kc_eattime 1
+} else {
+  /scoreboard players reset @s kc_eattime
+}
+
+#file: ./eating/saturate
+
+/effect give @s[scores={kc_sat=1}] saturation 1 0 false
+/effect give @s[scores={kc_sat=2}] saturation 1 1 false
+/effect give @s[scores={kc_sat=3}] saturation 1 2 false
+/effect give @s[scores={kc_sat=4}] saturation 1 3 false
+/effect give @s[scores={kc_sat=5}] saturation 1 4 false
+/effect give @s[scores={kc_sat=6}] saturation 1 5 false
+/effect give @s[scores={kc_sat=7}] saturation 1 6 false
+/effect give @s[scores={kc_sat=8}] saturation 1 7 false
+/effect give @s[scores={kc_sat=9}] saturation 1 8 false
+/effect give @s[scores={kc_sat=10}] saturation 1 9 false
+/effect give @s[scores={kc_sat=11}] saturation 1 10 false
+/effect give @s[scores={kc_sat=12}] saturation 1 11 false
+/effect give @s[scores={kc_sat=13}] saturation 1 12 false
+/effect give @s[scores={kc_sat=14}] saturation 1 13 false
+/effect give @s[scores={kc_sat=15}] saturation 1 14 false
+/effect give @s[scores={kc_sat=16}] saturation 1 15 false
+/effect give @s[scores={kc_sat=17}] saturation 1 16 false
+/effect give @s[scores={kc_sat=18}] saturation 1 17 false
+/effect give @s[scores={kc_sat=19}] saturation 1 18 false
+/effect give @s[scores={kc_sat=20}] saturation 1 19 false
+
+#file: ./eating/particle
+
+/execute at @s[nbt={SelectedItem:{tag:{kitcraft:{particle:"white"}}}}] positioned ~ ~1.2 ~ run particle minecraft:block white_concrete ^ ^ ^0.4 0.4 0.4 0.4 1 0 force @s
+/execute at @s[nbt={SelectedItem:{tag:{kitcraft:{particle:"orange"}}}}] positioned ~ ~1.2 ~ run particle minecraft:block orange_concrete ^ ^ ^0.4 0.4 0.4 0.4 1 0 force @s
+/execute at @s[nbt={SelectedItem:{tag:{kitcraft:{particle:"magenta"}}}}] positioned ~ ~1.2 ~ run particle minecraft:block magenta_concrete ^ ^ ^0.4 0.4 0.4 0.4 1 0 force @s
+/execute at @s[nbt={SelectedItem:{tag:{kitcraft:{particle:"light_blue"}}}}] positioned ~ ~1.2 ~ run particle minecraft:block light_blue_concrete ^ ^ ^0.4 0.4 0.4 0.4 1 0 force @s
+/execute at @s[nbt={SelectedItem:{tag:{kitcraft:{particle:"yellow"}}}}] positioned ~ ~1.2 ~ run particle minecraft:block yellow_concrete ^ ^ ^0.4 0.4 0.4 0.4 1 0 force @s
+/execute at @s[nbt={SelectedItem:{tag:{kitcraft:{particle:"lime"}}}}] positioned ~ ~1.2 ~ run particle minecraft:block lime_concrete ^ ^ ^0.4 0.4 0.4 0.4 1 0 force @s
+/execute at @s[nbt={SelectedItem:{tag:{kitcraft:{particle:"pink"}}}}] positioned ~ ~1.2 ~ run particle minecraft:block pink_concrete ^ ^ ^0.4 0.4 0.4 0.4 1 0 force @s
+/execute at @s[nbt={SelectedItem:{tag:{kitcraft:{particle:"gray"}}}}] positioned ~ ~1.2 ~ run particle minecraft:block gray_concrete ^ ^ ^0.4 0.4 0.4 0.4 1 0 force @s
+/execute at @s[nbt={SelectedItem:{tag:{kitcraft:{particle:"light_gray"}}}}] positioned ~ ~1.2 ~ run particle minecraft:block light_gray_concrete ^ ^ ^0.4 0.4 0.4 0.4 1 0 force @s
+/execute at @s[nbt={SelectedItem:{tag:{kitcraft:{particle:"cyan"}}}}] positioned ~ ~1.2 ~ run particle minecraft:block cyan_concrete ^ ^ ^0.4 0.4 0.4 0.4 1 0 force @s
+/execute at @s[nbt={SelectedItem:{tag:{kitcraft:{particle:"purple"}}}}] positioned ~ ~1.2 ~ run particle minecraft:block purple_concrete ^ ^ ^0.4 0.4 0.4 0.4 1 0 force @s
+/execute at @s[nbt={SelectedItem:{tag:{kitcraft:{particle:"blue"}}}}] positioned ~ ~1.2 ~ run particle minecraft:block blue_concrete ^ ^ ^0.4 0.4 0.4 0.4 1 0 force @s
+/execute at @s[nbt={SelectedItem:{tag:{kitcraft:{particle:"brown"}}}}] positioned ~ ~1.2 ~ run particle minecraft:block brown_concrete ^ ^ ^0.4 0.4 0.4 0.4 1 0 force @s
+/execute at @s[nbt={SelectedItem:{tag:{kitcraft:{particle:"green"}}}}] positioned ~ ~1.2 ~ run particle minecraft:block green_concrete ^ ^ ^0.4 0.4 0.4 0.4 1 0 force @s
+/execute at @s[nbt={SelectedItem:{tag:{kitcraft:{particle:"red"}}}}] positioned ~ ~1.2 ~ run particle minecraft:block red_concrete ^ ^ ^0.4 0.4 0.4 0.4 1 0 force @s
+/execute at @s[nbt={SelectedItem:{tag:{kitcraft:{particle:"black"}}}}] positioned ~ ~1.2 ~ run particle minecraft:block black_concrete ^ ^ ^0.4 0.4 0.4 0.4 1 0 force @s
+
+#file: ./eating/sounds
+
+asat(@a) {
+  if('entity @s[scores={kc_eattime=5}]' || 'entity @s[scores={kc_eattime=10}]' || 'entity @s[scores={kc_eattime=15}]''entity @s[scores={kc_eattime=20}]' || 'entity @s[scores={kc_eattime=25}]' || 'entity @s[scores={kc_eattime=30}]' || 'entity @s[scores={kc_eattime=35}]') {
+    /playsound minecraft:entity.generic.eat player @a[distance=..5]
+  } else if('entity @s[scores={kc_eattime=39..}]') {
+    /playsound minecraft:entity.player.burp player @a[distance=..5]
+  }
+}
+
+#file: ./eating/food/fries
+
+asat('@a[scores={kc_eattime=39},nbt={SelectedItem:{tag:{kitcraft:{id:"fries"}}}}]') {
+  /function kitcraft:eating/saturate
+  /clear @s minecraft:fire_charge{kitcraft:{id:"fries"}} 1
+}

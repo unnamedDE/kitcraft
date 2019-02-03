@@ -1,0 +1,24 @@
+#file: ./noplacing/detect
+
+#noplace
+as(@a[tag=!kitcraft_noplacing,gamemode=survival,nbt={SelectedItem:{tag:{kitcraft:{NoPlacing:1}}}}]) {
+  /function kitcraft:noplacing/noplacing
+}
+#
+#place
+as(@a[tag=kitcraft_noplacing,gamemode=adventure]), if(!'entity @s[nbt={SelectedItem:{tag:{kitcraft:{NoPlacing:1}}}}]') {
+  /function kitcraft:noplacing/placing
+}
+as(@a[tag=kitcraft_noplacing]), if(!'entity @s[nbt={SelectedItem:{tag:{kitcraft:{NoPlacing:1}}}}]') {
+  /tag @s remove kitcraft_noplacing
+}
+
+#file: ./noplacing/noplacing
+
+/tag @s add kitcraft_noplacing
+/gamemode adventure
+
+#file: ./noplacing/placing
+
+/tag @s remove kitcraft_noplacing
+/gamemode survival

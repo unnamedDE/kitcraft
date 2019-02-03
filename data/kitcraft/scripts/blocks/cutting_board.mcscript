@@ -1,0 +1,57 @@
+#file: ./cutting_board/main
+
+/function kitcraft:blocks/cutting_board/place/detect
+/function kitcraft:blocks/cutting_board/destroy/detect
+asat(@e[type=armor_stand,tag=kitcraft_cutting_board]) {
+  /function kitcraft:blocks/cutting_board/recipes
+}
+
+as(@e[tag=kitcraft_cutting_board_vis]) {
+  /data merge entity @s {Fire:1000}
+}
+
+#file: ./cutting_board/place/detect
+
+asat('@e[type=armor_stand,tag=kitcraft_cutting_board_init]') {
+  if('block ~ ~ ~ air') {
+      /function kitcraft:blocks/cutting_board/place/place
+  }
+}
+
+#file: ./cutting_board/place/place
+
+align('xyz'), positioned('~0.5 ~0 ~0.5') {
+  //summon armor_stand ~ ~-1.91008 ~ {Fire:1000,Tags:["kitcraft_cutting_board_vis"],DisabledSlots:4096,Invisible:1,Marker:1,NoGravity:1,ArmorItems:[{},{},{},{Count:1,id:armor_stand,tag:{CustomModelData:705102}}]}
+  //summon armor_stand ~ ~-1.27508 ~ {Fire:1000,Tags:["kitcraft_cutting_board_vis"],DisabledSlots:4096,Invisible:1,Marker:1,NoGravity:1,ArmorItems:[{},{},{},{Count:1,id:armor_stand,tag:{CustomModelData:705102}}]}
+  /summon armor_stand ~ ~-1.37508 ~ {Fire:1000,Tags:["kitcraft_cutting_board_vis"],DisabledSlots:4096,Invisible:1,Marker:1,NoGravity:1,ArmorItems:[{},{},{},{Count:1,id:armor_stand,tag:{CustomModelData:705102}}]}
+}
+/tag @s remove kitcraft_cutting_board_init
+
+#file: ./cutting_board/destroy/detect
+
+asat('@e[type=armor_stand,tag=kitcraft_cutting_board]'), if('entity @e[distance=..1,type=item,nbt={OnGround:1b,Item:{id:"minecraft:tnt"}}]') {
+  /function kitcraft:blocks/cutting_board/destroy/destroy
+}
+
+#file: ./cutting_board/destroy/destroy
+
+/summon item ~ ~ ~ {Item:{id:"minecraft:armor_stand",Count:1b,tag:{kitcraft:{id:"cutting_board_place"},CustomModelData:705102,display:{Name:"{\"text\":\"Cutting Board\",\"italic\":\"false\"}",Lore:["{\"text\":\"Right-click to place\",\"italic\":\"false\",\"color\":\"dark_green\"}"]},EntityTag:{NoGravity:1b,Invulnerable:1b,Small:1b,Marker:1b,Invisible:1b,PersistenceRequired:1b,Tags:["kitcraft_cutting_board","kitcraft_cutting_board_init"]}}}}
+/kill @e[type=armor_stand,tag=kitcraft_cutting_board_vis,distance=..2,limit=1,sort=nearest]
+/kill @s
+
+#file: ./cutting_board/recipes
+
+/function kitcraft:blocks/cutting_board/recipes/potato_slice
+/function kitcraft:blocks/cutting_board/recipes/potato_sticks
+
+#file: ./cutting_board/recipes/potato_slice
+
+as('@e[tag=!kitcraft_cutting_board_cut,distance=...5,nbt={OnGround:1b,Item:{id:"minecraft:potato"}}]') {
+  /data merge entity @s {Tags:["kitcraft_cutting_board_cut"],Item:{id:"minecraft:fire_charge",tag:{kitcraft:{id:"potato_slice",NoPlacing:1},CustomModelData:7050001,display:{Name:"{\"text\":\"Potato Slices\",\"italic\":\"false\"}"}}}}
+}
+
+#file: ./cutting_board/recipes/potato_sticks
+
+as('@e[tag=!kitcraft_cutting_board_cut,distance=...5,nbt={OnGround:1b,Item:{tag:{kitcraft:{id:"potato_slice"}}}}]') {
+  /data merge entity @s {Tags:["kitcraft_cutting_board_cut"],Item:{id:"minecraft:fire_charge",tag:{kitcraft:{id:"potato_sticks",NoPlacing:1,Cookable:1},CustomModelData:7050002,display:{Name:"{\"text\":\"Potato Sticks\",\"italic\":\"false\"}"}}}}
+}

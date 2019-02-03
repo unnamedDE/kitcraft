@@ -1,0 +1,76 @@
+#file: ./trash_can/main
+
+/function kitcraft:blocks/trash_can/place/detect
+/function kitcraft:blocks/trash_can/destroy
+asat('@e[type=armor_stand,tag=kitcraft_trash_can]') {
+  /function kitcraft:blocks/trash_can/update_cooldown
+  /function kitcraft:blocks/trash_can/functionality
+}
+
+#file: ./trash_can/place/detect
+
+asat('@e[type=armor_stand,tag=kitcraft_trash_can_init]') {
+  if('block ~ ~ ~ air') {
+      if('entity @s[y_rotation=135..-135]') {
+        /function kitcraft:blocks/trash_can/place/place_south
+      }
+      if('entity @s[y_rotation=-134.99..-35]') {
+        /function kitcraft:blocks/trash_can/place/place_west
+      }
+      if('entity @s[y_rotation=-34.99..35]') {
+        /function kitcraft:blocks/trash_can/place/place_north
+      }
+      if('entity @s[y_rotation=35.01..134.99]') {
+        /function kitcraft:blocks/trash_can/place/place_east
+      }
+  }
+}
+
+#file: ./trash_can/place/place_north
+
+/setblock ~ ~ ~ minecraft:hopper{TransferCooldown:1000000,CustomName:"{\"text\":\"Trash Can\",\"italic\":\"false\"}"}
+/tag @s remove kitcraft_trash_can_init
+
+#file: ./trash_can/place/place_east
+
+/setblock ~ ~ ~ minecraft:hopper{TransferCooldown:1000000,CustomName:"{\"text\":\"Trash Can\",\"italic\":\"false\"}"}
+/tag @s remove kitcraft_trash_can_init
+
+#file: ./trash_can/place/place_south
+
+/setblock ~ ~ ~ minecraft:hopper{TransferCooldown:1000000,CustomName:"{\"text\":\"Trash Can\",\"italic\":\"false\"}"}
+/tag @s remove kitcraft_trash_can_init
+
+#file: ./trash_can/place/place_west
+
+/setblock ~ ~ ~ minecraft:hopper{TransferCooldown:1000000,CustomName:"{\"text\":\"Trash Can\",\"italic\":\"false\"}"}
+/tag @s remove kitcraft_trash_can_init
+
+#file: ./trash_can/destroy
+
+asat('@e[type=armor_stand,tag=!kitcraft_trash_can_init,tag=kitcraft_trash_can]'),if('block ~ ~ ~ air') {
+  /data merge entity @e[limit=1,sort=nearest,type=item,nbt={Item:{id:"minecraft:hopper",Count:1b}}] {Item:{id:"minecraft:armor_stand",Count:1b,tag:{CustomModelData:705104,kitcraft:{id:"trash_can_place"},display:{Name:"{\"text\":\"Trashcan\",\"italic\":\"false\"}",Lore:["{\"text\":\"Right-click to place\",\"italic\":\"false\",\"color\":\"dark_green\"}"]},EntityTag:{NoGravity:1b,Invulnerable:1b,Small:1b,Marker:1b,Invisible:1b,PersistenceRequired:1b,Tags:["kitcraft_trash_can","kitcraft_trash_can_init"]}}}}
+  /kill @s
+}
+
+#file: ./trash_can/update_cooldown
+
+/data merge block ~ ~ ~ {TransferCooldown:1000000}
+
+#file: ./trash_can/functionality
+
+/replaceitem block ~ ~ ~ container.0 air
+/replaceitem block ~ ~ ~ container.1 air
+/replaceitem block ~ ~ ~ container.2 air
+/replaceitem block ~ ~ ~ container.3 air
+/replaceitem block ~ ~ ~ container.4 air
+
+asat(@e[type=item,distance=..1]) {
+  /scoreboard players add @s kc_trash_timer 1
+  if('score @s kc_trash_timer matches 40..') {
+    /kill @s
+  }
+}
+asat(@e[type=item,scores={kc_trash_timer=1..}]) {
+  /particle minecraft:dust 255 0 0 1 ~ ~.35 ~ 0.1 0 0.1 0 1
+}
