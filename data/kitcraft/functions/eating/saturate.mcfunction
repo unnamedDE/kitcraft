@@ -23,4 +23,4 @@ effect give @s[scores={kc_sat=16}] saturation 1 15 false
 effect give @s[scores={kc_sat=17}] saturation 1 16 false
 effect give @s[scores={kc_sat=18}] saturation 1 17 false
 effect give @s[scores={kc_sat=19}] saturation 1 18 false
-effect give @s[scores={kc_sat=20}] saturation 1 19 false
+effect give @s[scores={kc_sat=20..}] saturation 1 19 false

@@ -12,3 +12,6 @@ function kitcraft:blocks/sink/empty_item/pufferfish_bucket
 function kitcraft:blocks/sink/empty_item/salmon_bucket
 function kitcraft:blocks/sink/empty_item/cod_bucket
 function kitcraft:blocks/sink/empty_item/tropical_fish_bucket
+function kitcraft:blocks/sink/empty_item/mushroom_stew
+function kitcraft:blocks/sink/empty_item/rabbit_stew
+function kitcraft:blocks/sink/empty_item/beetroot_soup

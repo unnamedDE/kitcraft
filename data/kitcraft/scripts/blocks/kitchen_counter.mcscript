@@ -1,0 +1,45 @@
+#file: ./kitchen_counter/main
+
+/function kitcraft:blocks/kitchen_counter/place/detect
+/function kitcraft:blocks/kitchen_counter/destroy
+asat('@e[tag=kitcraft_kitchen_counter]') {
+  /function #kitcraft:kitchen_counter_recipes
+}
+
+#file: ./kitchen_counter/place/detect
+
+asat('@e[type=armor_stand,tag=kitcraft_kitchen_counter_init]') {
+  if('block ~ ~ ~ air') {
+    /function kitcraft:blocks/kitchen_counter/place/place
+  }
+}
+
+#file: ./kitchen_counter/place/place
+
+/setblock ~ ~ ~ minecraft:dropper[facing=down]{CustomName:"{\"translate\":\"Kitchen Counter\",\"italic\":\"false\"}"}
+/tag @s remove kitcraft_kitchen_counter_init
+
+#file: ./kitchen_counter/destroy
+
+asat('@e[type=armor_stand,tag=!kitcraft_kitchen_counter_init,tag=kitcraft_kitchen_counter]'),if('block ~ ~ ~ air') {
+  /data merge entity @e[limit=1,sort=nearest,type=item,nbt={Item:{id:"minecraft:dropper",Count:1b}}] {Item:{id:"minecraft:armor_stand",Count:1b,tag:{kitcraft:{id:"kitchen_counter_place"},CustomModelData:705105,display:{Name:"{\"translate\":\"Kitchen Counter\",\"italic\":\"false\"}",Lore:["{\"translate\":\"Right-click to place\",\"italic\":\"false\",\"color\":\"dark_green\"}"]},EntityTag:{NoGravity:1b,Invulnerable:1b,Small:1b,Marker:1b,Invisible:1b,PersistenceRequired:1b,Tags:["kitcraft_kitchen_counter","kitcraft_kitchen_counter_init"]}}}}
+  /kill @s
+}
+
+#file: ./kitchen_counter/recipes/salt
+
+if('block ~ ~ ~ minecraft:dropper{Items:[{Slot: 0b, id: "minecraft:water_bucket", Count: 1b}, {Slot: 1b, id: "minecraft:water_bucket", Count: 1b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 2b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 3b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 4b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 5b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 6b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 7b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 8b}]}') {
+  /data merge block ~ ~ ~ {Items: [{Slot: 0b, id: "minecraft:bucket", Count: 1b}, {Slot: 1b, id: "minecraft:bucket", Count: 1b}, {Slot: 2b, id: "minecraft:dead_bubble_coral", Count: 1b, tag: {CustomModelData: 7050004, display: {Name: "{\"translate\":\"Salt\",\"italic\":false}"}, kitcraft: {id: "salt", NoPlacing: 1}}}]}
+}
+
+#file: ./kitchen_counter/recipes/dough
+
+if('block ~ ~ ~ minecraft:dropper{Items:[{Slot: 0b, id: "minecraft:dead_bubble_coral", Count: 1b, tag: {kitcraft: {id: "flour"}}}, {Slot: 1b, id: "minecraft:dead_bubble_coral", Count: 1b, tag: {kitcraft: {id: "salt"}}}, {Slot: 3b, id: "minecraft:water_bucket", Count: 1b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 2b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 4b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 5b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 6b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 7b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 8b}]}') {
+  /data merge block ~ ~ ~ {Items: [{Slot: 3b, id: "minecraft:bucket", Count: 1b}, {Slot: 0b, id: "minecraft:dead_bubble_coral", Count: 1b, tag: {CustomModelData: 7050006, display: {Name: "{\"translate\":\"Dough\",\"italic\":false}"}, kitcraft: {Cookable:1,id: "dough", NoPlacing: 1}}}]}
+}
+
+#file: ./kitchen_counter/recipes/sweet_dough
+
+if('block ~ ~ ~ minecraft:dropper{Items:[{Slot: 0b, id: "minecraft:dead_bubble_coral", Count: 1b, tag: {kitcraft: {id: "flour"}}}, {Slot: 1b, id: "minecraft:sugar", Count: 1b}, {Slot: 3b, id: "minecraft:milk_bucket", Count: 1b}, {Slot: 4b, id: "minecraft:egg", Count: 1b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 2b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 5b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 6b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 7b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 8b}]}') {
+  /data merge block ~ ~ ~ {Items: [{Slot: 3b, id: "minecraft:bucket", Count: 1b}, {Slot: 0b, id: "minecraft:dead_bubble_coral", Count: 1b, tag: {CustomModelData: 7050006, display: {Name: "{\"translate\":\"Sweet Dough\",\"italic\":false}"}, kitcraft: {id: "sweet_dough", NoPlacing: 1}}}]}
+}

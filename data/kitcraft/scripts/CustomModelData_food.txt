@@ -2,3 +2,6 @@
 potato_slice : 7050001
 potato_sticks : 7050002
 fries : 7050003
+salt : 7050004
+flour : 7050005
+dough : 7050006

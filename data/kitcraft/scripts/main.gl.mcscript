@@ -3,9 +3,21 @@
 // here goes your main content
 // executes 20 times a second
 
+const version = "b1.0"
+
+as(@a[tag=!kitcraft_welcome_sent]) {
+  /function kitcraft:welcome
+}
+
 /function kitcraft:blocks/oven/main
 /function kitcraft:blocks/cutting_board/main
 /function kitcraft:blocks/sink/main
 /function kitcraft:blocks/trash_can/main
+/function kitcraft:blocks/kitchen_counter/main
+/function kitcraft:blocks/kitchen_tile/main
 /function kitcraft:noplacing/detect
 /function kitcraft:eating/main
+/function kitcraft:smash_lib/recipes
+
+#Clear Placeholders
+/clear @a light_gray_stained_glass_pane{Placeholder:1}

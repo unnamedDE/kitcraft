@@ -29,28 +29,28 @@ asat('@e[type=armor_stand,tag=kitcraft_oven_init]') {
 
 #file: ./oven/place/place_north
 
-/setblock ~ ~ ~ minecraft:furnace[facing=north]{CustomName:"{\"text\":\"Oven\",\"italic\":\"false\"}"}
+/setblock ~ ~ ~ minecraft:furnace[facing=north]{CustomName:"{\"translate\":\"Oven\",\"italic\":\"false\"}"}
 /tag @s remove kitcraft_oven_init
 
 #file: ./oven/place/place_east
 
-/setblock ~ ~ ~ minecraft:furnace[facing=east]{CustomName:"{\"text\":\"Oven\",\"italic\":\"false\"}"}
+/setblock ~ ~ ~ minecraft:furnace[facing=east]{CustomName:"{\"translate\":\"Oven\",\"italic\":\"false\"}"}
 /tag @s remove kitcraft_oven_init
 
 #file: ./oven/place/place_south
 
-/setblock ~ ~ ~ minecraft:furnace[facing=south]{CustomName:"{\"text\":\"Oven\",\"italic\":\"false\"}"}
+/setblock ~ ~ ~ minecraft:furnace[facing=south]{CustomName:"{\"translate\":\"Oven\",\"italic\":\"false\"}"}
 /tag @s remove kitcraft_oven_init
 
 #file: ./oven/place/place_west
 
-/setblock ~ ~ ~ minecraft:furnace[facing=west]{CustomName:"{\"text\":\"Oven\",\"italic\":\"false\"}"}
+/setblock ~ ~ ~ minecraft:furnace[facing=west]{CustomName:"{\"translate\":\"Oven\",\"italic\":\"false\"}"}
 /tag @s remove kitcraft_oven_init
 
 #file: ./oven/destroy
 
 asat('@e[type=armor_stand,tag=!kitcraft_oven_init,tag=kitcraft_oven]'),if('block ~ ~ ~ air') {
-  /data merge entity @e[limit=1,sort=nearest,type=item,nbt={Item:{id:"minecraft:furnace",Count:1b}}] {Item:{id:"minecraft:armor_stand",Count:1b,tag:{kitcraft:{id:"oven_place"},CustomModelData:705101,display:{Name:"{\"text\":\"Oven\",\"italic\":\"false\"}",Lore:["{\"text\":\"Right-click to place\",\"italic\":\"false\",\"color\":\"dark_green\"}"]},EntityTag:{NoGravity:1b,Invulnerable:1b,Small:1b,Marker:1b,Invisible:1b,PersistenceRequired:1b,Tags:["kitcraft_oven","kitcraft_oven_init"]}}}}
+  /data merge entity @e[limit=1,sort=nearest,type=item,nbt={Item:{id:"minecraft:furnace",Count:1b}}] {Item:{id:"minecraft:armor_stand",Count:1b,tag:{kitcraft:{id:"oven_place"},CustomModelData:705101,display:{Name:"{\"translate\":\"Oven\",\"italic\":\"false\"}",Lore:["{\"translate\":\"Right-click to place\",\"italic\":\"false\",\"color\":\"dark_green\"}"]},EntityTag:{NoGravity:1b,Invulnerable:1b,Small:1b,Marker:1b,Invisible:1b,PersistenceRequired:1b,Tags:["kitcraft_oven","kitcraft_oven_init"]}}}}
   /kill @s
 }
 
@@ -143,9 +143,8 @@ if('entity @s[scores={kc_burntime=1..}]') {
     //execute store result score @s kc_cooktime run data get block ~ ~ ~ CookTime
     /function kitcraft:blocks/oven/cooking/time
   }
-} else {
-  //scoreboard players operation @s kc_cooktime_set = @s kc_cooktime
 }
+
 
 if(!'block ~ ~ ~ minecraft:furnace{Items:[{Slot:0b,tag:{kitcraft:{Cookable:1}}}]}') {
   /scoreboard players reset @s kc_cooktime_set
@@ -153,13 +152,6 @@ if(!'block ~ ~ ~ minecraft:furnace{Items:[{Slot:0b,tag:{kitcraft:{Cookable:1}}}]
 
 #file: ./oven/cooking/time
 
-/*
-//scoreboard players operation @s kc_cooktime_set = @s kc_cooktime
-/scoreboard players operation @s kc_cooktime_set += 1 kc_numbers
-/execute store result block ~ ~ ~ CookTime short 1 run scoreboard players get @s kc_cooktime_set
-//execute store result score @s kc_cooktime run data get block ~ ~ ~ CookTime
-//scoreboard players reset @s kc_cooktime_set
-*/
 
 if(!'entity @s[scores={kc_cooktime_set=199..}]') {
   /scoreboard players operation @s kc_cooktime_set += 1 kc_numbers
@@ -203,13 +195,13 @@ asat('@e[type=armor_stand,tag=kitcraft_oven,scores={kc_burntime=1..}]') {
     /particle flame ~ ~.2 ~-.5 0.1 0.01 0 0 1 normal
   }
   if('entity @s[y_rotation=-134.99..-35]') {
-    //function kitcraft:blocks/oven/place/place_east
+    /particle flame ~.5 ~.2 ~ 0 0.01 0.1 0 1 normal
   }
   if('entity @s[y_rotation=-34.99..35]') {
     /particle flame ~ ~.2 ~.5 0.1 0.01 0 0 1 normal
   }
   if('entity @s[y_rotation=35.01..134.99]') {
-    //function kitcraft:blocks/oven/place/place_west
+  /particle flame ~-.5 ~.2 ~ 0 0.01 0.1 0 1 normal
   }
 }
 
@@ -217,7 +209,16 @@ asat('@e[type=armor_stand,tag=kitcraft_oven,scores={kc_burntime=1..}]') {
 
 if('block ~ ~ ~ minecraft:furnace{Items:[{Slot:0b,tag:{kitcraft:{id:"potato_sticks"}}}]}' && 'entity @s[scores={kc_cooktime=198}]') {
   if(!'block ~ ~ ~ minecraft:furnace{Items:[{Slot:2b}]}' || 'block ~ ~ ~ minecraft:furnace{Items:[{Slot:2b,tag:{kitcraft:{id:"fries"}}}]}') {
-    /replaceitem block ~ ~ ~ container.2 minecraft:fire_charge{kitcraft:{Consumable:1,sat:6,particle:"yellow",id:"fries",NoPlacing:1},CustomModelData:7050003,display:{Name:"{\"text\":\"Fries\",\"italic\":\"false\"}",Lore:["{\"text\":\"Press shift while holding to eat\",\"italic\":\"false\",\"color\":\"dark_green\"}"]}}
+    /replaceitem block ~ ~ ~ container.2 minecraft:dead_bubble_coral{kitcraft:{Eatable:1,sat:6,particle:"yellow",id:"fries",NoPlacing:1},CustomModelData:7050003,display:{Name:"{\"translate\":\"Fries\",\"italic\":\"false\"}",Lore:["{\"translate\":\"Press shift while holding to eat\",\"italic\":\"false\",\"color\":\"dark_green\"}"]}}
+    /function kitcraft:blocks/oven/cooking/count
+  }
+}
+
+#file: ./oven/recipes/bread
+
+if('block ~ ~ ~ minecraft:furnace{Items:[{Slot:0b,tag:{kitcraft:{id:"dough"}}}]}' && 'entity @s[scores={kc_cooktime=198}]') {
+  if(!'block ~ ~ ~ minecraft:furnace{Items:[{Slot:2b}]}' || 'block ~ ~ ~ minecraft:furnace{Items:[{Slot:2b,id:"minecraft:bread"}]}') {
+    /replaceitem block ~ ~ ~ container.2 minecraft:bread
     /function kitcraft:blocks/oven/cooking/count
   }
 }

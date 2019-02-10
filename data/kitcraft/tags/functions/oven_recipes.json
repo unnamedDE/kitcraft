@@ -1,6 +1,7 @@
 
 {
   "values":[
-  "kitcraft:blocks/oven/recipes/fries"
+  "kitcraft:blocks/oven/recipes/fries",
+  "kitcraft:blocks/oven/recipes/bread"
   ]
 }

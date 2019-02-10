@@ -6,4 +6,4 @@
 ######
 execute as @e[type=armor_stand,tag=kitcraft_sink] at @s as @e[type=item,distance=...5,nbt={Item:{id:"minecraft:tropical_fish_bucket"}}] at @s run function kitcraft:blocks/sink/empty_item/visuals
 execute as @e[type=armor_stand,tag=kitcraft_sink] at @s as @e[type=item,distance=...5,nbt={Item:{id:"minecraft:tropical_fish_bucket"}}] at @s run summon item ~ ~.5 ~ {Item:{id:"minecraft:tropical_fish",Count:1}}
-execute as @e[type=armor_stand,tag=kitcraft_sink] at @s as @e[type=item,distance=...5,nbt={Item:{id:"minecraft:tropical_fish_bucket"}}] at @s run data merge entity @s {Item:{id:"minecraft:bucket"}}
+execute as @e[type=armor_stand,tag=kitcraft_sink] at @s as @e[type=item,distance=...5,nbt={Item:{id:"minecraft:tropical_fish_bucket"}}] at @s run data merge entity @s {Item:{id:"minecraft:bucket"}}
