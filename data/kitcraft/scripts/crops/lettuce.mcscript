@@ -1,0 +1,90 @@
+#file: ./lettuce/main
+
+as(@e[tag=kitcraft_lettuce_vis]) {
+  /data merge entity @s {Fire:100}
+}
+
+asat(@e[tag=kitcraft_lettuce]), if('entity @e[distance=...75,type=item,nbt={Item:{id:"minecraft:tnt"}}]') {
+  /function kitcraft:crops/lettuce/destroy
+}
+
+asat(@e[tag=kitcraft_lettuce,scores={kc_growth_time=12000..}]) {
+  /function kitcraft:crops/lettuce/harvest
+}
+
+asat(@e[tag=kitcraft_lettuce,scores={kc_growth_time=12000}]) {
+  /function kitcraft:crops/lettuce/update
+}
+
+asat(@e[tag=kitcraft_lettuce]), if(!'entity @s[scores={kc_growth_time=12000..}]') {
+  /scoreboard players add @s kc_growth_time 1
+}
+
+asat(@e[tag=kitcraft_lettuce,scores={kc_growth_time=..12000}]), if('entity @e[distance=...75,type=item,nbt={Item:{id:"minecraft:bone_meal",Count:1b}}]') {
+  /function kitcraft:crops/lettuce/fertilize
+}
+
+/function kitcraft:crops/lettuce/plant_detect
+
+#file: ./lettuce/place
+
+/execute align xyz positioned ~.5 ~ ~.5 run summon armor_stand ~ ~ ~ {Small:1,Marker:1,Invisible:1,Tags:["kitcraft_lettuce"]}
+//execute align xyz positioned ~.5 ~-1.5 ~.5 run summon armor_stand ~ ~ ~ {Marker:1,Invisible:1,Tags:["kitcraft_lettuce_vis"],ArmorItems:[{},{},{},{id:"minecraft:player_head",Count:1b,tag:{SkullOwner:{Id:"1aa5d3fd-bfbe-4356-a3ed-40ddf2c3fc3e",Properties:{textures:[{Value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2Q4MDNkMTdlNThiNzE1MDU0OGIxMWJiNjVhNjIwZjI0OGIwYjdlYTYzZGUwZTFkOGU1ZmZjY2ViNjkzOTgifX19"}]}}}}]}
+/execute align xyz positioned ~.5 ~-1.5 ~.5 run summon armor_stand ~ ~ ~ {Marker:1,Invisible:1,Tags:["kitcraft_lettuce_vis"],ArmorItems:[{},{},{},{id:"minecraft:player_head",Count:1b,tag:{SkullOwner:{Id:"2eb66e82-5da5-2295-6f03-9deaa900c5d6",Properties:{textures:[{Value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTUxOTY5NjlhZmNjMTk0OWMzNTM4Njk3Y2RkNWIxOTE5N2ZhMzg1MTYxMzQ2OGRiZDU1ZDAzMTUzODk5YjYifX19"}]}}}}]}
+
+#file: ./lettuce/harvest
+
+if('entity @p[gamemode=!spectator,gamemode=!adventure,distance=...5,scores={kc_sneak=1..}]') {
+  positioned('~ ~-1.5 ~') {
+    /kill @e[type=armor_stand,tag=kitcraft_lettuce_vis,distance=...5,limit=1,sort=nearest]
+  }
+  /summon item ~ ~ ~ {Item:{id:"minecraft:firework_rocket",Count:1b,tag:{kitcraft:{id:"lettuce_seeds"},display:{Name:"{\"translate\":\"Lettuce Seeds\",\"italic\":false}",Lore:["{\"translate\":\"Right-click to place\",\"color\":\"dark_green\",\"italic\":false}"]},CustomModelData:7050001,Fireworks:{}}}}
+  /summon item ~ ~ ~ {Item:{id:"minecraft:player_head",Count:1b,tag:{kitcraft:{NoPlacing:1,id:"lettuce"},display:{Name:"{\"translate\":\"Lettuce\",\"color\":\"white\",\"italic\":false}"},SkullOwner:{Id:"1aa5d3fd-bfbe-4356-a3ed-40ddf2c3fc3e",Properties:{textures:[{Value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2Q4MDNkMTdlNThiNzE1MDU0OGIxMWJiNjVhNjIwZjI0OGIwYjdlYTYzZGUwZTFkOGU1ZmZjY2ViNjkzOTgifX19"}]}}}}}
+  /kill @s
+}
+
+#file: ./lettuce/plant_detect
+
+asat(@e[type=firework_rocket,nbt={FireworksItem:{tag:{kitcraft:{id:"lettuce_seeds"}}}}]), if('block ~ ~ ~ air') {
+  align('xyz'), positioned('~.5 ~ ~.5') {
+    if(!'entity @e[distance=...5,tag=kitcraft_lettuce]') {
+      /function kitcraft:crops/lettuce/plant
+    } else {
+      /summon item ~ ~ ~ {Item:{id:"minecraft:firework_rocket",Count:1b,tag:{kitcraft:{id:"lettuce_seeds"},display:{Name:"{\"translate\":\"Lettuce Seeds\",\"italic\":false}",Lore:["{\"translate\":\"Right-click to place\",\"color\":\"dark_green\",\"italic\":false}"]},CustomModelData:7050001,Fireworks:{}}}}
+      /kill @s
+    }
+  }
+}
+
+#file: ./lettuce/plant
+if('block ~ ~-1 ~ minecraft:farmland') {
+  /function kitcraft:crops/lettuce/place
+} else {
+  /summon item ~ ~ ~ {Item:{id:"minecraft:firework_rocket",Count:1b,tag:{kitcraft:{id:"lettuce_seeds"},display:{Name:"{\"translate\":\"Lettuce Seeds\",\"italic\":false}",Lore:["{\"translate\":\"Right-click to place\",\"color\":\"dark_green\",\"italic\":false}"]},CustomModelData:7050001,Fireworks:{}}}}
+}
+
+/kill @s
+
+#file: ./lettuce/destroy
+
+/summon item ~ ~ ~ {Item:{id:"minecraft:firework_rocket",Count:1b,tag:{kitcraft:{id:"lettuce_seeds"},display:{Name:"{\"translate\":\"Lettuce Seeds\",\"italic\":false}",Lore:["{\"translate\":\"Right-click to place\",\"color\":\"dark_green\",\"italic\":false}"]},CustomModelData:7050001,Fireworks:{}}}}
+positioned('~ ~-1.5 ~'), as(@e[tag=kitcraft_lettuce_vis,limit=1,sort=nearest,distance=...1]) {
+  /kill @s[type=armor_stand]
+}
+/kill @s[type=armor_stand]
+
+
+#file: ./lettuce/update
+
+positioned('~ ~-1.5 ~'), as(@e[tag=kitcraft_lettuce_vis,limit=1,sort=nearest,distance=...1]) {
+  /data merge entity @s {ArmorItems:[{},{},{},{id:"minecraft:player_head",Count:1b,tag:{SkullOwner:{Id:"1aa5d3fd-bfbe-4356-a3ed-40ddf2c3fc3e",Properties:{textures:[{Value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2Q4MDNkMTdlNThiNzE1MDU0OGIxMWJiNjVhNjIwZjI0OGIwYjdlYTYzZGUwZTFkOGU1ZmZjY2ViNjkzOTgifX19"}]}}}}]}
+}
+/scoreboard players add @s kc_growth_time 1
+
+#file: ./lettuce/fertilize
+
+/kill @e[type=item,nbt={Item:{id:"minecraft:bone_meal"}},limit=1,sort=nearest]
+/scoreboard players add @s kc_growth_time 4000
+if('score @s kc_growth_time matches 12000..') {
+  /scoreboard players set @s kc_growth_time 12000
+}

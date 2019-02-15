@@ -1,5 +1,11 @@
 #file: ./eating/main
 
+modal addFood(id) {
+  asat('@a[scores={kc_eattime=39},nbt={SelectedItem:{tag:{kitcraft:{id:"$(id)"}}}}]') {
+    /clear @s minecraft:dead_bubble_coral{kitcraft:{id:"$(id)"}} 1
+  }
+}
+
 asat('@a') {
   if('entity @s[nbt={SelectedItem:{tag:{kitcraft:{Eatable:1}}}}]') {
     /execute store result score @s kc_pl_sat run data get entity @s foodLevel
@@ -158,7 +164,9 @@ asat(@a) {
 }
 
 #file: ./eating/food/fries
-
+/*
 asat('@a[scores={kc_eattime=39},nbt={SelectedItem:{tag:{kitcraft:{id:"fries"}}}}]') {
   /clear @s minecraft:dead_bubble_coral{kitcraft:{id:"fries"}} 1
 }
+*/
+addFood('fries')
