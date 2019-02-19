@@ -43,3 +43,9 @@ if('block ~ ~ ~ minecraft:dropper{Items:[{Slot: 0b, id: "minecraft:dead_bubble_c
 if('block ~ ~ ~ minecraft:dropper{Items:[{Slot: 0b, id: "minecraft:dead_bubble_coral", Count: 1b, tag: {kitcraft: {id: "flour"}}}, {Slot: 1b, id: "minecraft:sugar", Count: 1b}, {Slot: 3b, id: "minecraft:milk_bucket", Count: 1b}, {Slot: 4b, id: "minecraft:egg", Count: 1b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 2b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 5b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 6b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 7b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 8b}]}') {
   /data merge block ~ ~ ~ {Items: [{Slot: 3b, id: "minecraft:bucket", Count: 1b}, {Slot: 0b, id: "minecraft:dead_bubble_coral", Count: 1b, tag: {CustomModelData: 7050006, display: {Name: "{\"translate\":\"Sweet Dough\",\"italic\":false}"}, kitcraft: {id: "sweet_dough", NoPlacing: 1}}}]}
 }
+
+#file: ./kitchen_counter/recipes/tasty_tnt
+
+if('block ~ ~ ~ minecraft:dropper{Items:[{Slot: 0b, id: "minecraft:bread", Count: 1b}, {Slot: 3b, id: "minecraft:tnt", Count: 1b}, {Slot: 6b, id: "minecraft:bread", Count: 1b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 1b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 2b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 4b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 5b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 7b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 8b}]}') {
+  /data merge block ~ ~ ~ {Items: [{Slot:3b,id:"minecraft:tnt",Count:1b,tag:{kitcraft:{id:"tasty_tnt",NoPlacing:1,Eatable:1,sat:0,particle:"red"},display:{Name:"{\"translate\":\"Tasty TNT\",\"italic\":false}",Lore:["{\"translate\":\"Press shift while holding to eat\",\"color\":\"dark_green\",\"italic\":false}"]}}}]}
+}

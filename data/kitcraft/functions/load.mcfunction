@@ -18,6 +18,7 @@ scoreboard objectives add kc_sneak minecraft.custom:minecraft.sneak_time "Sneaki
 scoreboard objectives add kc_sat dummy "Food Saturation"
 scoreboard objectives add kc_pl_sat dummy "Player Saturation"
 scoreboard objectives add kc_eattime dummy "Eattime"
+scoreboard objectives add kc_req_eattime dummy "Required Eattime"
 scoreboard objectives add kc_growth_time dummy "Growth Time"
 
 

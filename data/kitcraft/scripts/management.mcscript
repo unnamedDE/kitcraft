@@ -1,0 +1,35 @@
+#file: ./welcome
+
+/tellraw @s [{"text":"Thank you ","color":"blue"},{"selector":"@s"},{"text":" for using kitchencraft version $(version)."},{"text":" You can get more info "},{"text":"here","color":"dark_green","underlined":true,"clickEvent":{"action":"open_url","value":"https://www.google.com"}},{"text":"."}]
+/tag @s add kitcraft_welcome_sent
+
+#file: ./uninstall
+
+/scoreboard objectives remove kc_burntime
+/scoreboard objectives remove kc_cooktime
+/scoreboard objectives remove kc_cooktime_set
+/scoreboard objectives remove kc_slot_in
+/scoreboard objectives remove kc_slot_out
+/scoreboard objectives remove kc_slot_fuel
+/scoreboard objectives remove kc_slot
+/scoreboard objectives remove kc_sneak
+/scoreboard objectives remove kc_sat
+/scoreboard objectives remove kc_pl_sat
+/scoreboard objectives remove kc_eattime
+/scoreboard objectives remove kc_req_eattime
+/scoreboard objectives remove kc_growth_time
+/scoreboard objectives remove kc_numbers
+/*
+#
+/kill @e[type=armor_stand,tag=kitcraft_oven]
+/kill @e[type=armor_stand,tag=kitcraft_cutting_board]
+/kill @e[type=armor_stand,tag=kitcraft_cutting_board_vis]
+/kill @e[type=armor_stand,tag=kitcraft_sink]
+/kill @e[type=armor_stand,tag=kitcraft_trash_can]
+/kill @e[type=armor_stand,tag=kitcraft_kitchen_counter]
+/kill @e[type=armor_stand,tag=kitcraft_lettuce]
+/kill @e[type=armor_stand,tag=kitcraft_lettuce_vis]
+*/
+#
+/tellraw @s {"text":"Successfully uninstalled kitcraft version $(version)","color":"blue","hoverEvent":{"action":"show_text","value":":("}}
+#/datapack disable "file/kitcraft.zip"
