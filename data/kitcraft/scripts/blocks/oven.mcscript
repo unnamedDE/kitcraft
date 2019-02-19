@@ -63,6 +63,13 @@ asat('@e[type=armor_stand,tag=!kitcraft_oven_init,tag=kitcraft_oven]'),if('block
   /kill @s
 }
 
+#file: ./oven/craft
+
+/advancement revoke @s only kitcraft:craft_oven_utility
+/recipe take @s kitcraft:oven
+/clear @s minecraft:structure_void 1
+/function kitcraft:give/blocks/oven
+
 #file: ./oven/detect_burntime
 
 asat('@e[type=armor_stand,tag=kitcraft_oven]') {
@@ -223,16 +230,16 @@ if('block ~ ~ ~ minecraft:furnace{Items:[{Slot:0b,tag:{kitcraft:{id:"potato_stic
   }
 }
 */
-addOvenRecipe('tag:{kitcraft:{id:"potato_sticks"}}', 'tag:{kitcraft:{id:"fries"}}', 'minecraft:dead_bubble_coral{kitcraft:{Eatable:1,sat:6,particle:"yellow",id:"fries",NoPlacing:1},CustomModelData:7050003,display:{Name:"{\\"translate\\":\\"Fries\\",\\"italic\\":\\"false\\"}",Lore:["{\\"translate\":\\"Press shift while holding to eat\\",\\"italic\\":\\"false\\",\\"color\\":\\"dark_green\\"}"]}}')
+addOvenRecipe('tag:{kitcraft:{id:"potato_sticks"}}', 'tag:{kitcraft:{id:"fries"}}', 'minecraft:dead_bubble_coral{kitcraft:{Eatable:1,sat:6,particle:"yellow",id:"fries",NoPlacing:1},CustomModelData:7050003,display:{Name:"{\\"translate\\":\\"Fries\\",\\"italic\\":\\"false\\"}",Lore:["{\\"translate\\":\\"Press shift while holding to eat\\",\\"italic\\":\\"false\\",\\"color\\":\\"dark_green\\"}"]}}')
 
 #file: ./oven/recipes/bread
-/*
+
 if('block ~ ~ ~ minecraft:furnace{Items:[{Slot:0b,tag:{kitcraft:{id:"dough"}}}]}' && 'entity @s[scores={kc_cooktime=198}]') {
   if(!'block ~ ~ ~ minecraft:furnace{Items:[{Slot:2b}]}' || 'block ~ ~ ~ minecraft:furnace{Items:[{Slot:2b,id:"minecraft:bread"}]}') {
     /replaceitem block ~ ~ ~ container.2 minecraft:bread
     /function kitcraft:blocks/oven/cooking/count
   }
 }
-*/
 
-addOvenRecipe('tag:{kitcraft:{id:"dough"}}', 'id:"minecraft:bread"', 'minecraft:bread')
+
+//addOvenRecipe('tag:{kitcraft:{id:"dough"}}', 'id:"minecraft:bread"', 'minecraft:bread')

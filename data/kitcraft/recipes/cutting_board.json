@@ -1,0 +1,16 @@
+{
+    "type": "crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "minecraft:iron_sword"
+        },
+        {
+            "tag": "minecraft:wooden_pressure_plates"
+        }
+    ],
+    "result": {
+        "item": "minecraft:structure_void",
+        "count": 1
+    },
+    "group": "kitcraft"
+}

@@ -27,6 +27,14 @@ asat('@e[type=armor_stand,tag=!kitcraft_trash_can_init,tag=kitcraft_trash_can]')
   /kill @s
 }
 
+#file: ./trash_can/craft
+
+/advancement revoke @s only kitcraft:craft_trash_can_utility
+/recipe take @s kitcraft:trash_can
+/clear @s minecraft:structure_void 1
+/function kitcraft:give/blocks/trash_can
+
+
 #file: ./trash_can/update_cooldown
 
 /data merge block ~ ~ ~ {TransferCooldown:1000000}

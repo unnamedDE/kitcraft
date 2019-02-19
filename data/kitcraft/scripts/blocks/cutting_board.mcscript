@@ -50,6 +50,13 @@ asat('@e[type=armor_stand,tag=kitcraft_cutting_board]'), if('entity @e[distance=
 /kill @e[type=armor_stand,tag=kitcraft_cutting_board_vis,distance=..2,limit=1,sort=nearest]
 /kill @s
 
+#file: ./cutting_board/craft
+
+/advancement revoke @s only kitcraft:craft_cutting_board_utility
+/recipe take @s kitcraft:cutting_board
+/clear @s minecraft:structure_void 1
+/function kitcraft:give/blocks/cutting_board
+
 #file: ./cutting_board/recipes/potato_slice
 /*
 as('@e[tag=!kitcraft_cutting_board_cut,distance=...5,nbt={OnGround:1b,Item:{id:"minecraft:potato"}}]') {

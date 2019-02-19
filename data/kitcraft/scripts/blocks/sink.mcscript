@@ -23,6 +23,13 @@ asat('@e[type=armor_stand,tag=!kitcraft_sink_init,tag=kitcraft_sink]'),if('block
   /kill @s
 }
 
+#file: ./sink/craft
+
+/advancement revoke @s only kitcraft:sink_utility
+/recipe take @s kitcraft:sink
+/clear @s minecraft:structure_void 1
+/function kitcraft:give/blocks/sink
+
 #file: ./sink/maintain
 
 asat(@e[type=armor_stand,tag=kitcraft_sink]), if(!'block ~ ~ ~ minecraft:cauldron[level=3]') {

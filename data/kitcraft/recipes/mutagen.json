@@ -1,0 +1,21 @@
+{
+    "type": "crafting_shaped",
+    "pattern": [
+        "#B#",
+        "B#B",
+        "#B#"
+    ],
+    "key": {
+        "#": {
+            "tag": "kitcraft:ingredient_for_mutagen"
+        },
+        "B": {
+            "item": "minecraft:bone_meal"
+        }
+    },
+    "result": {
+        "item": "minecraft:structure_void",
+        "count": 1
+    },
+    "group": "kitcraft"
+}

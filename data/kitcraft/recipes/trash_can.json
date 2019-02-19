@@ -1,0 +1,24 @@
+{
+    "type": "crafting_shaped",
+    "pattern": [
+        "#",
+        "L",
+        "C"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:iron_trapdoor"
+        },
+        "L": {
+            "item": "minecraft:lava_bucket"
+        },
+        "C": {
+            "item": "minecraft:cauldron"
+        }
+    },
+    "result": {
+        "item": "minecraft:structure_void",
+        "count": 1
+    },
+    "group": "kitcraft"
+}
