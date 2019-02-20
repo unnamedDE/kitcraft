@@ -15,19 +15,36 @@ asat('@a') {
     /scoreboard players reset @s kc_req_eattime
   }
 }
-
+/*
 asat(@a), if('entity @s[gamemode=!spectator,gamemode=!creative,scores={kc_sneak=1..,kc_pl_sat=..19},nbt={SelectedItem:{tag:{kitcraft:{Eatable:1}}}}]') {
-  //function kitcraft:eating/set_values
   /function kitcraft:eating/add_eattime
 }
-#
-asat(@a[scores={kc_eattime=1..,kc_pl_sat=..19}]) {
-  /function #kitcraft:eat_particles
-  /function kitcraft:eating/sounds
+*/
+asat(@a), if('entity @s[gamemode=!spectator,scores={kc_sneak=1..},nbt={OnGround:1b,SelectedItem:{tag:{kitcraft:{Eatable:1}}}}]') {
+  if('entity @s[nbt={SelectedItem:{tag:{kitcraft:{EatNoHunger:1}}}}]') {
+    /function kitcraft:eating/add_eattime
+  } else if('entity @s[gamemode=!creative,scores={kc_pl_sat=..19}]') {
+      /function kitcraft:eating/add_eattime
+  }
 }
 #
-asat(@a[scores={kc_pl_sat=..19}]) {
-  /function #kitcraft:eat_food
+asat(@a[scores={kc_eattime=1..}]) {
+  if('entity @s[nbt={SelectedItem:{tag:{kitcraft:{EatNoHunger:1}}}}]') {
+    /function #kitcraft:eat_particles
+    /function kitcraft:eating/sounds
+  } else if('entity @s[scores={kc_pl_sat=..19}]') {
+    /function #kitcraft:eat_particles
+    /function kitcraft:eating/sounds
+  }
+}
+#
+asat(@a) {
+  if('entity @s[nbt={SelectedItem:{tag:{kitcraft:{EatNoHunger:1}}}}]') {
+    /function #kitcraft:eat_food
+  } else if('entity @s[scores={kc_pl_sat=..19}]') {
+    /function #kitcraft:eat_food
+  }
+
 }
 #
 asat(@a), if('score @s kc_eattime >= @s kc_req_eattime') {
@@ -185,4 +202,5 @@ addSimpleFood('fries')
 asat('@a[nbt={SelectedItem:{tag:{kitcraft:{id:"tasty_tnt"}}}}]'), if('score @s kc_eattime = @s kc_req_eattime') {
   /summon creeper ~ ~.5 ~ {NoGravity:1b,Silent:1b,Fuse:1,ExplosionRadius:1b,ignited:1b}
   /clear @s minecraft:tnt{kitcraft:{id:"tasty_tnt"}} 1
+  /scoreboard players reset @s kc_eattime
 }

@@ -8,12 +8,16 @@
 execute as @a at @s if entity @s[nbt={SelectedItem:{tag:{kitcraft:{Eatable:1}}}}] run function kitcraft:eating/set_values
 execute as @a at @s unless entity @s[nbt={SelectedItem:{tag:{kitcraft:{Eatable:1}}}}] run scoreboard players reset @s kc_pl_sat
 execute as @a at @s unless entity @s[nbt={SelectedItem:{tag:{kitcraft:{Eatable:1}}}}] run scoreboard players reset @s kc_req_eattime
-execute as @a at @s if entity @s[gamemode=!spectator,gamemode=!creative,scores={kc_sneak=1..,kc_pl_sat=..19},nbt={SelectedItem:{tag:{kitcraft:{Eatable:1}}}}] run function kitcraft:eating/add_eattime
+execute as @a at @s if entity @s[gamemode=!spectator,scores={kc_sneak=1..},nbt={OnGround:1b,SelectedItem:{tag:{kitcraft:{Eatable:1}}}}] if entity @s[nbt={SelectedItem:{tag:{kitcraft:{EatNoHunger:1}}}}] run function kitcraft:eating/add_eattime
+execute as @a at @s if entity @s[gamemode=!spectator,scores={kc_sneak=1..},nbt={OnGround:1b,SelectedItem:{tag:{kitcraft:{Eatable:1}}}}] unless entity @s[nbt={SelectedItem:{tag:{kitcraft:{EatNoHunger:1}}}}] if entity @s[gamemode=!creative,scores={kc_pl_sat=..19}] run function kitcraft:eating/add_eattime
 
-execute as @a[scores={kc_eattime=1..,kc_pl_sat=..19}] at @s run function #kitcraft:eat_particles
-execute as @a[scores={kc_eattime=1..,kc_pl_sat=..19}] at @s run function kitcraft:eating/sounds
+execute as @a[scores={kc_eattime=1..}] at @s if entity @s[nbt={SelectedItem:{tag:{kitcraft:{EatNoHunger:1}}}}] run function #kitcraft:eat_particles
+execute as @a[scores={kc_eattime=1..}] at @s if entity @s[nbt={SelectedItem:{tag:{kitcraft:{EatNoHunger:1}}}}] run function kitcraft:eating/sounds
+execute as @a[scores={kc_eattime=1..}] at @s unless entity @s[nbt={SelectedItem:{tag:{kitcraft:{EatNoHunger:1}}}}] if entity @s[scores={kc_pl_sat=..19}] run function #kitcraft:eat_particles
+execute as @a[scores={kc_eattime=1..}] at @s unless entity @s[nbt={SelectedItem:{tag:{kitcraft:{EatNoHunger:1}}}}] if entity @s[scores={kc_pl_sat=..19}] run function kitcraft:eating/sounds
 
-execute as @a[scores={kc_pl_sat=..19}] at @s run function #kitcraft:eat_food
+execute as @a at @s if entity @s[nbt={SelectedItem:{tag:{kitcraft:{EatNoHunger:1}}}}] run function #kitcraft:eat_food
+execute as @a at @s unless entity @s[nbt={SelectedItem:{tag:{kitcraft:{EatNoHunger:1}}}}] if entity @s[scores={kc_pl_sat=..19}] run function #kitcraft:eat_food
 
 execute as @a at @s if score @s kc_eattime >= @s kc_req_eattime run function kitcraft:eating/saturate
 

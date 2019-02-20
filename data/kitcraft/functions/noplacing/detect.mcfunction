@@ -10,3 +10,6 @@ execute as @a[tag=!kitcraft_noplacing,gamemode=survival,nbt={SelectedItem:{tag:{
 #place
 execute as @a[tag=kitcraft_noplacing,gamemode=adventure] unless entity @s[nbt={SelectedItem:{tag:{kitcraft:{NoPlacing:1}}}}] run function kitcraft:noplacing/placing
 execute as @a[tag=kitcraft_noplacing] unless entity @s[nbt={SelectedItem:{tag:{kitcraft:{NoPlacing:1}}}}] run tag @s remove kitcraft_noplacing
+
+tag @a[tag=kitcraft_noplacing,gamemode=creative] remove kitcraft_noplace
+gamemode adventure @a[gamemode=survival,tag=kitcraft_noplacing]
