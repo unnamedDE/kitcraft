@@ -7,15 +7,24 @@ modal addOvenRecipe(input, output_tag, output) {
       /function kitcraft:blocks/oven/cooking/count
     }
   }
+  #extend: ./oven/recipes
+  asat(@e[tag=kitcraft_oven]) {
+    if('block ~ ~ ~ minecraft:furnace{Items:[{Slot:0b,$(input)}]}' && !'block ~ ~ ~ minecraft:furnace{Items:[{Slot:0b,tag:{kitcraft:{Cookable:1}}}]}') {
+      /data modify block ~ ~ ~ Items[{Slot:0b}].tag.kitcraft.Cookable set value 1
+    }
+  }
 }
 
 /function kitcraft:blocks/oven/place/detect
 /function kitcraft:blocks/oven/destroy
 /function kitcraft:blocks/oven/detect_burntime
 /function kitcraft:blocks/oven/visuals
+/function kitcraft:blocks/oven/recipes
 asat('@e[type=armor_stand,tag=kitcraft_oven]') {
   /function kitcraft:blocks/oven/cooking/main
 }
+
+#file: ./oven/recipes
 
 #file: ./oven/place/detect
 
@@ -227,6 +236,13 @@ if('block ~ ~ ~ minecraft:furnace{Items:[{Slot:0b,tag:{kitcraft:{id:"potato_stic
   if(!'block ~ ~ ~ minecraft:furnace{Items:[{Slot:2b}]}' || 'block ~ ~ ~ minecraft:furnace{Items:[{Slot:2b,tag:{kitcraft:{id:"fries"}}}]}') {
     /replaceitem block ~ ~ ~ container.2 minecraft:dead_bubble_coral{kitcraft:{Eatable:1,sat:6,particle:"yellow",id:"fries",NoPlacing:1},CustomModelData:7050003,display:{Name:"{\"translate\":\"Fries\",\"italic\":\"false\"}",Lore:["{\"translate\":\"Press shift while holding to eat\",\"italic\":\"false\",\"color\":\"dark_green\"}"]}}
     /function kitcraft:blocks/oven/cooking/count
+  }
+}
+*/
+/*
+asat(@e[tag=kitcraft_oven]) {
+  if('block ~ ~ ~ minecraft:furnace{Items:[{Slot:0b,tag:{kitcraft:{id:"potato_sticks"}}}]}' && !'block ~ ~ ~ minecraft:furnace{Items:[{Slot:0b,tag:{kitcraft:{Cookable:1}}}]}') {
+    /data modify block ~ ~ ~ Items[{Slot:0b}].tag.kitcraft.Cookable set value 1
   }
 }
 */
