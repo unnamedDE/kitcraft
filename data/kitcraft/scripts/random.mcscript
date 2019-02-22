@@ -1,0 +1,23 @@
+#file: ./random/main
+
+asat(@e[scores={kc_random_range=1..}]) {
+  /function kitcraft:random/calculate
+}
+if('score #x kc_random matches 2147483647..') {
+  /scoreboard players set #x kc_random 1
+}
+
+#file: ./random/calculate
+
+var kc_temp @s = run: scoreboard players get @s kc_random_range
+if(!'entity @s[scores={kc_temp=0}]') {
+  /scoreboard players operation #x kc_random *= #y kc_random
+  /scoreboard players add #x kc_random 2533011
+  /scoreboard players operation @s kc_random = #x kc_random
+  /scoreboard players operation @s kc_random /= 2 kc_numbers
+  /scoreboard players add @s kc_random 1075743824
+  /scoreboard players operation @s kc_random %= @s kc_random_range
+  /scoreboard players add @s kc_random 1
+}
+/scoreboard players reset @s kc_temp
+/scoreboard players reset @s kc_random_range

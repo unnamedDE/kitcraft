@@ -7,6 +7,7 @@
 function kitcraft:mcscript/load
 
 datapack enable "file/kitcraft" first
+scoreboard objectives add kc_temp dummy
 scoreboard objectives add kc_burntime dummy "Burntime"
 scoreboard objectives add kc_cooktime dummy "Cooktime"
 scoreboard objectives add kc_cooktime_set dummy "Cooktime to set"
@@ -20,6 +21,12 @@ scoreboard objectives add kc_pl_sat dummy "Player Saturation"
 scoreboard objectives add kc_eattime dummy "Eattime"
 scoreboard objectives add kc_req_eattime dummy "Required Eattime"
 scoreboard objectives add kc_growth_time dummy "Growth Time"
+scoreboard objectives add kc_req_g_time dummy "Required Growth Time"
+scoreboard objectives add kc_random dummy
+scoreboard objectives add kc_random_range dummy
+
+scoreboard players set #x kc_random 1
+scoreboard players set #y kc_random 214013
 
 
 scoreboard objectives add kc_numbers dummy "Numbers"

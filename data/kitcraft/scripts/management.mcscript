@@ -19,6 +19,8 @@
 /scoreboard objectives remove kc_req_eattime
 /scoreboard objectives remove kc_growth_time
 /scoreboard objectives remove kc_numbers
+/scoreboard objectives remove kc_random
+/scoreboard objectives remove kc_random_range
 /*
 #
 /kill @e[type=armor_stand,tag=kitcraft_oven]
@@ -32,4 +34,4 @@
 */
 #
 /tellraw @s {"text":"Successfully uninstalled kitcraft version $(version)","color":"blue","hoverEvent":{"action":"show_text","value":":("}}
-#/datapack disable "file/kitcraft.zip"
+/datapack disable "file/$(filename)"

@@ -18,6 +18,8 @@ scoreboard objectives remove kc_eattime
 scoreboard objectives remove kc_req_eattime
 scoreboard objectives remove kc_growth_time
 scoreboard objectives remove kc_numbers
+scoreboard objectives remove kc_random
+scoreboard objectives remove kc_random_range
 
 tellraw @s {"text":"Successfully uninstalled kitcraft version b1.0","color":"blue","hoverEvent":{"action":"show_text","value":":("}}
-#/datapack disable "file/kitcraft.zip"
+datapack disable "file/kitcraft"

@@ -4,6 +4,7 @@
 // executes 20 times a second
 
 const version = "b1.0"
+const filename = "kitcraft"
 
 #Welcome
 as(@a[tag=!kitcraft_welcome_sent]) {
@@ -24,6 +25,10 @@ as(@a[tag=!kitcraft_welcome_sent]) {
 #
 #Other
 /clear @a light_gray_stained_glass_pane{Placeholder:1}
+/clear @a gray_stained_glass_pane{Placeholder:1}
+/clear @a red_stained_glass_pane{Placeholder:1}
+/kill @e[type=item,nbt={Item:{tag:{Placeholder:1}}}]
 /function kitcraft:noplacing/detect
 /function kitcraft:eating/main
 /function kitcraft:smash_lib/recipes
+/function kitcraft:random/main
