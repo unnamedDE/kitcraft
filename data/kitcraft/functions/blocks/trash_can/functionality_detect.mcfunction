@@ -6,4 +6,4 @@
 ######
 execute if block ~ ~ ~ minecraft:hopper{Items:[{Slot:0b}]} run function kitcraft:blocks/trash_can/functionality_block
 
-execute as @e[type=item,distance=..1] at @s run function kitcraft:blocks/trash_can/functionality_item
+execute as @e[type=item,distance=..1,nbt={OnGround:1b}] run function kitcraft:blocks/trash_can/functionality_item

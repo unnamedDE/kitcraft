@@ -12,6 +12,6 @@ replaceitem block ~ ~ ~ container.4 arrow
 data modify block ~ ~ ~ Items[4].id set from entity @s Item.id
 data modify block ~ ~ ~ Items[4].Count set from entity @s Item.Count
 data modify block ~ ~ ~ Items[4].tag set from entity @s Item.tag
-particle minecraft:dust 255 0 0 1 ~ ~.35 ~ 0.1 0 0.1 0 1
+execute at @s run particle minecraft:dust 255 0 0 1 ~ ~.35 ~ 0.1 0 0.1 0 1
 replaceitem block ~ ~ ~ container.0 air
 kill @s

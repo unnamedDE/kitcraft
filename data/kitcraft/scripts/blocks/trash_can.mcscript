@@ -5,6 +5,7 @@
 asat('@e[type=armor_stand,tag=kitcraft_trash_can]') {
   /function kitcraft:blocks/trash_can/update_cooldown
   /function kitcraft:blocks/trash_can/functionality_detect
+  /function kitcraft:blocks/trash_can/fix_slots/main
 }
 
 #file: ./trash_can/place/detect
@@ -27,6 +28,48 @@ asat('@e[type=armor_stand,tag=!kitcraft_trash_can_init,tag=kitcraft_trash_can]')
   /kill @s
 }
 
+#file: ./trash_can/fix_slots/main
+
+if(!'data block ~ ~ ~ Items[{Slot:1b}].tag.Placeholder' && 'block ~ ~ ~ minecraft:hopper{Items:[{Slot:1b}]}') {
+  /function kitcraft:blocks/trash_can/fix_slots/1
+}
+if(!'data block ~ ~ ~ Items[{Slot:2b}].tag.Placeholder' && 'block ~ ~ ~ minecraft:hopper{Items:[{Slot:2b}]}') {
+  /function kitcraft:blocks/trash_can/fix_slots/2
+}
+if(!'data block ~ ~ ~ Items[{Slot:3b}].tag.Placeholder' && 'block ~ ~ ~ minecraft:hopper{Items:[{Slot:3b}]}') {
+  /function kitcraft:blocks/trash_can/fix_slots/3
+}
+
+#file: ./trash_can/fix_slots/1
+
+/summon item ^ ^ ^1 {Item:{id:"minecraft:arrow",Count:1b}}
+positioned('^ ^ ^1') {
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.id set from block ^ ^ ^-1 Items[{Slot:1b}].id
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.Count set from block ^ ^ ^-1 Items[{Slot:1b}].Count
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.tag set from block ^ ^ ^-1 Items[{Slot:1b}].tag
+}
+/replaceitem block ~ ~ ~ container.1 minecraft:light_gray_stained_glass_pane{display:{Name:"{\"text\":\"\"}"},Placeholder:1}
+
+#file: ./trash_can/fix_slots/2
+
+/summon item ^ ^ ^1 {Item:{id:"minecraft:arrow",Count:1b}}
+positioned('^ ^ ^1') {
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.id set from block ^ ^ ^-1 Items[{Slot:2b}].id
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.Count set from block ^ ^ ^-1 Items[{Slot:2b}].Count
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.tag set from block ^ ^ ^-1 Items[{Slot:2b}].tag
+}
+/replaceitem block ~ ~ ~ container.2 minecraft:light_gray_stained_glass_pane{display:{Name:"{\"text\":\"\"}"},Placeholder:1}
+
+#file: ./trash_can/fix_slots/3
+
+/summon item ^ ^ ^1 {Item:{id:"minecraft:arrow",Count:1b}}
+positioned('^ ^ ^1') {
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.id set from block ^ ^ ^-1 Items[{Slot:3b}].id
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.Count set from block ^ ^ ^-1 Items[{Slot:3b}].Count
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.tag set from block ^ ^ ^-1 Items[{Slot:3b}].tag
+}
+/replaceitem block ~ ~ ~ container.3 minecraft:light_gray_stained_glass_pane{display:{Name:"{\"text\":\"\"}"},Placeholder:1}
+
 #file: ./trash_can/craft
 
 /advancement revoke @s only kitcraft:craft_trash_can_utility
@@ -44,7 +87,7 @@ asat('@e[type=armor_stand,tag=!kitcraft_trash_can_init,tag=kitcraft_trash_can]')
 if('block ~ ~ ~ minecraft:hopper{Items:[{Slot:0b}]}') {
   /function kitcraft:blocks/trash_can/functionality_block
 }
-asat(@e[type=item,distance=..1]) {
+as(@e[type=item,distance=..1,nbt={OnGround:1b}]) {
   /function kitcraft:blocks/trash_can/functionality_item
 }
 
@@ -69,6 +112,8 @@ asat(@e[type=item,distance=..1]) {
 /data modify block ~ ~ ~ Items[4].id set from entity @s Item.id
 /data modify block ~ ~ ~ Items[4].Count set from entity @s Item.Count
 /data modify block ~ ~ ~ Items[4].tag set from entity @s Item.tag
-/particle minecraft:dust 255 0 0 1 ~ ~.35 ~ 0.1 0 0.1 0 1
+at(@s) {
+  /particle minecraft:dust 255 0 0 1 ~ ~.35 ~ 0.1 0 0.1 0 1
+}
 /replaceitem block ~ ~ ~ container.0 air
 /kill @s
