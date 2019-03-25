@@ -8,4 +8,3 @@ function kitcraft:blocks/trash_can/place/detect
 function kitcraft:blocks/trash_can/destroy
 execute as @e[type=armor_stand,tag=kitcraft_trash_can] at @s run function kitcraft:blocks/trash_can/update_cooldown
 execute as @e[type=armor_stand,tag=kitcraft_trash_can] at @s run function kitcraft:blocks/trash_can/functionality_detect
-execute as @e[type=armor_stand,tag=kitcraft_trash_can] at @s run function kitcraft:blocks/trash_can/fix_slots/main

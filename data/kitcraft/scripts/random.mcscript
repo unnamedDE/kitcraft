@@ -9,7 +9,7 @@ if('score #x kc_random matches 2147483647..') {
 
 #file: ./random/calculate
 
-var kc_temp @s = run: scoreboard players get @s kc_random_range
+/execute store result score @s kc_temp run scoreboard players get @s kc_random_range
 if(!'entity @s[scores={kc_temp=0}]') {
   /scoreboard players operation #x kc_random *= #y kc_random
   /scoreboard players add #x kc_random 2533011
