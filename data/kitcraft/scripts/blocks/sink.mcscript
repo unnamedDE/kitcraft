@@ -3,7 +3,7 @@
 /function kitcraft:blocks/sink/place/detect
 /function kitcraft:blocks/sink/destroy
 /function kitcraft:blocks/sink/maintain
-/function kitcraft:blocks/sink/empty_item/main
+/function #kitcraft:sink_empty_item
 
 #file: ./sink/place/detect
 
@@ -36,19 +36,6 @@ asat(@e[type=armor_stand,tag=kitcraft_sink]), if(!'block ~ ~ ~ minecraft:cauldro
   /setblock ~ ~ ~ minecraft:cauldron[level=3]
 }
 
-#file: ./sink/empty_item/main
-
-/function kitcraft:blocks/sink/empty_item/water_bucket
-/function kitcraft:blocks/sink/empty_item/milk_bucket
-/function kitcraft:blocks/sink/empty_item/lava_bucket
-/function kitcraft:blocks/sink/empty_item/potion
-/function kitcraft:blocks/sink/empty_item/pufferfish_bucket
-/function kitcraft:blocks/sink/empty_item/salmon_bucket
-/function kitcraft:blocks/sink/empty_item/cod_bucket
-/function kitcraft:blocks/sink/empty_item/tropical_fish_bucket
-/function kitcraft:blocks/sink/empty_item/mushroom_stew
-/function kitcraft:blocks/sink/empty_item/rabbit_stew
-/function kitcraft:blocks/sink/empty_item/beetroot_soup
 
 #file: ./sink/empty_item/visuals
 

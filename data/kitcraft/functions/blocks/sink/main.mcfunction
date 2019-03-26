@@ -7,4 +7,4 @@
 function kitcraft:blocks/sink/place/detect
 function kitcraft:blocks/sink/destroy
 function kitcraft:blocks/sink/maintain
-function kitcraft:blocks/sink/empty_item/main
+function #kitcraft:sink_empty_item

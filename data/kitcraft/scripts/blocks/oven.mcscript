@@ -7,24 +7,26 @@ modal addOvenRecipe(input, output_tag, output) {
       /function kitcraft:blocks/oven/cooking/count
     }
   }
+/*
   #extend: ./oven/recipes
   asat(@e[tag=kitcraft_oven]) {
     if('block ~ ~ ~ minecraft:furnace{Items:[{Slot:0b,$(input)}]}' && !'block ~ ~ ~ minecraft:furnace{Items:[{Slot:0b,tag:{kitcraft:{Cookable:1}}}]}') {
       /data modify block ~ ~ ~ Items[{Slot:0b}].tag.kitcraft.Cookable set value 1
     }
   }
+  */
 }
 
 /function kitcraft:blocks/oven/place/detect
 /function kitcraft:blocks/oven/destroy
 /function kitcraft:blocks/oven/detect_burntime
 /function kitcraft:blocks/oven/visuals
-/function kitcraft:blocks/oven/recipes
+/function #kitcraft:oven_recipes_custom
 asat('@e[type=armor_stand,tag=kitcraft_oven]') {
   /function kitcraft:blocks/oven/cooking/main
 }
 
-#file: ./oven/recipes
+//#file: ./oven/recipes
 
 #file: ./oven/place/detect
 
@@ -256,6 +258,5 @@ if('block ~ ~ ~ minecraft:furnace{Items:[{Slot:0b,tag:{kitcraft:{id:"dough"}}}]}
     /function kitcraft:blocks/oven/cooking/count
   }
 }
-
 
 //addOvenRecipe('tag:{kitcraft:{id:"dough"}}', 'id:"minecraft:bread"', 'minecraft:bread')
