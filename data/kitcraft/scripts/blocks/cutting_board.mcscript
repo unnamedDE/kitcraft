@@ -63,7 +63,10 @@ as('@e[tag=!kitcraft_cutting_board_cut,distance=...5,nbt={OnGround:1b,Item:{id:"
   /data merge entity @s {Tags:["kitcraft_cutting_board_cut"],Item:{id:"minecraft:dead_bubble_coral",tag:{kitcraft:{id:"potato_slice",NoPlacing:1},CustomModelData:7050001,display:{Name:"{\"translate\":\"Potato Slices\",\"italic\":\"false\"}"}}}}
 }
 */
-addCuttingRecipe('id:"minecraft:potato"', 'id:"minecraft:dead_bubble_coral",tag:{kitcraft:{id:"potato_slice",NoPlacing:1},CustomModelData:7050001,display:{Name:"{\\"translate\\":\\"Potato Slices\\",\\"italic\\":\\"false\\"}"}}')
+//addCuttingRecipe('id:"minecraft:potato"', 'id:"minecraft:dead_bubble_coral",tag:{kitcraft:{id:"potato_slice",NoPlacing:1},CustomModelData:7050001,display:{Name:"{\\"translate\\":\\"Potato Slices\\",\\"italic\\":\\"false\\"}"}}')
+as('@e[tag=!kitcraft_cutting_board_cut,distance=...5,nbt={OnGround:1b,Item:{id:"minecraft:potato"}}]') {
+  /data merge entity @s {Tags:["kitcraft_cutting_board_cut"],Item:{id:"minecraft:dead_bubble_coral",tag:{kitcraft:{id:"potato_slice",NoPlacing:1},CustomModelData:7050001,display:{Name:"{\"translate\":\"Potato Slices\",\"italic\":\"false\"}"}}}}
+}
 
 #file: ./cutting_board/recipes/potato_sticks
 /*
@@ -71,4 +74,7 @@ as('@e[tag=!kitcraft_cutting_board_cut,distance=...5,nbt={OnGround:1b,Item:{tag:
   /data merge entity @s {Tags:["kitcraft_cutting_board_cut"],Item:{id:"minecraft:dead_bubble_coral",tag:{kitcraft:{id:"potato_sticks",NoPlacing:1,Cookable:1},CustomModelData:7050002,display:{Name:"{\"translate\":\"Potato Sticks\",\"italic\":\"false\"}"}}}}
 }
 */
-addCuttingRecipe('tag:{kitcraft:{id:"potato_slice"}}', 'id:"minecraft:dead_bubble_coral",tag:{kitcraft:{id:"potato_sticks",NoPlacing:1,Cookable:1},CustomModelData:7050002,display:{Name:"{\\"translate\\":\\"Potato Sticks\\",\\"italic\\":\\"false\\"}"}}')
+//addCuttingRecipe('tag:{kitcraft:{id:"potato_slice"}}', 'id:"minecraft:dead_bubble_coral",tag:{kitcraft:{id:"potato_sticks",NoPlacing:1,Cookable:1},CustomModelData:7050002,display:{Name:"{\\"translate\\":\\"Potato Sticks\\",\\"italic\\":\\"false\\"}"}}')
+as('@e[tag=!kitcraft_cutting_board_cut,distance=...5,nbt={OnGround:1b,Item:{id:"minecraft:dead_bubble_coral",tag:{kitcraft:{id:"potato_slice"},display:{Name:"{\\"translate\\":\\"Potato Slices\\",\\"italic\\":\\"false\\"}"}}}}]') {
+  /data merge entity @s {Tags:["kitcraft_cutting_board_cut"],Item:{id:"minecraft:dead_bubble_coral",tag:{kitcraft:{id:"potato_sticks",NoPlacing:1,Cookable:1},CustomModelData:7050002,display:{Name:"{\"translate\":\"Potato Sticks\",\"italic\":\"false\"}"}}}}
+}
