@@ -3,7 +3,7 @@
 /function kitcraft:blocks/trash_can/place/detect
 /function kitcraft:blocks/trash_can/destroy
 asat('@e[type=armor_stand,tag=kitcraft_trash_can]') {
-  /function kitcraft:blocks/trash_can/update_cooldown
+  /function kitcraft:blocks/trash_can/maintain
   /function kitcraft:blocks/trash_can/functionality_detect
   //function kitcraft:blocks/trash_can/fix_slots/main
 }
@@ -78,9 +78,16 @@ positioned('^ ^ ^1') {
 /function kitcraft:give/blocks/trash_can
 
 
-#file: ./trash_can/update_cooldown
+#file: ./trash_can/maintain
 
 /data merge block ~ ~ ~ {TransferCooldown:1000000}
+if('block ~ ~-1 ~ minecraft:magma_block' || 'block ~ ~-1 ~ minecraft:lava') {
+  /replaceitem block ~ ~ ~ container.0 air
+  /replaceitem block ~ ~ ~ container.1 air
+  /replaceitem block ~ ~ ~ container.2 air
+  /replaceitem block ~ ~ ~ container.3 air
+  /replaceitem block ~ ~ ~ container.4 air
+}
 
 #file: ./trash_can/functionality_detect
 

@@ -1,23 +1,60 @@
 #file: ./kitchen_counter/main
 
 /function kitcraft:blocks/kitchen_counter/place/detect
-/function kitcraft:blocks/kitchen_counter/destroy
 asat('@e[tag=kitcraft_kitchen_counter]') {
   /function #kitcraft:kitchen_counter_recipes
+  /function kitcraft:blocks/kitchen_counter/fix_slots/main
+  /function kitcraft:blocks/kitchen_counter/trash_can/main
+  /function kitcraft:blocks/kitchen_counter/sink/main
 }
+/function kitcraft:blocks/kitchen_counter/destroy
 
 #file: ./kitchen_counter/place/detect
 
 asat('@e[type=armor_stand,tag=kitcraft_kitchen_counter_init]') {
   if('block ~ ~ ~ air') {
-    /function kitcraft:blocks/kitchen_counter/place/place
+    if('entity @s[y_rotation=135..-135]') {
+      /function kitcraft:blocks/kitchen_counter/place/place_north
+    }
+    if('entity @s[y_rotation=-134.99..-35]') {
+      /function kitcraft:blocks/kitchen_counter/place/place_east
+    }
+    if('entity @s[y_rotation=-34.99..35]') {
+      /function kitcraft:blocks/kitchen_counter/place/place_south
+    }
+    if('entity @s[y_rotation=35.01..134.99]') {
+      /function kitcraft:blocks/kitchen_counter/place/place_west
+    }
   }
 }
 
-#file: ./kitchen_counter/place/place
+#file: ./kitchen_counter/place/place_north
 
-/setblock ~ ~ ~ minecraft:dropper[facing=down]{CustomName:"{\"translate\":\"Kitchen Counter\",\"italic\":\"false\"}"}
+/setblock ~ ~ ~ minecraft:barrel[facing=north]{CustomName:"{\"translate\":\"Kitchen Counter\",\"italic\":\"false\"}"}
 /tag @s remove kitcraft_kitchen_counter_init
+/function kitcraft:blocks/kitchen_counter/place/init
+
+#file: ./kitchen_counter/place/place_east
+
+/setblock ~ ~ ~ minecraft:barrel[facing=east]{CustomName:"{\"translate\":\"Kitchen Counter\",\"italic\":\"false\"}"}
+/tag @s remove kitcraft_kitchen_counter_init
+/function kitcraft:blocks/kitchen_counter/place/init
+
+#file: ./kitchen_counter/place/place_south
+
+/setblock ~ ~ ~ minecraft:barrel[facing=south]{CustomName:"{\"translate\":\"Kitchen Counter\",\"italic\":\"false\"}"}
+/tag @s remove kitcraft_kitchen_counter_init
+/function kitcraft:blocks/kitchen_counter/place/init
+
+#file: ./kitchen_counter/place/place_west
+
+/setblock ~ ~ ~ minecraft:barrel[facing=west]{CustomName:"{\"translate\":\"Kitchen Counter\",\"italic\":\"false\"}"}
+/tag @s remove kitcraft_kitchen_counter_init
+/function kitcraft:blocks/kitchen_counter/place/init
+
+#file: ./kitchen_counter/place/init
+
+/data merge block ~ ~ ~ {Items:[{Slot: 0b, id: "minecraft:red_stained_glass_pane", Count: 1b, tag: {Placeholder: 1, display: {Lore: ['{"translate":"To unlock place required block nearby","color":"dark_green","italic":false}'], Name: '{"translate":"Slot blocked","color":"red","italic":false}'}}}, {Slot: 1b, id: "minecraft:gray_stained_glass_pane", Count: 1b, tag: {Placeholder: 1, display: {Lore: ['{"text":"<-----","color":"gray","italic":false}'], Name: '[{"translate":"Trashcan","italic":false},{"text":" Slot","italic":false}]'}}}, {Slot: 5b, id: "minecraft:gray_stained_glass_pane", Count: 1b, tag: {Placeholder: 1, display: {Name: '{"text":" "}'}}}, {Slot: 6b, id: "minecraft:gray_stained_glass_pane", Count: 1b, tag: {Placeholder: 1, display: {Name: '{"text":" "}'}}}, {Slot: 7b, id: "minecraft:gray_stained_glass_pane", Count: 1b, tag: {Placeholder: 1, display: {Name: '{"text":" "}'}}}, {Slot: 9b, id: "minecraft:red_stained_glass_pane", Count: 1b, tag: {Placeholder: 1, display: {Lore: ['{"translate":"To unlock place required block nearby","color":"dark_green","italic":false}'], Name: '{"translate":"Slot blocked","color":"red","italic":false}'}}}, {Slot: 10b, id: "minecraft:gray_stained_glass_pane", Count: 1b, tag: {Placeholder: 1, display: {Lore: ['{"text":"<-----","color":"gray","italic":false}'], Name: '[{"translate":"Sink","italic":false},{"text":" ","italic":false},{"translate":"input","italic":false},{"text":" Slot","italic":false}]'}}}, {Slot: 14b, id: "minecraft:gray_stained_glass_pane", Count: 1b, tag: {Placeholder: 1, display: {Name: '{"text":" "}'}}}, {Slot: 16b, id: "minecraft:gray_stained_glass_pane", Count: 1b, tag: {Placeholder: 1, display: {Name: '{"text":" "}'}}}, {Slot: 18b, id: "minecraft:red_stained_glass_pane", Count: 1b, tag: {Placeholder: 1, display: {Lore: ['{"translate":"To unlock place required block nearby","color":"dark_green","italic":false}'], Name: '{"translate":"Slot blocked","color":"red","italic":false}'}}}, {Slot: 19b, id: "minecraft:gray_stained_glass_pane", Count: 1b, tag: {Placeholder: 1, display: {Lore: ['{"text":"<-----","color":"gray","italic":false}'], Name: '[{"translate":"Sink","italic":false},{"text":" ","italic":false},{"translate":"output","italic":false},{"text":" Slot","italic":false}]'}}}, {Slot: 23b, id: "minecraft:gray_stained_glass_pane", Count: 1b, tag: {Placeholder: 1, display: {Name: '{"text":" "}'}}}, {Slot: 24b, id: "minecraft:gray_stained_glass_pane", Count: 1b, tag: {Placeholder: 1, display: {Name: '{"text":" "}'}}}, {Slot: 25b, id: "minecraft:gray_stained_glass_pane", Count: 1b, tag: {Placeholder: 1, display: {Name: '{"text":" "}'}}}]}
 
 #file: ./kitchen_counter/destroy
 
@@ -26,26 +63,720 @@ asat('@e[type=armor_stand,tag=!kitcraft_kitchen_counter_init,tag=kitcraft_kitche
   /kill @s
 }
 
+#file: ./kitchen_counter/craft/1
+
+if('block ~ ~ ~ minecraft:furnace{Items:[{Slot:0b,id:"minecraft:crafting_table"}]}' && 'entity @s[scores={kc_cooktime=198}]') {
+  if(!'block ~ ~ ~ minecraft:furnace{Items:[{Slot:2b}]}' || 'block ~ ~ ~ minecraft:furnace{Items:[{Slot:2b,id:"minecraft:armor_stand",tag:{kitcraft:{id:"kitchen_counter_place"},CustomModelData:705105,display:{Name:"{\\"translate\\":\\"Kitchen Counter\\",\\"italic\\":\\"false\\"}",Lore:["{\\"translate\\":\\"Right-click to place\\",\\"italic\\":\\"false\\",\\"color\\":\\"dark_green\\"}"]},EntityTag:{recipe:"",NoGravity:1b,Invulnerable:1b,Small:1b,Marker:1b,Invisible:1b,PersistenceRequired:1b,Tags:["kitcraft_kitchen_counter","kitcraft_kitchen_counter_init"]}}}]}') {
+    /replaceitem block ~ ~ ~ container.2 minecraft:armor_stand{kitcraft:{id:"kitchen_counter_place"},CustomModelData:705105,display:{Name:"{\"translate\":\"Kitchen Counter\",\"italic\":\"false\"}",Lore:["{\"translate\":\"Right-click to place\",\"italic\":\"false\",\"color\":\"dark_green\"}"]},EntityTag:{recipe:"",NoGravity:1b,Invulnerable:1b,Small:1b,Marker:1b,Invisible:1b,PersistenceRequired:1b,Tags:["kitcraft_kitchen_counter","kitcraft_kitchen_counter_init"]}}
+    /function kitcraft:blocks/oven/cooking/count
+  }
+}
+
+#file: ./kitchen_counter/craft/2
+
+asat(@e[tag=kitcraft_oven]) {
+  if('block ~ ~ ~ minecraft:furnace{Items:[{Slot:0b,id:"minecraft:crafting_table"}]}' && !'block ~ ~ ~ minecraft:furnace{Items:[{Slot:0b,tag:{kitcraft:{Cookable:1}}}]}') {
+    /data modify block ~ ~ ~ Items[{Slot:0b}].tag.kitcraft.Cookable set value 1
+  }
+}
+
+#file: ./kitchen_counter/trash_can/main
+
+if('entity @s[tag=!kitcraft_kitchen_counter_trash_can]') {
+  if('entity @e[distance=..7.5,tag=kitcraft_trash_can]') {
+    /function kitcraft:blocks/kitchen_counter/trash_can/enable
+  }
+}
+if('entity @s[tag=kitcraft_kitchen_counter_trash_can]') {
+  if(!'entity @e[distance=..7.5,tag=kitcraft_trash_can]') {
+    /function kitcraft:blocks/kitchen_counter/trash_can/disable
+  }
+  /function kitcraft:blocks/kitchen_counter/trash_can/function_detect
+}
+
+#file: ./kitchen_counter/trash_can/enable
+
+/tag @s add kitcraft_kitchen_counter_trash_can
+/replaceitem block ~ ~ ~ container.0 air
+localDebug('Trashcan for kitchen counter activated')
+
+#file: ./kitchen_counter/trash_can/disable
+
+/tag @s remove kitcraft_kitchen_counter_trash_can
+localDebug('Trashcan for kitchen counter deactivated')
+
+#file: ./kitchen_counter/trash_can/function_detect
+
+if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:0b}]}') {
+  /function kitcraft:blocks/kitchen_counter/trash_can/function
+}
+
+#file: ./kitchen_counter/trash_can/function
+
+/summon item ~ ~ ~ {Item:{id:"minecraft:arrow",Count:1b},Tags:["kitcraft_kitchen_counter_trash_can_item"]}
+/data modify entity @e[type=item,limit=1,sort=nearest,tag=kitcraft_kitchen_counter_trash_can_item] Item.id set from block ~ ~ ~ Items[{Slot:0b}].id
+/data modify entity @e[type=item,limit=1,sort=nearest,tag=kitcraft_kitchen_counter_trash_can_item] Item.Count set from block ~ ~ ~ Items[{Slot:0b}].Count
+/data modify entity @e[type=item,limit=1,sort=nearest,tag=kitcraft_kitchen_counter_trash_can_item] Item.tag set from block ~ ~ ~ Items[{Slot:0b}].tag
+/replaceitem block ~ ~ ~ container.0 air
+as(@e[type=item,sort=nearest,limit=1,tag=kitcraft_kitchen_counter_trash_can_item]), at(@e[type=armor_stand,limit=1,sort=nearest,tag=kitcraft_trash_can]) {
+  /replaceitem block ~ ~ ~ container.0 minecraft:arrow
+  /data modify block ~ ~ ~ Items[{Slot:0b}].id set from entity @s Item.id
+  /data modify block ~ ~ ~ Items[{Slot:0b}].Count set from entity @s Item.Count
+  /data modify block ~ ~ ~ Items[{Slot:0b}].tag set from entity @s Item.tag
+  /kill @s
+}
+
+#file: ./kitchen_counter/sink/main
+
+if('entity @s[tag=!kitcraft_kitchen_counter_sink]') {
+  if('entity @e[distance=..7.5,tag=kitcraft_sink]') {
+    /function kitcraft:blocks/kitchen_counter/sink/enable
+  }
+}
+if('entity @s[tag=kitcraft_kitchen_counter_sink]') {
+  if(!'entity @e[distance=..7.5,tag=kitcraft_sink]') {
+    /function kitcraft:blocks/kitchen_counter/sink/disable
+  }
+  /function kitcraft:blocks/kitchen_counter/sink/function_detect
+}
+
+#file: ./kitchen_counter/sink/enable
+
+/tag @s add kitcraft_kitchen_counter_sink
+/replaceitem block ~ ~ ~ container.9 air
+/replaceitem block ~ ~ ~ container.18 air
+localDebug('Sink for kitchen counter activated')
+
+#file: ./kitchen_counter/sink/disable
+
+/tag @s remove kitcraft_kitchen_counter_sink
+localDebug('Sink for kitchen counter deactivated')
+
+#file: ./kitchen_counter/sink/function_detect
+#fill
+if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:9b,id:"minecraft:bucket"}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:18b}]}') {
+  /function kitcraft:blocks/kitchen_counter/sink/fill_bucket
+}
+if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:9b,id:"minecraft:glass_bottle"}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:18b}]}') {
+  /function kitcraft:blocks/kitchen_counter/sink/fill_bottle
+}
+#
+#empty
+if('data block ~ ~ ~ Items[{Slot:9b}].tag.kitcraft.containerItem.id' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:18b}]}') {
+  /function kitcraft:blocks/kitchen_counter/sink/empty_custom
+}
+if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:9b,tag:{kitcraft:{containerItem:"bucket"}}}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:18b}]}') {
+  /function kitcraft:blocks/kitchen_counter/sink/empty_bucket
+}
+if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:9b,tag:{kitcraft:{containerItem:"bottle"}}}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:18b}]}') {
+  /function kitcraft:blocks/kitchen_counter/sink/empty_bottle
+}
+if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:9b,tag:{kitcraft:{containerItem:"bowl"}}}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:18b}]}') {
+  /function kitcraft:blocks/kitchen_counter/sink/empty_bowl
+}
+if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:9b,id:"minecraft:water_bucket"}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:18b}]}') {
+  /function kitcraft:blocks/kitchen_counter/sink/empty_bucket
+}
+if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:9b,id:"minecraft:milk_bucket"}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:18b}]}') {
+  /function kitcraft:blocks/kitchen_counter/sink/empty_bucket
+}
+if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:9b,id:"minecraft:lava_bucket"}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:18b}]}') {
+  /function kitcraft:blocks/kitchen_counter/sink/empty_bucket
+}
+if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:9b,id:"minecraft:potion"}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:18b}]}') {
+  /function kitcraft:blocks/kitchen_counter/sink/empty_bottle
+}
+if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:9b,id:"minecraft:splash_potion"}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:18b}]}') {
+  /function kitcraft:blocks/kitchen_counter/sink/empty_bottle
+}
+if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:9b,id:"minecraft:pufferfish_bucket"}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:18b}]}') {
+  /function kitcraft:blocks/kitchen_counter/sink/empty_bucket_pufferfish
+}
+if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:9b,id:"minecraft:salmon_bucket"}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:18b}]}') {
+  /function kitcraft:blocks/kitchen_counter/sink/empty_bucket_salmon
+}
+if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:9b,id:"minecraft:cod_bucket"}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:18b}]}') {
+  /function kitcraft:blocks/kitchen_counter/sink/empty_bucket_cod
+}
+if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:9b,id:"minecraft:tropical_fish_bucket"}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:18b}]}') {
+  /function kitcraft:blocks/kitchen_counter/sink/empty_bucket_tropical_fish
+}
+if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:9b,id:"minecraft:mushroom_stew"}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:18b}]}') {
+  /function kitcraft:blocks/kitchen_counter/sink/empty_bowl
+}
+if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:9b,id:"minecraft:rabbit_stew"}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:18b}]}') {
+  /function kitcraft:blocks/kitchen_counter/sink/empty_bowl
+}
+if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:9b,id:"minecraft:beetroot_soup"}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:18b}]}') {
+  /function kitcraft:blocks/kitchen_counter/sink/empty_bowl
+}
+
+#file: ./kitchen_counter/sink/fill_bucket
+
+/replaceitem block ~ ~ ~ container.18 minecraft:water_bucket
+/execute store result score @s kc_temp run data get block ~ ~ ~ Items[{Slot:9b}].Count
+/scoreboard players remove @s kc_temp 1
+/execute store result block ~ ~ ~ Items[{Slot:9b}].Count byte 1 run scoreboard players get @s kc_temp
+/scoreboard players reset @s kc_temp
+/playsound minecraft:item.bucket.fill block @a[distance=..10] ~ ~ ~
+
+#file: ./kitchen_counter/sink/fill_bottle
+
+/replaceitem block ~ ~ ~ container.18 minecraft:potion{Potion:"minecraft:water"}
+/execute store result score @s kc_temp run data get block ~ ~ ~ Items[{Slot:9b}].Count
+/scoreboard players remove @s kc_temp 1
+/execute store result block ~ ~ ~ Items[{Slot:9b}].Count byte 1 run scoreboard players get @s kc_temp
+/scoreboard players reset @s kc_temp
+/playsound minecraft:item.bucket.fill block @a[distance=..10] ~ ~ ~
+
+//FILL
+#file: ./kitchen_counter/sink/empty_custom
+
+/replaceitem block ~ ~ ~ container.18 minecraft:arrow
+/data modify block ~ ~ ~ Items[{Slot:18b}].id set from block ~ ~ ~ Items[{Slot:9b}].tag.kitcraft.containerItem.id
+/data modify block ~ ~ ~ Items[{Slot:18b}].tag set from block ~ ~ ~ Items[{Slot:9b}].tag.kitcraft.containerItem.tag
+/playsound minecraft:item.bucket.fill block @a[distance=..10] ~ ~ ~
+/execute store result score @s kc_temp run data get block ~ ~ ~ Items[{Slot:9b}].Count
+/scoreboard players remove @s kc_temp 1
+/execute store result block ~ ~ ~ Items[{Slot:9b}].Count byte 1 run scoreboard players get @s kc_temp
+/scoreboard players reset @s kc_temp
+
+#file: ./kitchen_counter/sink/empty_bucket
+
+/replaceitem block ~ ~ ~ container.9 air
+/replaceitem block ~ ~ ~ container.18 minecraft:bucket
+/playsound minecraft:item.bucket.fill block @a[distance=..10] ~ ~ ~
+
+#file: ./kitchen_counter/sink/empty_bottle
+
+/replaceitem block ~ ~ ~ container.9 air
+/replaceitem block ~ ~ ~ container.18 minecraft:glass_bottle
+/playsound minecraft:item.bucket.fill block @a[distance=..10] ~ ~ ~
+
+#file: ./kitchen_counter/sink/empty_bucket_pufferfish
+
+/replaceitem block ~ ~ ~ container.9 minecraft:pufferfish
+/replaceitem block ~ ~ ~ container.18 minecraft:bucket
+/playsound minecraft:item.bucket.fill block @a[distance=..10] ~ ~ ~
+
+#file: ./kitchen_counter/sink/empty_bucket_salmon
+
+/replaceitem block ~ ~ ~ container.9 minecraft:salmon
+/replaceitem block ~ ~ ~ container.18 minecraft:bucket
+/playsound minecraft:item.bucket.fill block @a[distance=..10] ~ ~ ~
+
+#file: ./kitchen_counter/sink/empty_bucket_cod
+
+/replaceitem block ~ ~ ~ container.9 minecraft:cod
+/replaceitem block ~ ~ ~ container.18 minecraft:bucket
+/playsound minecraft:item.bucket.fill block @a[distance=..10] ~ ~ ~
+
+#file: ./kitchen_counter/sink/empty_bucket_tropical_fish
+
+/replaceitem block ~ ~ ~ container.9 minecraft:tropical_fish
+/replaceitem block ~ ~ ~ container.18 minecraft:bucket
+/playsound minecraft:item.bucket.fill block @a[distance=..10] ~ ~ ~
+
+#file: ./kitchen_counter/sink/empty_bowl
+
+/replaceitem block ~ ~ ~ container.9 air
+/replaceitem block ~ ~ ~ container.18 minecraft:bowl
+/playsound minecraft:item.bucket.fill block @a[distance=..10] ~ ~ ~
+
+
+#file: ./kitchen_counter/fix_slots/main
+
+if(!'data block ~ ~ ~ Items[{Slot:0b}].tag.Placeholder' && 'entity @s[tag=!kitcraft_kitchen_counter_trash_can]') {
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:0b}]}') {
+    /function kitcraft:blocks/kitchen_counter/fix_slots/0
+  }
+  /replaceitem block ~ ~ ~ container.0 minecraft:red_stained_glass_pane{Placeholder: 1, display: {Lore: ['{"translate":"To unlock place required block nearby","color":"dark_green","italic":false}'], Name: '{"translate":"Slot blocked","color":"red","italic":false}'}}
+}
+if(!'data block ~ ~ ~ Items[{Slot:1b}].tag.Placeholder') {
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:1b}]}') {
+    /function kitcraft:blocks/kitchen_counter/fix_slots/1
+  }
+  /replaceitem block ~ ~ ~ container.1 minecraft:gray_stained_glass_pane{Placeholder: 1, display: {Lore: ['{"text":"<-----","color":"gray","italic":false}'], Name: '[{"translate":"Trashcan","italic":false},{"text":" Slot","italic":false}]'}}
+}
+if(!'data block ~ ~ ~ Items[{Slot:5b}].tag.Placeholder') {
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:5b}]}') {
+    /function kitcraft:blocks/kitchen_counter/fix_slots/5
+  }
+  /replaceitem block ~ ~ ~ container.5 minecraft:gray_stained_glass_pane{Placeholder: 1, display: {Name: '{"text":" "}'}}
+}
+if(!'data block ~ ~ ~ Items[{Slot:6b}].tag.Placeholder') {
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:6b}]}') {
+    /function kitcraft:blocks/kitchen_counter/fix_slots/6
+  }
+  /replaceitem block ~ ~ ~ container.6 minecraft:gray_stained_glass_pane{Placeholder: 1, display: {Name: '{"text":" "}'}}
+}
+if(!'data block ~ ~ ~ Items[{Slot:7b}].tag.Placeholder') {
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:7b}]}') {
+    /function kitcraft:blocks/kitchen_counter/fix_slots/7
+  }
+  /replaceitem block ~ ~ ~ container.7 minecraft:gray_stained_glass_pane{Placeholder: 1, display: {Name: '{"text":" "}'}}
+}
+if(!'data block ~ ~ ~ Items[{Slot:9b}].tag.Placeholder' && 'entity @s[tag=!kitcraft_kitchen_counter_sink]') {
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:9b}]}') {
+    /function kitcraft:blocks/kitchen_counter/fix_slots/9
+  }
+  /replaceitem block ~ ~ ~ container.9 minecraft:red_stained_glass_pane{Placeholder: 1, display: {Lore: ['{"translate":"To unlock place required block nearby","color":"dark_green","italic":false}'], Name: '{"translate":"Slot blocked","color":"red","italic":false}'}}
+}
+if(!'data block ~ ~ ~ Items[{Slot:10b}].tag.Placeholder') {
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:10b}]}') {
+    /function kitcraft:blocks/kitchen_counter/fix_slots/10
+  }
+  /replaceitem block ~ ~ ~ container.10 minecraft:gray_stained_glass_pane{Placeholder: 1, display: {Lore: ['{"text":"<-----","color":"gray","italic":false}'], Name: '[{"translate":"Sink","italic":false},{"text":" ","italic":false},{"translate":"input","italic":false},{"text":" Slot","italic":false}]'}}
+}
+if(!'data block ~ ~ ~ Items[{Slot:14b}].tag.Placeholder') {
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:14b}]}') {
+    /function kitcraft:blocks/kitchen_counter/fix_slots/14
+  }
+  /replaceitem block ~ ~ ~ container.14 minecraft:gray_stained_glass_pane{Placeholder: 1, display: {Name: '{"text":" "}'}}
+}
+if(!'data block ~ ~ ~ Items[{Slot:16b}].tag.Placeholder') {
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:16b}]}') {
+    /function kitcraft:blocks/kitchen_counter/fix_slots/16
+  }
+  /replaceitem block ~ ~ ~ container.16 minecraft:gray_stained_glass_pane{Placeholder: 1, display: {Name: '{"text":" "}'}}
+}
+if(!'data block ~ ~ ~ Items[{Slot:18b}].tag.Placeholder' && 'entity @s[tag=!kitcraft_kitchen_counter_sink]') {
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:18b}]}') {
+    /function kitcraft:blocks/kitchen_counter/fix_slots/18
+  }
+  /replaceitem block ~ ~ ~ container.18 minecraft:red_stained_glass_pane{Placeholder: 1, display: {Lore: ['{"translate":"To unlock place required block nearby","color":"dark_green","italic":false}'], Name: '{"translate":"Slot blocked","color":"red","italic":false}'}}
+}
+if(!'data block ~ ~ ~ Items[{Slot:19b}].tag.Placeholder') {
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:19b}]}') {
+    /function kitcraft:blocks/kitchen_counter/fix_slots/19
+  }
+  /replaceitem block ~ ~ ~ container.19 minecraft:gray_stained_glass_pane{Placeholder: 1, display: {Lore: ['{"text":"<-----","color":"gray","italic":false}'], Name: '[{"translate":"Sink","italic":false},{"text":" ","italic":false},{"translate":"output","italic":false},{"text":" Slot","italic":false}]'}}
+}
+if(!'data block ~ ~ ~ Items[{Slot:23b}].tag.Placeholder') {
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:23b}]}') {
+    /function kitcraft:blocks/kitchen_counter/fix_slots/23
+  }
+  /replaceitem block ~ ~ ~ container.23 minecraft:gray_stained_glass_pane{Placeholder: 1, display: {Name: '{"text":" "}'}}
+}
+if(!'data block ~ ~ ~ Items[{Slot:24b}].tag.Placeholder') {
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:24b}]}') {
+    /function kitcraft:blocks/kitchen_counter/fix_slots/24
+  }
+  /replaceitem block ~ ~ ~ container.24 minecraft:gray_stained_glass_pane{Placeholder: 1, display: {Name: '{"text":" "}'}}
+}
+if(!'data block ~ ~ ~ Items[{Slot:25b}].tag.Placeholder') {
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:25b}]}') {
+    /function kitcraft:blocks/kitchen_counter/fix_slots/25
+  }
+  /replaceitem block ~ ~ ~ container.25 minecraft:gray_stained_glass_pane{Placeholder: 1, display: {Name: '{"text":" "}'}}
+}
+
+if('block ~ ~-1 ~ minecraft:hopper{Items:[{Slot:0b,tag:{Placeholder:1}}]}') {
+  /replaceitem block ~ ~-1 ~ container.0 air
+}
+if('block ~ ~-1 ~ minecraft:hopper{Items:[{Slot:1b,tag:{Placeholder:1}}]}') {
+  /replaceitem block ~ ~-1 ~ container.1 air
+}
+if('block ~ ~-1 ~ minecraft:hopper{Items:[{Slot:2b,tag:{Placeholder:1}}]}') {
+  /replaceitem block ~ ~-1 ~ container.2 air
+}
+if('block ~ ~-1 ~ minecraft:hopper{Items:[{Slot:3b,tag:{Placeholder:1}}]}') {
+  /replaceitem block ~ ~-1 ~ container.3 air
+}
+if('block ~ ~-1 ~ minecraft:hopper{Items:[{Slot:4b,tag:{Placeholder:1}}]}') {
+  /replaceitem block ~ ~-1 ~ container.4 air
+}
+
+
+#file: ./kitchen_counter/fix_slots/0
+/summon item ~ ~1 ~ {Item:{id:"minecraft:arrow",Count:1b}}
+positioned('~ ~1 ~') {
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.id set from block ~ ~-1 ~ Items[{Slot:0b}].id
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.Count set from block ~ ~-1 ~ Items[{Slot:0b}].Count
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.tag set from block ~ ~-1 ~ Items[{Slot:0b}].tag
+}
+
+#file: ./kitchen_counter/fix_slots/1
+/summon item ~ ~1 ~ {Item:{id:"minecraft:arrow",Count:1b}}
+positioned('~ ~1 ~') {
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.id set from block ~ ~-1 ~ Items[{Slot:1b}].id
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.Count set from block ~ ~-1 ~ Items[{Slot:1b}].Count
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.tag set from block ~ ~-1 ~ Items[{Slot:1b}].tag
+}
+
+#file: ./kitchen_counter/fix_slots/5
+/summon item ~ ~1 ~ {Item:{id:"minecraft:arrow",Count:1b}}
+positioned('~ ~1 ~') {
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.id set from block ~ ~-1 ~ Items[{Slot:5b}].id
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.Count set from block ~ ~-1 ~ Items[{Slot:5b}].Count
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.tag set from block ~ ~-1 ~ Items[{Slot:5b}].tag
+}
+
+#file: ./kitchen_counter/fix_slots/6
+/summon item ~ ~1 ~ {Item:{id:"minecraft:arrow",Count:1b}}
+positioned('~ ~1 ~') {
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.id set from block ~ ~-1 ~ Items[{Slot:6b}].id
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.Count set from block ~ ~-1 ~ Items[{Slot:6b}].Count
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.tag set from block ~ ~-1 ~ Items[{Slot:6b}].tag
+}
+
+#file: ./kitchen_counter/fix_slots/7
+/summon item ~ ~1 ~ {Item:{id:"minecraft:arrow",Count:1b}}
+positioned('~ ~1 ~') {
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.id set from block ~ ~-1 ~ Items[{Slot:7b}].id
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.Count set from block ~ ~-1 ~ Items[{Slot:7b}].Count
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.tag set from block ~ ~-1 ~ Items[{Slot:7b}].tag
+}
+
+#file: ./kitchen_counter/fix_slots/9
+/summon item ~ ~1 ~ {Item:{id:"minecraft:arrow",Count:1b}}
+positioned('~ ~1 ~') {
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.id set from block ~ ~-1 ~ Items[{Slot:9b}].id
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.Count set from block ~ ~-1 ~ Items[{Slot:9b}].Count
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.tag set from block ~ ~-1 ~ Items[{Slot:9b}].tag
+}
+
+#file: ./kitchen_counter/fix_slots/10
+/summon item ~ ~1 ~ {Item:{id:"minecraft:arrow",Count:1b}}
+positioned('~ ~1 ~') {
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.id set from block ~ ~-1 ~ Items[{Slot:10b}].id
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.Count set from block ~ ~-1 ~ Items[{Slot:10b}].Count
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.tag set from block ~ ~-1 ~ Items[{Slot:10b}].tag
+}
+
+#file: ./kitchen_counter/fix_slots/14
+/summon item ~ ~1 ~ {Item:{id:"minecraft:arrow",Count:1b}}
+positioned('~ ~1 ~') {
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.id set from block ~ ~-1 ~ Items[{Slot:14b}].id
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.Count set from block ~ ~-1 ~ Items[{Slot:14b}].Count
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.tag set from block ~ ~-1 ~ Items[{Slot:14b}].tag
+}
+
+#file: ./kitchen_counter/fix_slots/15
+/summon item ~ ~1 ~ {Item:{id:"minecraft:arrow",Count:1b}}
+positioned('~ ~1 ~') {
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.id set from block ~ ~-1 ~ Items[{Slot:15b}].id
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.Count set from block ~ ~-1 ~ Items[{Slot:15b}].Count
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.tag set from block ~ ~-1 ~ Items[{Slot:15b}].tag
+}
+
+#file: ./kitchen_counter/fix_slots/16
+/summon item ~ ~1 ~ {Item:{id:"minecraft:arrow",Count:1b}}
+positioned('~ ~1 ~') {
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.id set from block ~ ~-1 ~ Items[{Slot:16b}].id
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.Count set from block ~ ~-1 ~ Items[{Slot:16b}].Count
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.tag set from block ~ ~-1 ~ Items[{Slot:16b}].tag
+}
+
+#file: ./kitchen_counter/fix_slots/18
+/summon item ~ ~1 ~ {Item:{id:"minecraft:arrow",Count:1b}}
+positioned('~ ~1 ~') {
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.id set from block ~ ~-1 ~ Items[{Slot:18b}].id
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.Count set from block ~ ~-1 ~ Items[{Slot:18b}].Count
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.tag set from block ~ ~-1 ~ Items[{Slot:18b}].tag
+}
+
+#file: ./kitchen_counter/fix_slots/19
+/summon item ~ ~1 ~ {Item:{id:"minecraft:arrow",Count:1b}}
+positioned('~ ~1 ~') {
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.id set from block ~ ~-1 ~ Items[{Slot:19b}].id
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.Count set from block ~ ~-1 ~ Items[{Slot:19b}].Count
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.tag set from block ~ ~-1 ~ Items[{Slot:19b}].tag
+}
+
+#file: ./kitchen_counter/fix_slots/23
+/summon item ~ ~1 ~ {Item:{id:"minecraft:arrow",Count:1b}}
+positioned('~ ~1 ~') {
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.id set from block ~ ~-1 ~ Items[{Slot:23b}].id
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.Count set from block ~ ~-1 ~ Items[{Slot:23b}].Count
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.tag set from block ~ ~-1 ~ Items[{Slot:23b}].tag
+}
+
+#file: ./kitchen_counter/fix_slots/24
+/summon item ~ ~1 ~ {Item:{id:"minecraft:arrow",Count:1b}}
+positioned('~ ~1 ~') {
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.id set from block ~ ~-1 ~ Items[{Slot:24b}].id
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.Count set from block ~ ~-1 ~ Items[{Slot:45b}].Count
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.tag set from block ~ ~-1 ~ Items[{Slot:24b}].tag
+}
+
+#file: ./kitchen_counter/fix_slots/25
+/summon item ~ ~1 ~ {Item:{id:"minecraft:arrow",Count:1b}}
+positioned('~ ~1 ~') {
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.id set from block ~ ~-1 ~ Items[{Slot:25b}].id
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.Count set from block ~ ~-1 ~ Items[{Slot:25b}].Count
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.tag set from block ~ ~-1 ~ Items[{Slot:25b}].tag
+}
+
+#file: ./kitchen_counter/crafted
+modal craftedUtility(slot) {
+  if(!'block ~ ~ ~ barrel{Items:[{Slot:$(slot)b,tag:{kitcraft:{CraftingTool:1}}}]}') {
+    /execute store result score @s kc_temp run data get block ~ ~ ~ Items[{Slot:$(slot)b}].Count
+    /scoreboard players remove @s kc_temp 1
+    /execute store result block ~ ~ ~ Items[{Slot:$(slot)b}].Count byte 1 run scoreboard players get @s kc_temp
+  }
+  /scoreboard players reset @s kc_temp
+}
+
+craftedUtility(2)
+craftedUtility(3)
+craftedUtility(4)
+craftedUtility(11)
+craftedUtility(12)
+craftedUtility(13)
+craftedUtility(20)
+craftedUtility(21)
+craftedUtility(22)
+
+
+
+
 #file: ./kitchen_counter/recipes/salt
 
-if('block ~ ~ ~ minecraft:dropper{Items:[{Slot: 0b, id: "minecraft:water_bucket", Count: 1b}, {Slot: 1b, id: "minecraft:water_bucket", Count: 1b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 2b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 3b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 4b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 5b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 6b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 7b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 8b}]}') {
-  /data merge block ~ ~ ~ {Items: [{Slot: 0b, id: "minecraft:bucket", Count: 1b}, {Slot: 1b, id: "minecraft:bucket", Count: 1b}, {Slot: 2b, id: "minecraft:dead_bubble_coral", Count: 1b, tag: {CustomModelData: 7050004, display: {Name: "{\"translate\":\"Salt\",\"italic\":false}"}, kitcraft: {id: "salt", NoPlacing: 1}}}]}
+if('entity @s[tag=!kitcraft_kitchen_counter_crafted]' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:2b,id:"minecraft:water_bucket"}]}' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:3b,id:"minecraft:water_bucket"}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:4b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:11b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:12b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:13b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:20b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:21b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:22b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot: 15b}]}') {
+  /function kitcraft:blocks/kitchen_counter/recipes/salt/1
 }
+if('entity @s[tag=kitcraft_kitchen_counter_crafted_salt]' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:2b,id:"minecraft:water_bucket"}]}' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:3b,id:"minecraft:water_bucket"}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:4b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:11b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:12b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:13b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:20b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:21b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:22b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot: 15b,Count:1b,id:"minecraft:dead_bubble_coral",tag:{CustomModelData:7050004,display:{Name:"{\\"translate\\":\\"Salt\\",\\"italic\\":false}"},kitcraft:{id:"salt",NoPlacing:1}}}]}') {
+  /function kitcraft:blocks/kitchen_counter/recipes/salt/2
+}
+if('entity @s[tag=kitcraft_kitchen_counter_crafted_salt]' && 'block ~ ~ ~ minecraft:barrel') {
+  if(!'block ~ ~ ~ minecraft:barrel{Items:[{Slot:2b,id:"minecraft:water_bucket"}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/salt/3
+  }
+  if(!'block ~ ~ ~ minecraft:barrel{Items:[{Slot:3b,id:"minecraft:water_bucket"}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/salt/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:4b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/salt/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:11b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/salt/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:12b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/salt/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:13b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/salt/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:20b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/salt/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:21b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/salt/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:22b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/salt/3
+  }
+}
+if('entity @s[tag=kitcraft_kitchen_counter_crafted_salt]' && 'block ~ ~ ~ minecraft:air') {
+  /kill @e[type=minecraft:item,limit=1,sort=nearest,nbt={Item:{Count:1b,tag:{CustomModelData:7050004,display:{Name:"{\"translate\":\"Salt\",\"italic\":false}"},kitcraft:{id:"salt",NoPlacing:1}}, id:"minecraft:dead_bubble_coral"}}]
+}
+
+#file: ./kitchen_counter/recipes/salt/1
+
+/replaceitem block ~ ~ ~ container.15 minecraft:dead_bubble_coral{CustomModelData:7050004,display:{Name:"{\"translate\":\"Salt\",\"italic\":false}"},kitcraft:{id:"salt",NoPlacing:1}} 1
+/tag @s add kitcraft_kitchen_counter_crafted
+/tag @s add kitcraft_kitchen_counter_crafted_salt
+
+#file: ./kitchen_counter/recipes/salt/2
+
+/function kitcraft:blocks/kitchen_counter/crafted
+if('entity @s[tag=!kitcraft_kitchen_counter_sink]') {
+  /replaceitem block ~ ~ ~ container.2 minecraft:bucket
+  /replaceitem block ~ ~ ~ container.3 minecraft:bucket
+} else {
+  /replaceitem block ~ ~ ~ container.2 minecraft:water_bucket
+  /replaceitem block ~ ~ ~ container.3 minecraft:water_bucket
+}
+/tag @s remove kitcraft_kitchen_counter_crafted
+/tag @s remove kitcraft_kitchen_counter_crafted_salt
+
+#file: ./kitchen_counter/recipes/salt/3
+
+/replaceitem block ~ ~ ~ container.15 minecraft:air
+/tag @s remove kitcraft_kitchen_counter_crafted
+/tag @s remove kitcraft_kitchen_counter_crafted_salt
 
 #file: ./kitchen_counter/recipes/dough
 
-if('block ~ ~ ~ minecraft:dropper{Items:[{Slot: 0b, id: "minecraft:dead_bubble_coral", Count: 1b, tag: {kitcraft: {id: "flour"}}}, {Slot: 1b, id: "minecraft:dead_bubble_coral", Count: 1b, tag: {kitcraft: {id: "salt"}}}, {Slot: 3b, id: "minecraft:water_bucket", Count: 1b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 2b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 4b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 5b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 6b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 7b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 8b}]}') {
-  /data merge block ~ ~ ~ {Items: [{Slot: 3b, id: "minecraft:bucket", Count: 1b}, {Slot: 0b, id: "minecraft:dead_bubble_coral", Count: 1b, tag: {CustomModelData: 7050006, display: {Name: "{\"translate\":\"Dough\",\"italic\":false}"}, kitcraft: {Cookable:1,id: "dough", NoPlacing: 1}}}]}
+if('entity @s[tag=!kitcraft_kitchen_counter_crafted]' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:2b,id:"minecraft:dead_bubble_coral",tag:{kitcraft:{id:"flour"}}}]}' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:3b,id:"minecraft:dead_bubble_coral",tag:{kitcraft:{id:"salt"}}}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:4b}]}' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:11b,id:"minecraft:water_bucket"}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:12b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:13b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:20b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:21b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:22b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot: 15b}]}') {
+  /function kitcraft:blocks/kitchen_counter/recipes/dough/1
 }
+if('entity @s[tag=kitcraft_kitchen_counter_crafted_dough]' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:2b,id:"minecraft:dead_bubble_coral",tag:{kitcraft:{id:"flour"}}}]}' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:3b,id:"minecraft:dead_bubble_coral",tag:{kitcraft:{id:"salt"}}}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:4b}]}' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:11b,id:"minecraft:water_bucket"}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:12b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:13b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:20b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:21b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:22b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot: 15b,Count:1b,id:"minecraft:dead_bubble_coral",tag:{CustomModelData: 7050006, display: {Name: "{\\"translate\\":\\"Dough\\",\\"italic\\":false}"}, kitcraft: {Cookable:1,id: "dough", NoPlacing: 1}}}]}') {
+  /function kitcraft:blocks/kitchen_counter/recipes/dough/2
+}
+if('entity @s[tag=kitcraft_kitchen_counter_crafted_dough]' && 'block ~ ~ ~ minecraft:barrel') {
+  if(!'block ~ ~ ~ minecraft:barrel{Items:[{Slot:2b,id:"minecraft:dead_bubble_coral",tag:{kitcraft:{id:"flour"}}}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/dough/3
+  }
+  if(!'block ~ ~ ~ minecraft:barrel{Items:[{Slot:3b,id:"minecraft:dead_bubble_coral",tag:{kitcraft:{id:"salt"}}}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/dough/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:4b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/dough/3
+  }
+  if(!'block ~ ~ ~ minecraft:barrel{Items:[{Slot:11b,id:"minecraft:water_bucket"}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/dough/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:12b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/dough/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:13b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/dough/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:20b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/dough/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:21b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/dough/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:22b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/dough/3
+  }
+}
+if('entity @s[tag=kitcraft_kitchen_counter_crafted_dough]' && 'block ~ ~ ~ minecraft:air') {
+  /kill @e[type=minecraft:item,limit=1,sort=nearest,nbt={Item:{Count:1b,tag:{CustomModelData: 7050006, display: {Name: "{\"translate\":\"Dough\",\"italic\":false}"}, kitcraft: {Cookable:1,id: "dough", NoPlacing: 1}}, id:"minecraft:dead_bubble_coral"}}]
+}
+
+#file: ./kitchen_counter/recipes/dough/1
+
+/replaceitem block ~ ~ ~ container.15 minecraft:dead_bubble_coral{CustomModelData: 7050006, display: {Name: "{\"translate\":\"Dough\",\"italic\":false}"}, kitcraft: {Cookable:1,id: "dough", NoPlacing: 1}} 1
+/tag @s add kitcraft_kitchen_counter_crafted
+/tag @s add kitcraft_kitchen_counter_crafted_dough
+
+#file: ./kitchen_counter/recipes/dough/2
+
+/function kitcraft:blocks/kitchen_counter/crafted
+if('entity @s[tag=!kitcraft_kitchen_counter_sink]') {
+  /replaceitem block ~ ~ ~ container.11 minecraft:bucket
+} else {
+  /replaceitem block ~ ~ ~ container.11 minecraft:water_bucket
+}
+/tag @s remove kitcraft_kitchen_counter_crafted
+/tag @s remove kitcraft_kitchen_counter_crafted_dough
+
+#file: ./kitchen_counter/recipes/dough/3
+
+/replaceitem block ~ ~ ~ container.15 minecraft:air
+/tag @s remove kitcraft_kitchen_counter_crafted
+/tag @s remove kitcraft_kitchen_counter_crafted_dough
 
 #file: ./kitchen_counter/recipes/sweet_dough
 
-if('block ~ ~ ~ minecraft:dropper{Items:[{Slot: 0b, id: "minecraft:dead_bubble_coral", Count: 1b, tag: {kitcraft: {id: "flour"}}}, {Slot: 1b, id: "minecraft:sugar", Count: 1b}, {Slot: 3b, id: "minecraft:milk_bucket", Count: 1b}, {Slot: 4b, id: "minecraft:egg", Count: 1b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 2b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 5b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 6b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 7b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 8b}]}') {
-  /data merge block ~ ~ ~ {Items: [{Slot: 3b, id: "minecraft:bucket", Count: 1b}, {Slot: 0b, id: "minecraft:dead_bubble_coral", Count: 1b, tag: {CustomModelData: 7050006, display: {Name: "{\"translate\":\"Sweet Dough\",\"italic\":false}"}, kitcraft: {id: "sweet_dough", NoPlacing: 1}}}]}
+if('entity @s[tag=!kitcraft_kitchen_counter_crafted]' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:2b,id:"minecraft:dead_bubble_coral",tag:{kitcraft: {id: "flour"}}}]}' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:3b,id:"minecraft:sugar"}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:4b}]}' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:11b,id:"minecraft:milk_bucket"}]}' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:12b,id:"minecraft:egg"}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:13b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:20b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:21b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:22b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot: 15b}]}') {
+  /function kitcraft:blocks/kitchen_counter/recipes/sweet_dough/1
 }
+if('entity @s[tag=kitcraft_kitchen_counter_crafted_sweet_dough]' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:2b,id:"minecraft:dead_bubble_coral",tag:{kitcraft: {id: "flour"}}}]}' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:3b,id:"minecraft:sugar"}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:4b}]}' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:11b,id:"minecraft:milk_bucket"}]}' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:12b,id:"minecraft:egg"}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:13b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:20b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:21b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:22b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot: 15b,Count:1b,id:"minecraft:dead_bubble_coral",tag:{CustomModelData: 7050006, display: {Name: "{\\"translate\\":\\"Sweet Dough\\",\\"italic\\":false}"}, kitcraft: {id: "sweet_dough", NoPlacing: 1}}}]}') {
+  /function kitcraft:blocks/kitchen_counter/recipes/sweet_dough/2
+}
+if('entity @s[tag=kitcraft_kitchen_counter_crafted_sweet_dough]' && 'block ~ ~ ~ minecraft:barrel') {
+  if(!'block ~ ~ ~ minecraft:barrel{Items:[{Slot:2b,id:"minecraft:dead_bubble_coral",tag:{kitcraft: {id: "flour"}}}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/sweet_dough/3
+  }
+  if(!'block ~ ~ ~ minecraft:barrel{Items:[{Slot:3b,id:"minecraft:sugar"}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/sweet_dough/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:4b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/sweet_dough/3
+  }
+  if(!'block ~ ~ ~ minecraft:barrel{Items:[{Slot:11b,id:"minecraft:milk_bucket"}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/sweet_dough/3
+  }
+  if(!'block ~ ~ ~ minecraft:barrel{Items:[{Slot:12b,id:"minecraft:egg"}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/sweet_dough/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:13b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/sweet_dough/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:20b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/sweet_dough/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:21b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/sweet_dough/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:22b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/sweet_dough/3
+  }
+}
+if('entity @s[tag=kitcraft_kitchen_counter_crafted_sweet_dough]' && 'block ~ ~ ~ minecraft:air') {
+  /kill @e[type=minecraft:item,limit=1,sort=nearest,nbt={Item:{Count:1b,tag:{CustomModelData: 7050006, display: {Name: "{\"translate\":\"Sweet Dough\",\"italic\":false}"}, kitcraft: {id: "sweet_dough", NoPlacing: 1}}}, id:"minecraft:dead_bubble_coral"}]
+}
+
+#file: ./kitchen_counter/recipes/sweet_dough/1
+
+/replaceitem block ~ ~ ~ container.15 minecraft:dead_bubble_coral{CustomModelData: 7050006, display: {Name: "{\"translate\":\"Sweet Dough\",\"italic\":false}"}, kitcraft: {id: "sweet_dough", NoPlacing: 1}} 1
+/tag @s add kitcraft_kitchen_counter_crafted
+/tag @s add kitcraft_kitchen_counter_crafted_sweet_dough
+
+#file: ./kitchen_counter/recipes/sweet_dough/2
+
+/function kitcraft:blocks/kitchen_counter/crafted
+/replaceitem block ~ ~ ~ container.11 minecraft:bucket
+/tag @s remove kitcraft_kitchen_counter_crafted
+/tag @s remove kitcraft_kitchen_counter_crafted_sweet_dough
+
+#file: ./kitchen_counter/recipes/sweet_dough/3
+
+/replaceitem block ~ ~ ~ container.15 minecraft:air
+/tag @s remove kitcraft_kitchen_counter_crafted
+/tag @s remove kitcraft_kitchen_counter_crafted_sweet_dough
 
 #file: ./kitchen_counter/recipes/tasty_tnt
 
-if('block ~ ~ ~ minecraft:dropper{Items:[{Slot: 0b, id: "minecraft:bread", Count: 1b}, {Slot: 3b, id: "minecraft:tnt", Count: 1b}, {Slot: 6b, id: "minecraft:bread", Count: 1b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 1b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 2b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 4b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 5b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 7b}]}' && !'block ~ ~ ~ minecraft:dropper{Items:[{Slot: 8b}]}') {
-  /data merge block ~ ~ ~ {Items: [{Slot:3b,id:"minecraft:tnt",Count:1b,tag:{kitcraft:{id:"tasty_tnt",NoPlacing:1,Eatable:1,sat:0,particle:"red",EatNoHunger:1},display:{Name:"{\"translate\":\"Tasty TNT\",\"italic\":false}",Lore:["{\"translate\":\"Press shift while holding to eat\",\"color\":\"dark_green\",\"italic\":false}"]}}}]}
+if('entity @s[tag=!kitcraft_kitchen_counter_crafted]' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:2b,id:"minecraft:bread"}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:3b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:4b}]}' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:11b,id:"minecraft:tnt"}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:12b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:13b}]}' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:20b,id:"minecraft:bread"}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:21b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:22b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot: 15b}]}') {
+  /function kitcraft:blocks/kitchen_counter/recipes/tasty_tnt/1
 }
+if('entity @s[tag=kitcraft_kitchen_counter_crafted_tasty_tnt]' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:2b,id:"minecraft:bread"}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:3b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:4b}]}' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:11b,id:"minecraft:tnt"}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:12b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:13b}]}' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:20b,id:"minecraft:bread"}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:21b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:22b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot: 15b,Count:1b,id:"minecraft:tnt",tag:{kitcraft:{id:"tasty_tnt",NoPlacing:1,Eatable:1,sat:0,particle:"red",EatNoHunger:1},display:{Name:"{\\"translate\\":\\"Tasty TNT\\",\\"italic\\":false}",Lore:["{\\"translate\\":\\"Press shift while holding to eat\\",\\"color\\":\\"dark_green\\",\\"italic\\":false}"]}}}]}') {
+  /function kitcraft:blocks/kitchen_counter/recipes/tasty_tnt/2
+}
+if('entity @s[tag=kitcraft_kitchen_counter_crafted_tasty_tnt]' && 'block ~ ~ ~ minecraft:barrel') {
+  if(!'block ~ ~ ~ minecraft:barrel{Items:[{Slot:2b,id:"minecraft:bread"}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/tasty_tnt/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:3b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/tasty_tnt/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:4b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/tasty_tnt/3
+  }
+  if(!'block ~ ~ ~ minecraft:barrel{Items:[{Slot:11b,id:"minecraft:tnt"}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/tasty_tnt/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:12b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/tasty_tnt/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:13b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/tasty_tnt/3
+  }
+  if(!'block ~ ~ ~ minecraft:barrel{Items:[{Slot:20b,id:"minecraft:bread"}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/tasty_tnt/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:21b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/tasty_tnt/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:22b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/tasty_tnt/3
+  }
+}
+if('entity @s[tag=kitcraft_kitchen_counter_crafted_tasty_tnt]' && 'block ~ ~ ~ minecraft:air') {
+  /kill @e[type=minecraft:item,limit=1,sort=nearest,nbt={Item:{Count:1b,tag:{kitcraft:{id:"tasty_tnt",NoPlacing:1,Eatable:1,sat:0,particle:"red",EatNoHunger:1},display:{Name:"{\"translate\":\"Tasty TNT\",\"italic\":false}",Lore:["{\"translate\":\"Press shift while holding to eat\",\"color\":\"dark_green\",\"italic\":false}"]}}, id:"minecraft:tnt"}}]
+}
+
+#file: ./kitchen_counter/recipes/tasty_tnt/1
+
+/replaceitem block ~ ~ ~ container.15 minecraft:tnt{kitcraft:{id:"tasty_tnt",NoPlacing:1,Eatable:1,sat:0,particle:"red",EatNoHunger:1},display:{Name:"{\"translate\":\"Tasty TNT\",\"italic\":false}",Lore:["{\"translate\":\"Press shift while holding to eat\",\"color\":\"dark_green\",\"italic\":false}"]}} 1
+/tag @s add kitcraft_kitchen_counter_crafted
+/tag @s add kitcraft_kitchen_counter_crafted_tasty_tnt
+
+#file: ./kitchen_counter/recipes/tasty_tnt/2
+
+/function kitcraft:blocks/kitchen_counter/crafted
+//Add replaceitems here
+/tag @s remove kitcraft_kitchen_counter_crafted
+/tag @s remove kitcraft_kitchen_counter_crafted_tasty_tnt
+
+#file: ./kitchen_counter/recipes/tasty_tnt/3
+
+/replaceitem block ~ ~ ~ container.15 minecraft:air
+/tag @s remove kitcraft_kitchen_counter_crafted
+/tag @s remove kitcraft_kitchen_counter_crafted_tasty_tnt

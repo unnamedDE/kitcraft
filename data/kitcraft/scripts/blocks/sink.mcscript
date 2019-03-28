@@ -40,7 +40,15 @@ asat(@e[type=armor_stand,tag=kitcraft_sink]), if(!'block ~ ~ ~ minecraft:cauldro
 #file: ./sink/empty_item/visuals
 
 /particle splash ~ ~1 ~ 0.25 0.1 0.25 1 10 normal
+/playsound minecraft:item.bucket.fill block @a[distance=..10] ~ ~ ~
 
+#file: ./sink/empty_item/custom
+
+asat(@e[type=armor_stand,tag=kitcraft_sink]), asat(@e[type=item,distance=...5]),if('data entity @s Item.tag.kitcraft.containerItem.id') {
+  /function kitcraft:blocks/sink/empty_item/visuals
+  /data modify entity @s Item.id set from entity @s Item.tag.kitcraft.containerItem.id
+  /data modify entity @s Item.tag set from entity @s Item.tag.kitcraft.containerItem.tag
+}
 #file: ./sink/empty_item/water_bucket
 
 asat(@e[type=armor_stand,tag=kitcraft_sink]), asat(@e[type=item,distance=...5,nbt={Item:{id:"minecraft:water_bucket"}}]) {
@@ -52,6 +60,14 @@ asat(@e[type=armor_stand,tag=kitcraft_sink]), asat(@e[type=item,distance=...5,nb
 
 asat(@e[type=armor_stand,tag=kitcraft_sink]), asat(@e[type=item,distance=...5,nbt={Item:{id:"minecraft:potion"}}]) {
   /function kitcraft:blocks/sink/empty_item/visuals
+  /data remove entity @s Item.tag
+  /data merge entity @s {Item:{id:"minecraft:glass_bottle"}}
+}
+#file: ./sink/empty_item/splash_potion
+
+asat(@e[type=armor_stand,tag=kitcraft_sink]), asat(@e[type=item,distance=...5,nbt={Item:{id:"minecraft:splash_potion"}}]) {
+  /function kitcraft:blocks/sink/empty_item/visuals
+  /data remove entity @s Item.tag
   /data merge entity @s {Item:{id:"minecraft:glass_bottle"}}
 }
 
@@ -73,6 +89,7 @@ asat(@e[type=armor_stand,tag=kitcraft_sink]), asat(@e[type=item,distance=...5,nb
 
 asat(@e[type=armor_stand,tag=kitcraft_sink]), asat(@e[type=item,distance=...5,nbt={Item:{id:"minecraft:pufferfish_bucket"}}]) {
   /function kitcraft:blocks/sink/empty_item/visuals
+  /data remove entity @s Item.tag
   /summon item ~ ~.5 ~ {Item:{id:"minecraft:pufferfish",Count:1}}
   /data merge entity @s {Item:{id:"minecraft:bucket"}}
 }
@@ -81,6 +98,7 @@ asat(@e[type=armor_stand,tag=kitcraft_sink]), asat(@e[type=item,distance=...5,nb
 
 asat(@e[type=armor_stand,tag=kitcraft_sink]), asat(@e[type=item,distance=...5,nbt={Item:{id:"minecraft:salmon_bucket"}}]) {
   /function kitcraft:blocks/sink/empty_item/visuals
+  /data remove entity @s Item.tag
   /summon item ~ ~.5 ~ {Item:{id:"minecraft:salmon",Count:1}}
   /data merge entity @s {Item:{id:"minecraft:bucket"}}
 }
@@ -89,6 +107,7 @@ asat(@e[type=armor_stand,tag=kitcraft_sink]), asat(@e[type=item,distance=...5,nb
 
 asat(@e[type=armor_stand,tag=kitcraft_sink]), asat(@e[type=item,distance=...5,nbt={Item:{id:"minecraft:cod_bucket"}}]) {
   /function kitcraft:blocks/sink/empty_item/visuals
+  /data remove entity @s Item.tag
   /summon item ~ ~.5 ~ {Item:{id:"minecraft:cod",Count:1}}
   /data merge entity @s {Item:{id:"minecraft:bucket"}}
 }
@@ -97,6 +116,7 @@ asat(@e[type=armor_stand,tag=kitcraft_sink]), asat(@e[type=item,distance=...5,nb
 
 asat(@e[type=armor_stand,tag=kitcraft_sink]), asat(@e[type=item,distance=...5,nbt={Item:{id:"minecraft:tropical_fish_bucket"}}]) {
   /function kitcraft:blocks/sink/empty_item/visuals
+  /data remove entity @s Item.tag
   /summon item ~ ~.5 ~ {Item:{id:"minecraft:tropical_fish",Count:1}}
   /data merge entity @s {Item:{id:"minecraft:bucket"}}
 }
@@ -119,5 +139,29 @@ asat(@e[type=armor_stand,tag=kitcraft_sink]), asat(@e[type=item,distance=...5,nb
 
 asat(@e[type=armor_stand,tag=kitcraft_sink]), asat(@e[type=item,distance=...5,nbt={Item:{id:"minecraft:beetroot_soup"}}]) {
   /function kitcraft:blocks/sink/empty_item/visuals
+  /data merge entity @s {Item:{id:"minecraft:bowl"}}
+}
+
+#file: ./sink/empty_item/bucket
+
+asat(@e[type=armor_stand,tag=kitcraft_sink]), asat(@e[type=item,distance=...5,nbt={Item:{tag:{kitcraft:{containerItem:"bucket"}}}}]) {
+  /function kitcraft:blocks/sink/empty_item/visuals
+  /data remove entity @s Item.tag
+  /data merge entity @s {Item:{id:"minecraft:bucket"}}
+}
+
+#file: ./sink/empty_item/bottle
+
+asat(@e[type=armor_stand,tag=kitcraft_sink]), asat(@e[type=item,distance=...5,nbt={Item:{tag:{kitcraft:{containerItem:"bottle"}}}}]) {
+  /function kitcraft:blocks/sink/empty_item/visuals
+  /data remove entity @s Item.tag
+  /data merge entity @s {Item:{id:"minecraft:glass_bottle"}}
+}
+
+#file: ./sink/empty_item/bowl
+
+asat(@e[type=armor_stand,tag=kitcraft_sink]), asat(@e[type=item,distance=...5,nbt={Item:{tag:{kitcraft:{containerItem:"bowl"}}}}]) {
+  /function kitcraft:blocks/sink/empty_item/visuals
+  /data remove entity @s Item.tag
   /data merge entity @s {Item:{id:"minecraft:bowl"}}
 }

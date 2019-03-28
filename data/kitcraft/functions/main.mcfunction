@@ -6,6 +6,8 @@
 ######
 
 
+
+
 #Welcome
 execute as @a[tag=!kitcraft_welcome_sent] run function kitcraft:welcome
 
@@ -29,4 +31,4 @@ kill @e[type=item,nbt={Item:{tag:{Placeholder:1}}}]
 function kitcraft:noplacing/detect
 function kitcraft:eating/main
 function kitcraft:smash_lib/recipes
-function kitcraft:random/main
+function kitcraft:random/main

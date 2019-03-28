@@ -1,16 +1,21 @@
 
 {
   "values":[
+    "kitcraft:blocks/sink/empty_item/custom",
     "kitcraft:blocks/sink/empty_item/water_bucket",
     "kitcraft:blocks/sink/empty_item/milk_bucket",
     "kitcraft:blocks/sink/empty_item/lava_bucket",
     "kitcraft:blocks/sink/empty_item/potion",
+    "kitcraft:blocks/sink/empty_item/splash_potion",
     "kitcraft:blocks/sink/empty_item/pufferfish_bucket",
     "kitcraft:blocks/sink/empty_item/salmon_bucket",
     "kitcraft:blocks/sink/empty_item/cod_bucket",
     "kitcraft:blocks/sink/empty_item/tropical_fish_bucket",
     "kitcraft:blocks/sink/empty_item/mushroom_stew",
     "kitcraft:blocks/sink/empty_item/rabbit_stew",
-    "kitcraft:blocks/sink/empty_item/beetroot_soup"
+    "kitcraft:blocks/sink/empty_item/beetroot_soup",
+    "kitcraft:blocks/sink/empty_item/bucket",
+    "kitcraft:blocks/sink/empty_item/bottle",
+    "kitcraft:blocks/sink/empty_item/bowl"
   ]
 }
