@@ -210,7 +210,7 @@ if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:9b,id:"minecraft:rabbit_stew"}]}' 
 if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:9b,id:"minecraft:beetroot_soup"}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:18b}]}') {
   /function kitcraft:blocks/kitchen_counter/sink/empty_bowl
 }
-
+//FILL
 #file: ./kitchen_counter/sink/fill_bucket
 
 /replaceitem block ~ ~ ~ container.18 minecraft:water_bucket
@@ -229,7 +229,7 @@ if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:9b,id:"minecraft:beetroot_soup"}]}
 /scoreboard players reset @s kc_temp
 /playsound minecraft:item.bucket.fill block @a[distance=..10] ~ ~ ~
 
-//FILL
+//EMPTY
 #file: ./kitchen_counter/sink/empty_custom
 
 /replaceitem block ~ ~ ~ container.18 minecraft:arrow
@@ -496,7 +496,7 @@ positioned('~ ~1 ~') {
 /summon item ~ ~1 ~ {Item:{id:"minecraft:arrow",Count:1b}}
 positioned('~ ~1 ~') {
   /data modify entity @e[type=item,limit=1,sort=nearest] Item.id set from block ~ ~-1 ~ Items[{Slot:24b}].id
-  /data modify entity @e[type=item,limit=1,sort=nearest] Item.Count set from block ~ ~-1 ~ Items[{Slot:45b}].Count
+  /data modify entity @e[type=item,limit=1,sort=nearest] Item.Count set from block ~ ~-1 ~ Items[{Slot:24b}].Count
   /data modify entity @e[type=item,limit=1,sort=nearest] Item.tag set from block ~ ~-1 ~ Items[{Slot:24b}].tag
 }
 
@@ -780,3 +780,123 @@ if('entity @s[tag=kitcraft_kitchen_counter_crafted_tasty_tnt]' && 'block ~ ~ ~ m
 /replaceitem block ~ ~ ~ container.15 minecraft:air
 /tag @s remove kitcraft_kitchen_counter_crafted
 /tag @s remove kitcraft_kitchen_counter_crafted_tasty_tnt
+
+#file: ./kitchen_counter/recipes/cookie_dough
+
+if('entity @s[tag=!kitcraft_kitchen_counter_crafted]' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:2b,id:"minecraft:dead_bubble_coral",tag:{kitcraft:{id:"sweet_dough"}}}]}' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:3b,id:"minecraft:cocoa_beans"}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:4b}]}' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:11b,id:"minecraft:cocoa_beans"}]}' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:12b,id:"minecraft:cocoa_beans"}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:13b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:20b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:21b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:22b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot: 15b}]}') {
+  /function kitcraft:blocks/kitchen_counter/recipes/cookie_dough/1
+}
+if('entity @s[tag=kitcraft_kitchen_counter_crafted_cookie_dough]' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:2b,id:"minecraft:dead_bubble_coral",tag:{kitcraft:{id:"sweet_dough"}}}]}' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:3b,id:"minecraft:cocoa_beans"}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:4b}]}' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:11b,id:"minecraft:cocoa_beans"}]}' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:12b,id:"minecraft:cocoa_beans"}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:13b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:20b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:21b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:22b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot: 15b,Count:24b,id:"minecraft:dead_bubble_coral",tag:{CustomModelData: 7050007, display: {Name: "{\\"translate\\":\\"Cookie Dough\\",\\"italic\\":false}"}, kitcraft: {id: "cookie_dough", NoPlacing: 1,Cookable:1}}}]}') {
+  /function kitcraft:blocks/kitchen_counter/recipes/cookie_dough/2
+}
+if('entity @s[tag=kitcraft_kitchen_counter_crafted_cookie_dough]' && 'block ~ ~ ~ minecraft:barrel') {
+  if(!'block ~ ~ ~ minecraft:barrel{Items:[{Slot:2b,id:"minecraft:dead_bubble_coral",tag:{kitcraft:{id:"sweet_dough"}}}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/cookie_dough/3
+  }
+  if(!'block ~ ~ ~ minecraft:barrel{Items:[{Slot:3b,id:"minecraft:cocoa_beans"}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/cookie_dough/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:4b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/cookie_dough/3
+  }
+  if(!'block ~ ~ ~ minecraft:barrel{Items:[{Slot:11b,id:"minecraft:cocoa_beans"}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/cookie_dough/3
+  }
+  if(!'block ~ ~ ~ minecraft:barrel{Items:[{Slot:12b,id:"minecraft:cocoa_beans"}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/cookie_dough/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:13b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/cookie_dough/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:20b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/cookie_dough/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:21b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/cookie_dough/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:22b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/cookie_dough/3
+  }
+}
+if('entity @s[tag=kitcraft_kitchen_counter_crafted_cookie_dough]' && 'block ~ ~ ~ minecraft:air') {
+  /kill @e[type=minecraft:item,limit=1,sort=nearest,nbt={Item:{Count:24b,tag:{CustomModelData: 7050007, display: {Name: "{\"translate\":\"Cookie Dough\",\"italic\":false}"}, kitcraft: {id: "cookie_dough", NoPlacing: 1,Cookable:1}}, id:"minecraft:dead_bubble_coral"}}]
+}
+
+#file: ./kitchen_counter/recipes/cookie_dough/1
+
+/replaceitem block ~ ~ ~ container.15 minecraft:dead_bubble_coral{CustomModelData: 7050007, display:{Name:"{\"translate\":\"Cookie Dough\",\"italic\":false}"},kitcraft:{id:"cookie_dough",NoPlacing:1,Cookable:1}} 24
+/tag @s add kitcraft_kitchen_counter_crafted
+/tag @s add kitcraft_kitchen_counter_crafted_cookie_dough
+
+#file: ./kitchen_counter/recipes/cookie_dough/2
+
+/function kitcraft:blocks/kitchen_counter/crafted
+//Add replaceitems here
+/tag @s remove kitcraft_kitchen_counter_crafted
+/tag @s remove kitcraft_kitchen_counter_crafted_cookie_dough
+
+#file: ./kitchen_counter/recipes/cookie_dough/3
+
+/replaceitem block ~ ~ ~ container.15 minecraft:air
+/tag @s remove kitcraft_kitchen_counter_crafted
+/tag @s remove kitcraft_kitchen_counter_crafted_cookie_dough
+
+#file: ./kitchen_counter/recipes/ender_cookie
+
+if('entity @s[tag=!kitcraft_kitchen_counter_crafted]' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:2b,id:"minecraft:cookie"}]}' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:3b,id:"minecraft:purple_dye"}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:4b}]}' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:11b,id:"minecraft:ender_pearl"}]}' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:12b,id:"minecraft:ender_pearl"}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:13b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:20b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:21b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:22b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot: 15b}]}') {
+  /function kitcraft:blocks/kitchen_counter/recipes/ender_cookie/1
+}
+if('entity @s[tag=kitcraft_kitchen_counter_crafted_ender_cookie]' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:2b,id:"minecraft:cookie"}]}' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:3b,id:"minecraft:purple_dye"}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:4b}]}' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:11b,id:"minecraft:ender_pearl"}]}' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:12b,id:"minecraft:ender_pearl"}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:13b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:20b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:21b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:22b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot: 15b,Count:1b,id:"minecraft:dead_bubble_coral",tag:{CustomModelData:7050008,display:{Name:"{\\"translate\\":\\"Ender Cookie\\",\\"italic\\":false}"},kitcraft:{id:"ender_cookie",Eatable:1,sat:3,particle:"ender",NoPlacing:1}}}]}') {
+  /function kitcraft:blocks/kitchen_counter/recipes/ender_cookie/2
+}
+if('entity @s[tag=kitcraft_kitchen_counter_crafted_ender_cookie]' && 'block ~ ~ ~ minecraft:barrel') {
+  if(!'block ~ ~ ~ minecraft:barrel{Items:[{Slot:2b,id:"minecraft:cookie"}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/ender_cookie/3
+  }
+  if(!'block ~ ~ ~ minecraft:barrel{Items:[{Slot:3b,id:"minecraft:purple_dye"}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/ender_cookie/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:4b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/ender_cookie/3
+  }
+  if(!'block ~ ~ ~ minecraft:barrel{Items:[{Slot:11b,id:"minecraft:ender_pearl"}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/ender_cookie/3
+  }
+  if(!'block ~ ~ ~ minecraft:barrel{Items:[{Slot:12b,id:"minecraft:ender_pearl"}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/ender_cookie/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:13b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/ender_cookie/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:20b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/ender_cookie/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:21b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/ender_cookie/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:22b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/ender_cookie/3
+  }
+}
+if('entity @s[tag=kitcraft_kitchen_counter_crafted_ender_cookie]' && 'block ~ ~ ~ minecraft:air') {
+  /kill @e[type=minecraft:item,limit=1,sort=nearest,nbt={Item:{Count:1b,tag:{CustomModelData:7050008,display:{Name:"{\"translate\":\"Ender Cookie\",\"italic\":false}"},kitcraft:{id:"ender_cookie",Eatable:1,sat:3,particle:"ender",NoPlacing:1,EatNoHunger:1}}, id:"minecraft:dead_bubble_coral"}}]
+}
+
+#file: ./kitchen_counter/recipes/ender_cookie/1
+
+/replaceitem block ~ ~ ~ container.15 minecraft:dead_bubble_coral{CustomModelData:7050008,display:{Name:"{\"translate\":\"Ender Cookie\",\"italic\":false}"},kitcraft:{id:"ender_cookie",Eatable:1,sat:3,particle:"ender",NoPlacing:1,EatNoHunger:1}} 1
+/tag @s add kitcraft_kitchen_counter_crafted
+/tag @s add kitcraft_kitchen_counter_crafted_ender_cookie
+
+#file: ./kitchen_counter/recipes/ender_cookie/2
+
+/function kitcraft:blocks/kitchen_counter/crafted
+//Add replaceitems here
+/tag @s remove kitcraft_kitchen_counter_crafted
+/tag @s remove kitcraft_kitchen_counter_crafted_ender_cookie
+
+#file: ./kitchen_counter/recipes/ender_cookie/3
+
+/replaceitem block ~ ~ ~ container.15 minecraft:air
+/tag @s remove kitcraft_kitchen_counter_crafted
+/tag @s remove kitcraft_kitchen_counter_crafted_ender_cookie

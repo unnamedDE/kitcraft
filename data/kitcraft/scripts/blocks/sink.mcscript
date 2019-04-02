@@ -47,6 +47,7 @@ asat(@e[type=armor_stand,tag=kitcraft_sink]), if(!'block ~ ~ ~ minecraft:cauldro
 asat(@e[type=armor_stand,tag=kitcraft_sink]), asat(@e[type=item,distance=...5]),if('data entity @s Item.tag.kitcraft.containerItem.id') {
   /function kitcraft:blocks/sink/empty_item/visuals
   /data modify entity @s Item.id set from entity @s Item.tag.kitcraft.containerItem.id
+  /data remove entity @s Item.tag
   /data modify entity @s Item.tag set from entity @s Item.tag.kitcraft.containerItem.tag
 }
 #file: ./sink/empty_item/water_bucket

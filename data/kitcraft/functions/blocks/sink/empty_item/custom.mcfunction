@@ -6,4 +6,5 @@
 ######
 execute as @e[type=armor_stand,tag=kitcraft_sink] at @s as @e[type=item,distance=...5] at @s if data entity @s Item.tag.kitcraft.containerItem.id run function kitcraft:blocks/sink/empty_item/visuals
 execute as @e[type=armor_stand,tag=kitcraft_sink] at @s as @e[type=item,distance=...5] at @s if data entity @s Item.tag.kitcraft.containerItem.id run data modify entity @s Item.id set from entity @s Item.tag.kitcraft.containerItem.id
+execute as @e[type=armor_stand,tag=kitcraft_sink] at @s as @e[type=item,distance=...5] at @s if data entity @s Item.tag.kitcraft.containerItem.id run data remove entity @s Item.tag
 execute as @e[type=armor_stand,tag=kitcraft_sink] at @s as @e[type=item,distance=...5] at @s if data entity @s Item.tag.kitcraft.containerItem.id run data modify entity @s Item.tag set from entity @s Item.tag.kitcraft.containerItem.tag
