@@ -20,6 +20,7 @@ scoreboard objectives remove kc_growth_time
 scoreboard objectives remove kc_numbers
 scoreboard objectives remove kc_random
 scoreboard objectives remove kc_random_range
+scoreboard objectives remove kc_creative_menu
 
-tellraw @s {"text":"Successfully uninstalled kitcraft version b1.0","color":"blue","hoverEvent":{"action":"show_text","value":":("}}
-datapack disable "file/kitcraft"
+tellraw @s {"text":"Successfully uninstalled kitcraft version b0.1.0","color":"blue","hoverEvent":{"action":"show_text","value":":("}}
+tellraw @s {"text":"Click here to finish uninstalling","color":"dark_red","underlined":true,"hoverEvent":{"action":"show_text","value":"Click to uninstall"},"clickEvent":{"action":"run_command","value":"/datapack disable \"file/kitcraft\""}}

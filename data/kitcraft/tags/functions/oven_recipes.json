@@ -3,6 +3,7 @@
   "values":[
   "kitcraft:blocks/oven/recipes/fries",
   "kitcraft:blocks/oven/recipes/bread",
+  "kitcraft:blocks/oven/recipes/cookie",
   "kitcraft:blocks/kitchen_counter/craft/1"
   ]
 }

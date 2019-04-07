@@ -21,6 +21,7 @@
 /scoreboard objectives remove kc_numbers
 /scoreboard objectives remove kc_random
 /scoreboard objectives remove kc_random_range
+/scoreboard objectives remove kc_creative_menu
 /*
 #
 /kill @e[type=armor_stand,tag=kitcraft_oven]
@@ -34,4 +35,5 @@
 */
 #
 /tellraw @s {"text":"Successfully uninstalled kitcraft version $(version)","color":"blue","hoverEvent":{"action":"show_text","value":":("}}
-/datapack disable "file/$(filename)"
+//datapack disable "file/$(filename)"
+/tellraw @s {"text":"Click here to finish uninstalling","color":"dark_red","underlined":true,"hoverEvent":{"action":"show_text","value":"Click to uninstall"},"clickEvent":{"action":"run_command","value":"/datapack disable \"file/$(filename)\""}}

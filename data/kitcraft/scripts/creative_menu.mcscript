@@ -1,0 +1,175 @@
+#file: ./creative_menu
+
+/tellraw @s {"text":""}
+/tellraw @s {"text":""}
+/tellraw @s [{"text":"<===== ","color":"aqua"},{"translate":"Select addon to display menu","color":"red"},{"text":" =====>","color":"aqua"}]
+/tellraw @s {"text":""}
+/function #kitcraft:creative_menu
+/tellraw @s {"text":""}
+/tellraw @s {"text":""}
+
+#file: ./creative_menu/select
+
+/tellraw @s [{"text":" ► ","color":"green"},{"text":"Kitcraft ","hoverEvent":{"action":"show_text","value":"Select"},"clickEvent":{"action":"run_command","value":"/function kitcraft:creative_menu/ingredients"}},{"translate":"Ingredients","hoverEvent":{"action":"show_text","value":"Select"},"clickEvent":{"action":"run_command","value":"/function kitcraft:creative_menu/ingredients"}}]
+/tellraw @s [{"text":" ► ","color":"green"},{"text":"Kitcraft ","hoverEvent":{"action":"show_text","value":"Select"},"clickEvent":{"action":"run_command","value":"/function kitcraft:creative_menu/food"}},{"translate":"Food","hoverEvent":{"action":"show_text","value":"Select"},"clickEvent":{"action":"run_command","value":"/function kitcraft:creative_menu/food"}}]
+/tellraw @s [{"text":" ► ","color":"green"},{"text":"Kitcraft ","hoverEvent":{"action":"show_text","value":"Select"},"clickEvent":{"action":"run_command","value":"/function kitcraft:creative_menu/misc"}},{"translate":"Misc","hoverEvent":{"action":"show_text","value":"Select"},"clickEvent":{"action":"run_command","value":"/function kitcraft:creative_menu/misc"}}]
+
+#file: ./creative_menu/misc
+
+/tellraw @s {"text":""}
+/tellraw @s {"text":""}
+/tellraw @s [{"text":"<===== ","color":"aqua"},{"translate":"Kitcraft Creative Menu (Misc)","color":"red"},{"text":" =====>","color":"aqua"}]
+/tellraw @s {"text":""}
+
+#Cutting Board
+/tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/function kitcraft:give/blocks/cutting_board"}},{"text":"] ","color":"reset"},{"translate":"Cutting Board"}]
+#Kitchen Counter
+/tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/function kitcraft:give/blocks/kitchen_counter"}},{"text":"] ","color":"reset"},{"translate":"Kitchen Counter"}]
+#Oven
+/tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/function kitcraft:give/blocks/oven"}},{"text":"] ","color":"reset"},{"translate":"Oven"}]
+#Sink
+/tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/function kitcraft:give/blocks/sink"}},{"text":"] ","color":"reset"},{"translate":"Sink"}]
+#Trashcan
+/tellraw @p [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/function kitcraft:give/blocks/trash_can"}},{"text":"] ","color":"reset"},{"translate":"Trashcan"}]
+
+/tellraw @s {"text":""}
+/tellraw @s {"text":""}
+
+#file: ./creative_menu/ingredients
+
+/tellraw @s {"text":""}
+/tellraw @s {"text":""}
+/tellraw @s [{"text":"<===== ","color":"aqua"},{"translate":"Kitcraft Creative Menu (Ingredients)","color":"red"},{"text":" =====>","color":"aqua"}]
+/tellraw @s {"text":""}
+
+#Potato Slices
+/tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_i 11"}},{"text":"] [","color":"reset"},{"text":"64","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_i 21"}},{"text":"] ","color":"reset"},{"translate":"Potato Slices"}]
+#Potato Sticks
+/tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_i 12"}},{"text":"] [","color":"reset"},{"text":"64","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_i 22"}},{"text":"] ","color":"reset"},{"translate":"Potato Sticks"}]
+#Salt
+/tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_i 13"}},{"text":"] [","color":"reset"},{"text":"64","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_i 23"}},{"text":"] ","color":"reset"},{"translate":"Salt"}]
+#Flour
+/tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_i 14"}},{"text":"] [","color":"reset"},{"text":"64","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_i 24"}},{"text":"] ","color":"reset"},{"translate":"Flour"}]
+#Dough
+/tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_i 15"}},{"text":"] [","color":"reset"},{"text":"64","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_i 25"}},{"text":"] ","color":"reset"},{"translate":"Dough"}]
+#Sweet Dough
+/tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_i 16"}},{"text":"] [","color":"reset"},{"text":"64","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_i 26"}},{"text":"] ","color":"reset"},{"translate":"Sweet Dough"}]
+#Cookie Dough
+/tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_i 17"}},{"text":"] [","color":"reset"},{"text":"64","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_i 27"}},{"text":"] ","color":"reset"},{"translate":"Cookie Dough"}]
+
+/tellraw @s {"text":""}
+/tellraw @s {"text":""}
+
+#file: ./creative_menu/food
+
+/tellraw @s {"text":""}
+/tellraw @s {"text":""}
+/tellraw @s [{"text":"<===== ","color":"aqua"},{"translate":"Kitcraft Creative Menu (Food)","color":"red"},{"text":" =====>","color":"aqua"}]
+/tellraw @s {"text":""}
+
+#Fries
+/tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_f 11"}},{"text":"] [","color":"reset"},{"text":"64","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_f 21"}},{"text":"] ","color":"reset"},{"translate":"Fries"}]
+#Tasty TNT
+/tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_f 12"}},{"text":"] [","color":"reset"},{"text":"64","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_f 22"}},{"text":"] ","color":"reset"},{"translate":"Tasty TNT"}]
+#Ender Cookie
+/tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_f 13"}},{"text":"] [","color":"reset"},{"text":"64","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_f 23"}},{"text":"] ","color":"reset"},{"translate":"Ender Cookie"}]
+
+
+/tellraw @s {"text":""}
+/tellraw @s {"text":""}
+
+#file: ./creative_menu/main
+
+#INGREDIENTS
+#
+if('score @s kc_c_menu_i matches 11') {
+  /give @s dead_bubble_coral{kitcraft:{id:"potato_slice",NoPlacing:1},CustomModelData:7050001,display:{Name:"{\"translate\":\"Potato Slices\",\"italic\":\"false\"}"}}
+  /scoreboard players reset @s kc_c_menu_i
+}
+if('score @s kc_c_menu_i matches 21') {
+  /give @s dead_bubble_coral{kitcraft:{id:"potato_slice",NoPlacing:1},CustomModelData:7050001,display:{Name:"{\"translate\":\"Potato Slices\",\"italic\":\"false\"}"}} 64
+  /scoreboard players reset @s kc_c_menu_i
+}
+
+if('score @s kc_c_menu_i matches 12') {
+  /give @s dead_bubble_coral{kitcraft:{id:"potato_sticks",NoPlacing:1,Cookable:1},CustomModelData:7050002,display:{Name:"{\"translate\":\"Potato Sticks\",\"italic\":\"false\"}"}}
+  /scoreboard players reset @s kc_c_menu_i
+}
+if('score @s kc_c_menu_i matches 22') {
+  /give @s dead_bubble_coral{kitcraft:{id:"potato_sticks",NoPlacing:1,Cookable:1},CustomModelData:7050002,display:{Name:"{\"translate\":\"Potato Sticks\",\"italic\":\"false\"}"}} 64
+  /scoreboard players reset @s kc_c_menu_i
+}
+
+if('score @s kc_c_menu_i matches 13') {
+  /give @s dead_bubble_coral{CustomModelData:7050004,display:{Name:"{\"translate\":\"Salt\",\"italic\":false}"},kitcraft:{id:"salt",NoPlacing:1}}
+  /scoreboard players reset @s kc_c_menu_i
+}
+if('score @s kc_c_menu_i matches 23') {
+  /give @s dead_bubble_coral{CustomModelData:7050004,display:{Name:"{\"translate\":\"Salt\",\"italic\":false}"},kitcraft:{id:"salt",NoPlacing:1}} 64
+  /scoreboard players reset @s kc_c_menu_i
+}
+
+if('score @s kc_c_menu_i matches 14') {
+  /give @s dead_bubble_coral{CustomModelData: 7050005, display: {Name: "{\"translate\":\"Flour\",\"italic\":false}"}, kitcraft: {id: "flour", NoPlacing: 1}}
+  /scoreboard players reset @s kc_c_menu_i
+}
+if('score @s kc_c_menu_i matches 24') {
+  /give @s dead_bubble_coral{CustomModelData: 7050005, display: {Name: "{\"translate\":\"Flour\",\"italic\":false}"}, kitcraft: {id: "flour", NoPlacing: 1}} 64
+  /scoreboard players reset @s kc_c_menu_i
+}
+
+if('score @s kc_c_menu_i matches 15') {
+  /give @s dead_bubble_coral{CustomModelData: 7050006, display: {Name: "{\"translate\":\"Dough\",\"italic\":false}"}, kitcraft: {Cookable:1,id: "dough", NoPlacing: 1}}
+  /scoreboard players reset @s kc_c_menu_i
+}
+if('score @s kc_c_menu_i matches 25') {
+  /give @s dead_bubble_coral{CustomModelData: 7050006, display: {Name: "{\"translate\":\"Dough\",\"italic\":false}"}, kitcraft: {Cookable:1,id: "dough", NoPlacing: 1}} 64
+  /scoreboard players reset @s kc_c_menu_i
+}
+
+if('score @s kc_c_menu_i matches 16') {
+  /give @s dead_bubble_coral{CustomModelData: 7050006, display: {Name: "{\"translate\":\"Sweet Dough\",\"italic\":false}"}, kitcraft: {id: "sweet_dough", NoPlacing: 1}}
+  /scoreboard players reset @s kc_c_menu_i
+}
+if('score @s kc_c_menu_i matches 26') {
+  /give @s dead_bubble_coral{CustomModelData: 7050006, display: {Name: "{\"translate\":\"Sweet Dough\",\"italic\":false}"}, kitcraft: {id: "sweet_dough", NoPlacing: 1}} 64
+  /scoreboard players reset @s kc_c_menu_i
+}
+
+if('score @s kc_c_menu_i matches 17') {
+  /give @s dead_bubble_coral{CustomModelData: 7050007, display:{Name:"{\"translate\":\"Cookie Dough\",\"italic\":false}"},kitcraft:{id:"cookie_dough",NoPlacing:1,Cookable:1}}
+  /scoreboard players reset @s kc_c_menu_i
+}
+if('score @s kc_c_menu_i matches 27') {
+  /give @s dead_bubble_coral{CustomModelData: 7050007, display:{Name:"{\"translate\":\"Cookie Dough\",\"italic\":false}"},kitcraft:{id:"cookie_dough",NoPlacing:1,Cookable:1}} 64
+  /scoreboard players reset @s kc_c_menu_i
+}
+#
+#FOOD
+#
+if('score @s kc_c_menu_f matches 11') {
+  /give @s dead_bubble_coral{kitcraft:{Eatable:1,sat:6,particle:"yellow",id:"fries",NoPlacing:1},CustomModelData:7050003,display:{Name:"{\"translate\":\"Fries\",\"italic\":\"false\"}",Lore:["{\"translate\":\"Press shift while holding to eat\",\"italic\":\"false\",\"color\":\"dark_green\"}"]}}
+  /scoreboard players reset @s kc_c_menu_f
+}
+if('score @s kc_c_menu_f matches 21') {
+  /give @s dead_bubble_coral{kitcraft:{Eatable:1,sat:6,particle:"yellow",id:"fries",NoPlacing:1},CustomModelData:7050003,display:{Name:"{\"translate\":\"Fries\",\"italic\":\"false\"}",Lore:["{\"translate\":\"Press shift while holding to eat\",\"italic\":\"false\",\"color\":\"dark_green\"}"]}} 64
+  /scoreboard players reset @s kc_c_menu_f
+}
+
+if('score @s kc_c_menu_f matches 12') {
+  /give @s tnt{kitcraft:{id:"tasty_tnt",NoPlacing:1,Eatable:2,sat:0,particle:"red",EatNoHunger:1},display:{Name:"{\"translate\":\"Tasty TNT\",\"italic\":false}",Lore:["{\"translate\":\"Press shift while holding to eat\",\"color\":\"dark_green\",\"italic\":false}"]}}
+  /scoreboard players reset @s kc_c_menu_f
+}
+if('score @s kc_c_menu_f matches 22') {
+  /give @s tnt{kitcraft:{id:"tasty_tnt",NoPlacing:1,Eatable:2,sat:0,particle:"red",EatNoHunger:1},display:{Name:"{\"translate\":\"Tasty TNT\",\"italic\":false}",Lore:["{\"translate\":\"Press shift while holding to eat\",\"color\":\"dark_green\",\"italic\":false}"]}} 64
+  /scoreboard players reset @s kc_c_menu_f
+}
+
+if('score @s kc_c_menu_f matches 13') {
+  /give @s dead_bubble_coral{CustomModelData:7050008,display:{Name:"{\"translate\":\"Ender Cookie\",\"italic\":false}"},kitcraft:{id:"ender_cookie",Eatable:2,sat:3,particle:"ender",NoPlacing:1,EatNoHunger:1}}
+  /scoreboard players reset @s kc_c_menu_f
+}
+if('score @s kc_c_menu_f matches 23') {
+  /give @s dead_bubble_coral{CustomModelData:7050008,display:{Name:"{\"translate\":\"Ender Cookie\",\"italic\":false}"},kitcraft:{id:"ender_cookie",Eatable:2,sat:3,particle:"ender",NoPlacing:1,EatNoHunger:1}} 64
+  /scoreboard players reset @s kc_c_menu_f
+}

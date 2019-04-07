@@ -7,27 +7,42 @@ modal addSimpleFood(id) {
 }
 
 asat('@a') {
-  if('entity @s[nbt={SelectedItem:{tag:{kitcraft:{Eatable:1}}}}]') {
+  if('entity @s[nbt={SelectedItem:{tag:{kitcraft:{Eatable:1}}}}]' || 'entity @s[nbt={SelectedItem:{tag:{kitcraft:{Eatable:2}}}}]') {
     /function kitcraft:eating/set_values
     //execute store result score @s kc_pl_sat run data get entity @s foodLevel
-  } else {
+  }
+  if(!'entity @s[nbt={SelectedItem:{tag:{kitcraft:{Eatable:1}}}}]' && !'entity @s[nbt={SelectedItem:{tag:{kitcraft:{Eatable:2}}}}]') {
     /scoreboard players reset @s kc_pl_sat
     /scoreboard players reset @s kc_req_eattime
   }
 }
+asat(@a), if('entity @s[gamemode=!spectator,scores={kc_sneak=1..},nbt={OnGround:1b,SelectedItem:{tag:{kitcraft:{Eatable:1}}}}]' || 'entity @s[gamemode=!spectator,scores={kc_sneak=1..},nbt={OnGround:1b,SelectedItem:{tag:{kitcraft:{Eatable:2}}}}]') {
+  if('entity @s[nbt={SelectedItem:{tag:{kitcraft:{EatNoHunger:1}}}}]') {
+    /function kitcraft:eating/add_eattime
+  } else if('entity @s[gamemode=!creative,scores={kc_pl_sat=..19}]') {
+      /function kitcraft:eating/add_eattime
+  }
+}
+#
+asat(@a[scores={kc_eattime=1..}]) {
+  if('entity @s[nbt={SelectedItem:{tag:{kitcraft:{EatNoHunger:1}}}}]') {
+    /function #kitcraft:eat_particles
+    /function kitcraft:eating/sounds
+  } else if('entity @s[scores={kc_pl_sat=..19}]') {
+    /function #kitcraft:eat_particles
+    /function kitcraft:eating/sounds
+  }
+}
+#
+asat(@a) {
+  if('entity @s[nbt={SelectedItem:{tag:{kitcraft:{EatNoHunger:1}}}}]') {
+    /function #kitcraft:eat_food
+    /function kitcraft:eating/simple_food
+  } else if('entity @s[scores={kc_pl_sat=..19}]') {
+    /function #kitcraft:eat_food
+    /function kitcraft:eating/simple_food
+  }
 
-asat(@a), if('entity @s[gamemode=!spectator,gamemode=!creative,scores={kc_sneak=1..,kc_pl_sat=..19},nbt={SelectedItem:{tag:{kitcraft:{Eatable:1}}}}]') {
-  //function kitcraft:eating/set_values
-  /function kitcraft:eating/add_eattime
-}
-#
-asat(@a[scores={kc_eattime=1..,kc_pl_sat=..19}]) {
-  /function #kitcraft:eat_particles
-  /function kitcraft:eating/sounds
-}
-#
-asat(@a[scores={kc_pl_sat=..19}]) {
-  /function #kitcraft:eat_food
 }
 #
 asat(@a), if('score @s kc_eattime >= @s kc_req_eattime') {
@@ -36,7 +51,7 @@ asat(@a), if('score @s kc_eattime >= @s kc_req_eattime') {
 
 #
 asat(@a[scores={kc_eattime=1..}]) {
-  if(!'entity @s[nbt={SelectedItem:{tag:{kitcraft:{Eatable:1}}}}]') {
+  if(!'entity @s[nbt={SelectedItem:{tag:{kitcraft:{Eatable:1}}}}]' && !'entity @s[nbt={SelectedItem:{tag:{kitcraft:{Eatable:2}}}}]') {
     /scoreboard players reset @s kc_eattime
   }
   if(!'entity @s[scores={kc_sneak=1..}]') {
@@ -172,6 +187,18 @@ asat(@a) {
   }
 }
 
+#file: ./eating/simple_food
+
+asat('@a[nbt={SelectedItem:{id:"minecraft:dead_bubble_coral",tag:{kitcraft:{Eatable:2}}}}]'), if('score @s kc_eattime = @s kc_req_eattime') {
+  /function kitcraft:eating/simple_food_consume
+}
+
+#file: ./eating/simple_food_consume
+
+/data modify entity @s SelectedItem.tag.kitcraft.Eatable set value 100
+/clear @s minecraft:dead_bubble_coral{kitcraft:{Eatable:100}} 1
+/data modify entity @s SelectedItem.tag.kitcraft.Eatable set value 2
+
 #file: ./eating/food/fries
 /*
 asat('@a[scores={kc_eattime=39},nbt={SelectedItem:{tag:{kitcraft:{id:"fries"}}}}]') {
@@ -185,4 +212,40 @@ addSimpleFood('fries')
 asat('@a[nbt={SelectedItem:{tag:{kitcraft:{id:"tasty_tnt"}}}}]'), if('score @s kc_eattime = @s kc_req_eattime') {
   /summon creeper ~ ~.5 ~ {NoGravity:1b,Silent:1b,Fuse:1,ExplosionRadius:1b,ignited:1b}
   /clear @s minecraft:tnt{kitcraft:{id:"tasty_tnt"}} 1
+  /scoreboard players reset @s kc_eattime
 }
+
+#file: ./eating/food/ender_cookie
+
+asat('@a[nbt={SelectedItem:{tag:{kitcraft:{id:"ender_cookie"}}}}]'), if('score @s kc_eattime = @s kc_req_eattime') {
+  /function kitcraft:eating/food/ender_cookie/write_functionality
+  /clear @s minecraft:dead_bubble_coral{kitcraft:{id:"ender_cookie"}} 1
+  /scoreboard players reset @s kc_eattime
+}
+
+asat('@a[nbt={SelectedItem:{tag:{kitcraft:{id:"ender_cookie_written"}}}}]'), if('score @s kc_eattime = @s kc_req_eattime') {
+  /function kitcraft:eating/food/ender_cookie/read_functionality
+  /clear @s minecraft:dead_bubble_coral{kitcraft:{id:"ender_cookie_written"}} 1
+  /scoreboard players reset @s kc_eattime
+}
+
+#file: ./eating/food/ender_cookie/write_functionality
+
+/summon minecraft:item ^ ^ ^.1 {Tags:["kitcraft_ender_cookie_write"],Item:{Count:1b,id:"minecraft:dead_bubble_coral",tag:{CustomModelData:7050008,display:{Name:"{\"translate\":\"Ender Cookie (written)\",\"italic\":false}"},kitcraft:{id:"ender_cookie_written",Eatable:1,sat:3,particle:"ender",NoPlacing:1,EatNoHunger:1,enderCookieData:{x:0f,y:0f,z:0f}}}}}
+as(@e[type=item,limit=1,sort=nearest,tag=kitcraft_ender_cookie_write]) {
+  /data modify entity @s Item.tag.kitcraft.enderCookieData.x set from entity @s Pos[0]
+  /data modify entity @s Item.tag.kitcraft.enderCookieData.y set from entity @s Pos[1]
+  /data modify entity @s Item.tag.kitcraft.enderCookieData.z set from entity @s Pos[2]
+}
+
+#file: ./eating/food/ender_cookie/read_functionality
+
+/summon armor_stand ~ ~ ~ {NoGravity:1b,Small:1b,Marker:1b,Invisible:1b,PersistenceRequired:1b,Tags:["kitcraft_ender_cookie_read"]}
+/data modify entity @e[type=minecraft:armor_stand,tag=kitcraft_ender_cookie_read,limit=1,sort=nearest] Pos[0] set from entity @s SelectedItem.tag.kitcraft.enderCookieData.x
+/data modify entity @e[type=minecraft:armor_stand,tag=kitcraft_ender_cookie_read,limit=1,sort=nearest] Pos[1] set from entity @s SelectedItem.tag.kitcraft.enderCookieData.y
+/data modify entity @e[type=minecraft:armor_stand,tag=kitcraft_ender_cookie_read,limit=1,sort=nearest] Pos[2] set from entity @s SelectedItem.tag.kitcraft.enderCookieData.z
+at(@e[type=minecraft:armor_stand,tag=kitcraft_ender_cookie_read,limit=1,sort=nearest]) {
+  /tp @e[type=minecraft:armor_stand,tag=kitcraft_ender_cookie_read,limit=1,sort=nearest] ~ ~.25 ~
+}
+/tp @s @e[type=minecraft:armor_stand,tag=kitcraft_ender_cookie_read,limit=1,sort=nearest]
+/kill @e[type=minecraft:armor_stand,tag=kitcraft_ender_cookie_read,limit=1,sort=nearest]

@@ -3,7 +3,7 @@
 // here goes your main content
 // executes 20 times a second
 
-const version = "b1.0"
+const version = "b0.1.0"
 const filename = "kitcraft"
 
 modal globalDebug(message,hover = "-no info-") {
@@ -24,7 +24,6 @@ as(@a[tag=!kitcraft_welcome_sent]) {
 /function kitcraft:blocks/sink/main
 /function kitcraft:blocks/trash_can/main
 /function kitcraft:blocks/kitchen_counter/main
-/function kitcraft:blocks/kitchen_tile/main
 #
 #Crops
 #
@@ -39,3 +38,6 @@ as(@a[tag=!kitcraft_welcome_sent]) {
 /function kitcraft:eating/main
 /function kitcraft:smash_lib/recipes
 /function kitcraft:random/main
+asat(@a) {
+  /function kitcraft:creative_menu/main
+}

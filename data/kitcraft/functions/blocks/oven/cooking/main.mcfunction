@@ -34,6 +34,7 @@ execute unless block ~ ~ ~ minecraft:furnace{Items:[{Slot:0b}]} run scoreboard p
 function kitcraft:blocks/oven/cooking/time_main
 execute if entity @s[scores={kc_burntime=1..}] run function #kitcraft:oven_recipes
 
+function #kitcraft:oven_recipes_custom
 
 execute if block ~ ~ ~ minecraft:furnace{Items:[{Slot:0b,tag:{kitcraft:{Cookable:1}}}]} run function kitcraft:blocks/oven/fuel/detect
 

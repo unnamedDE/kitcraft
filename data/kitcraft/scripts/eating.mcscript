@@ -7,20 +7,16 @@ modal addSimpleFood(id) {
 }
 
 asat('@a') {
-  if('entity @s[nbt={SelectedItem:{tag:{kitcraft:{Eatable:1}}}}]') {
+  if('entity @s[nbt={SelectedItem:{tag:{kitcraft:{Eatable:1}}}}]' || 'entity @s[nbt={SelectedItem:{tag:{kitcraft:{Eatable:2}}}}]') {
     /function kitcraft:eating/set_values
     //execute store result score @s kc_pl_sat run data get entity @s foodLevel
-  } else {
+  }
+  if(!'entity @s[nbt={SelectedItem:{tag:{kitcraft:{Eatable:1}}}}]' && !'entity @s[nbt={SelectedItem:{tag:{kitcraft:{Eatable:2}}}}]') {
     /scoreboard players reset @s kc_pl_sat
     /scoreboard players reset @s kc_req_eattime
   }
 }
-/*
-asat(@a), if('entity @s[gamemode=!spectator,gamemode=!creative,scores={kc_sneak=1..,kc_pl_sat=..19},nbt={SelectedItem:{tag:{kitcraft:{Eatable:1}}}}]') {
-  /function kitcraft:eating/add_eattime
-}
-*/
-asat(@a), if('entity @s[gamemode=!spectator,scores={kc_sneak=1..},nbt={OnGround:1b,SelectedItem:{tag:{kitcraft:{Eatable:1}}}}]') {
+asat(@a), if('entity @s[gamemode=!spectator,scores={kc_sneak=1..},nbt={OnGround:1b,SelectedItem:{tag:{kitcraft:{Eatable:1}}}}]' || 'entity @s[gamemode=!spectator,scores={kc_sneak=1..},nbt={OnGround:1b,SelectedItem:{tag:{kitcraft:{Eatable:2}}}}]') {
   if('entity @s[nbt={SelectedItem:{tag:{kitcraft:{EatNoHunger:1}}}}]') {
     /function kitcraft:eating/add_eattime
   } else if('entity @s[gamemode=!creative,scores={kc_pl_sat=..19}]') {
@@ -41,8 +37,10 @@ asat(@a[scores={kc_eattime=1..}]) {
 asat(@a) {
   if('entity @s[nbt={SelectedItem:{tag:{kitcraft:{EatNoHunger:1}}}}]') {
     /function #kitcraft:eat_food
+    /function kitcraft:eating/simple_food
   } else if('entity @s[scores={kc_pl_sat=..19}]') {
     /function #kitcraft:eat_food
+    /function kitcraft:eating/simple_food
   }
 
 }
@@ -53,7 +51,7 @@ asat(@a), if('score @s kc_eattime >= @s kc_req_eattime') {
 
 #
 asat(@a[scores={kc_eattime=1..}]) {
-  if(!'entity @s[nbt={SelectedItem:{tag:{kitcraft:{Eatable:1}}}}]') {
+  if(!'entity @s[nbt={SelectedItem:{tag:{kitcraft:{Eatable:1}}}}]' && !'entity @s[nbt={SelectedItem:{tag:{kitcraft:{Eatable:2}}}}]') {
     /scoreboard players reset @s kc_eattime
   }
   if(!'entity @s[scores={kc_sneak=1..}]') {
@@ -189,13 +187,31 @@ asat(@a) {
   }
 }
 
+#file: ./eating/simple_food
+
+asat('@a[nbt={SelectedItem:{id:"minecraft:dead_bubble_coral",tag:{kitcraft:{Eatable:1}}}}]'), if('score @s kc_eattime = @s kc_req_eattime') {
+  /function kitcraft:eating/simple_food_consume
+}
+
+#file: ./eating/simple_food_consume
+
+/data modify entity @s SelectedItem.tag.kitcraft.Eatable set value 100
+/clear @s minecraft:dead_bubble_coral{kitcraft:{Eatable:100}} 1
+/data modify entity @s SelectedItem.tag.kitcraft.Eatable set value 1
+
+#file: ./eating/advanced_food_consume
+
+/data modify entity @s SelectedItem.tag.kitcraft.Eatable set value 100
+/clear @s minecraft:dead_bubble_coral{kitcraft:{Eatable:100}} 1
+/data modify entity @s SelectedItem.tag.kitcraft.Eatable set value 2
+
 #file: ./eating/food/fries
 /*
 asat('@a[scores={kc_eattime=39},nbt={SelectedItem:{tag:{kitcraft:{id:"fries"}}}}]') {
   /clear @s minecraft:dead_bubble_coral{kitcraft:{id:"fries"}} 1
 }
 */
-addSimpleFood('fries')
+//addSimpleFood('fries')
 
 #file: ./eating/food/tasty_tnt
 
@@ -204,3 +220,49 @@ asat('@a[nbt={SelectedItem:{tag:{kitcraft:{id:"tasty_tnt"}}}}]'), if('score @s k
   /clear @s minecraft:tnt{kitcraft:{id:"tasty_tnt"}} 1
   /scoreboard players reset @s kc_eattime
 }
+
+#file: ./eating/food/ender_cookie
+
+asat('@a[nbt={SelectedItem:{tag:{kitcraft:{id:"ender_cookie"}}}}]'), if('score @s kc_eattime = @s kc_req_eattime') {
+  /function kitcraft:eating/food/ender_cookie/write_functionality
+  /function kitcraft:eating/advanced_food_consume
+  /scoreboard players reset @s kc_eattime
+}
+
+asat('@a[nbt={SelectedItem:{tag:{kitcraft:{id:"ender_cookie_written"}}}}]'), if('score @s kc_eattime = @s kc_req_eattime') {
+  /function kitcraft:eating/food/ender_cookie/read_functionality
+  /function kitcraft:eating/advanced_food_consume
+  /scoreboard players reset @s kc_eattime
+}
+
+#file: ./eating/food/ender_cookie/write_functionality
+
+/summon minecraft:item ^ ^ ^.1 {Tags:["kitcraft_ender_cookie_write"],Item:{Count:1b,id:"minecraft:dead_bubble_coral",tag:{CustomModelData:7050008,display:{Name:"{\"translate\":\"Ender Cookie (written)\",\"italic\":false}"},kitcraft:{id:"ender_cookie_written",Eatable:1,sat:3,particle:"ender",NoPlacing:1,EatNoHunger:1,enderCookieData:{x:0f,y:0f,z:0f,rx:0f,ry:0f}}}}}
+as(@e[type=item,limit=1,sort=nearest,tag=kitcraft_ender_cookie_write]) {
+  /data modify entity @s Item.tag.kitcraft.enderCookieData.x set from entity @p Pos[0]
+  /data modify entity @s Item.tag.kitcraft.enderCookieData.y set from entity @p Pos[1]
+  /data modify entity @s Item.tag.kitcraft.enderCookieData.z set from entity @p Pos[2]
+  /data modify entity @s Item.tag.kitcraft.enderCookieData.rx set from entity @p Rotation[0]
+  /data modify entity @s Item.tag.kitcraft.enderCookieData.ry set from entity @p Rotation[1]
+}
+
+#file: ./eating/food/ender_cookie/read_functionality
+
+/summon armor_stand ~ ~ ~ {NoGravity:1b,Small:1b,Marker:1b,Invisible:1b,PersistenceRequired:1b,Tags:["kitcraft_ender_cookie_read"]}
+at(@e[type=minecraft:armor_stand,tag=kitcraft_ender_cookie_read,limit=1,sort=nearest]) {
+  /function kitcraft:eating/food/ender_cookie/read_functionality_
+}
+
+
+#file: ./eating/food/ender_cookie/read_functionality_
+
+/data modify entity @e[type=minecraft:armor_stand,tag=kitcraft_ender_cookie_read,limit=1,sort=nearest] Pos[0] set from entity @s SelectedItem.tag.kitcraft.enderCookieData.x
+/data modify entity @e[type=minecraft:armor_stand,tag=kitcraft_ender_cookie_read,limit=1,sort=nearest] Pos[1] set from entity @s SelectedItem.tag.kitcraft.enderCookieData.y
+/data modify entity @e[type=minecraft:armor_stand,tag=kitcraft_ender_cookie_read,limit=1,sort=nearest] Pos[2] set from entity @s SelectedItem.tag.kitcraft.enderCookieData.z
+/data modify entity @e[type=minecraft:armor_stand,tag=kitcraft_ender_cookie_read,limit=1,sort=nearest] Rotation[0] set from entity @s SelectedItem.tag.kitcraft.enderCookieData.rx
+/data modify entity @e[type=minecraft:armor_stand,tag=kitcraft_ender_cookie_read,limit=1,sort=nearest] Rotation[1] set from entity @s SelectedItem.tag.kitcraft.enderCookieData.ry
+
+/execute at @e[type=minecraft:armor_stand,tag=kitcraft_ender_cookie_read,limit=1,sort=nearest] run tp @e[type=minecraft:armor_stand,tag=kitcraft_ender_cookie_read,limit=1,sort=nearest] ~ ~.25 ~
+
+/execute at @e[type=minecraft:armor_stand,limit=1,sort=nearest,tag=kitcraft_ender_cookie_read] run tp @s ~ ~ ~
+/kill @e[type=minecraft:armor_stand,tag=kitcraft_ender_cookie_read]

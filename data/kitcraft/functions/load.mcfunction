@@ -22,6 +22,8 @@ scoreboard objectives add kc_eattime dummy "Eattime"
 scoreboard objectives add kc_req_eattime dummy "Required Eattime"
 scoreboard objectives add kc_growth_time dummy "Growth Time"
 scoreboard objectives add kc_req_g_time dummy "Required Growth Time"
+scoreboard objectives add kc_c_menu_f dummy "Creative Menu Item ID"
+scoreboard objectives add kc_c_menu_i dummy "Creative Menu Item ID"
 scoreboard objectives add kc_random dummy
 scoreboard objectives add kc_random_range dummy
 

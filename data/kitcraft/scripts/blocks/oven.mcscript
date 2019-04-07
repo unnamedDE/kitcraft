@@ -21,7 +21,6 @@ modal addOvenRecipe(input, output_tag, output) {
 /function kitcraft:blocks/oven/destroy
 /function kitcraft:blocks/oven/detect_burntime
 /function kitcraft:blocks/oven/visuals
-/function #kitcraft:oven_recipes_custom
 asat('@e[type=armor_stand,tag=kitcraft_oven]') {
   /function kitcraft:blocks/oven/cooking/main
 }
@@ -136,6 +135,7 @@ if(!'block ~ ~ ~ minecraft:furnace{Items:[{Slot:0b}]}') {
 if('entity @s[scores={kc_burntime=1..}]') {
   /function #kitcraft:oven_recipes
 }
+/function #kitcraft:oven_recipes_custom
 #
 if('block ~ ~ ~ minecraft:furnace{Items:[{Slot:0b,tag:{kitcraft:{Cookable:1}}}]}') {
   /function kitcraft:blocks/oven/fuel/detect
@@ -260,3 +260,12 @@ if('block ~ ~ ~ minecraft:furnace{Items:[{Slot:0b,tag:{kitcraft:{id:"dough"}}}]}
 }
 
 //addOvenRecipe('tag:{kitcraft:{id:"dough"}}', 'id:"minecraft:bread"', 'minecraft:bread')
+
+#file: ./oven/recipes/cookie
+
+if('block ~ ~ ~ minecraft:furnace{Items:[{Slot:0b,id:"minecraft:dead_bubble_coral",tag:{kitcraft:{id:"cookie_dough"}}}]}' && 'entity @s[scores={kc_cooktime=198}]') {
+  if(!'block ~ ~ ~ minecraft:furnace{Items:[{Slot:2b}]}' || 'block ~ ~ ~ minecraft:furnace{Items:[{Slot:2b,id:"minecraft:cookie"}]}') {
+    /replaceitem block ~ ~ ~ container.2 minecraft:cookie{}
+    /function kitcraft:blocks/oven/cooking/count
+  }
+}

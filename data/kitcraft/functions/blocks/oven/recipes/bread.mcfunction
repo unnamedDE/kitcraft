@@ -8,3 +8,4 @@ execute if block ~ ~ ~ minecraft:furnace{Items:[{Slot:0b,tag:{kitcraft:{id:"doug
 execute if block ~ ~ ~ minecraft:furnace{Items:[{Slot:0b,tag:{kitcraft:{id:"dough"}}}]} if entity @s[scores={kc_cooktime=198}] if block ~ ~ ~ minecraft:furnace{Items:[{Slot:2b,id:"minecraft:bread"}]} run replaceitem block ~ ~ ~ container.2 minecraft:bread
 execute if block ~ ~ ~ minecraft:furnace{Items:[{Slot:0b,tag:{kitcraft:{id:"dough"}}}]} if entity @s[scores={kc_cooktime=198}] unless block ~ ~ ~ minecraft:furnace{Items:[{Slot:2b}]} run function kitcraft:blocks/oven/cooking/count
 execute if block ~ ~ ~ minecraft:furnace{Items:[{Slot:0b,tag:{kitcraft:{id:"dough"}}}]} if entity @s[scores={kc_cooktime=198}] if block ~ ~ ~ minecraft:furnace{Items:[{Slot:2b,id:"minecraft:bread"}]} run function kitcraft:blocks/oven/cooking/count
+

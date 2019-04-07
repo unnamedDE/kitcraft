@@ -17,7 +17,6 @@ function kitcraft:blocks/cutting_board/main
 function kitcraft:blocks/sink/main
 function kitcraft:blocks/trash_can/main
 function kitcraft:blocks/kitchen_counter/main
-function kitcraft:blocks/kitchen_tile/main
 
 #Crops
 
@@ -31,4 +30,5 @@ kill @e[type=item,nbt={Item:{tag:{Placeholder:1}}}]
 function kitcraft:noplacing/detect
 function kitcraft:eating/main
 function kitcraft:smash_lib/recipes
-function kitcraft:random/main
+function kitcraft:random/main
+execute as @a at @s run function kitcraft:creative_menu/main
