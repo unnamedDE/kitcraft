@@ -1,0 +1,37 @@
+/*
+#file: ./kitchen_tile/main
+
+/function kitcraft:blocks/kitchen_tile/destroy
+
+/execute as @e[type=firework_rocket,nbt={FireworksItem:{tag:{kitcraft:{id:"kitchen_tile"}}}}] at @s unless block ~ ~ ~ air if block ~0.4 ~ ~ air run tp @s ~0.5 ~ ~
+/execute as @e[type=firework_rocket,nbt={FireworksItem:{tag:{kitcraft:{id:"kitchen_tile"}}}}] at @s unless block ~ ~ ~ air if block ~-0.4 ~ ~ air run tp @s ~-0.5 ~ ~
+/execute as @e[type=firework_rocket,nbt={FireworksItem:{tag:{kitcraft:{id:"kitchen_tile"}}}}] at @s unless block ~ ~ ~ air if block ~ ~ ~-0.4 air run tp @s ~ ~ ~-0.5
+/execute as @e[type=firework_rocket,nbt={FireworksItem:{tag:{kitcraft:{id:"kitchen_tile"}}}}] at @s unless block ~ ~ ~ air if block ~ ~ ~0.4 air run tp @s ~ ~ ~0.5
+/execute as @e[type=firework_rocket,nbt={FireworksItem:{tag:{kitcraft:{id:"kitchen_tile"}}}}] at @s unless block ~ ~ ~ air if block ~ ~-0.4 ~ air run tp @s ~ ~-0.5 ~
+/execute as @e[type=firework_rocket,nbt={FireworksItem:{tag:{kitcraft:{id:"kitchen_tile"}}}}] at @s unless block ~ ~ ~ air if block ~ ~0.4 ~ air run tp @s ~ ~0.5 ~
+/execute as @e[type=firework_rocket,nbt={FireworksItem:{tag:{kitcraft:{id:"kitchen_tile"}}}}] at @s align xyz if block ~ ~ ~ air run function kitcraft:blocks/kitchen_tile/place/detect
+
+/execute as @e[tag=isCustomBlock,tag=kitchen_tile] at @s if block ~ ~ ~ air run function kitcraft:blocks/kitchen_tile/destroy
+/execute as @e[tag=isCustomBlock,tag=kitchen_tile] run data merge entity @s {Fire:23000s}
+
+#file: ./kitchen_tile/place/detect
+
+/execute as @s[nbt={FireworksItem:{tag:{CustomModelData:705001,kitcraft:{id:"kitchen_tile"}}}}] run function kitcraft:blocks/kitchen_tile/place/place
+/kill @s
+
+#file: ./kitchen_tile/place/place
+
+/setblock ~ ~ ~ quartz_block
+/summon armor_stand ~0.5 ~0.5 ~0.5 {Tags: ["isCustomBlock","kitchen_tile","newBlock"],Invisible:1,Marker:1,NoGravity:1}
+
+/execute as @e[tag=kitchen_tile,tag=newBlock] run replaceitem entity @s armor.head minecraft:firework_rocket{CustomModelData:705001}
+/execute as @e[tag=kitchen_tile,tag=newBlock] run tag @s remove newBlock
+
+#file: ./kitchen_tile/destroy
+
+/kill @e[type=item,distance=..0.8,nbt={Item:{id:"minecraft:quartz_block"}}]
+/summon minecraft:item ~ ~0.5 ~ {Item:{id:"minecraft:firework_rocket",Count:1,tag:{CustomModelData:705001,kitcraft:{id:"kitchen_tile"},Fireworks:{}}}}
+/kill @s
+
+#file: ./kitchen_tile/craft
+*/

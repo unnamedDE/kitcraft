@@ -3,6 +3,7 @@
 
 /give @s firework_rocket{CustomModelData:7050001,kitcraftBlock:1}
 */
+/*
 #file: ./give/blocks/oven
 
 /give @s minecraft:armor_stand{kitcraft:{id:"oven_place"},CustomModelData:705101,display:{Name:"{\"translate\":\"Oven\",\"italic\":\"false\"}",Lore:["{\"translate\":\"Right-click to place\",\"italic\":\"false\",\"color\":\"dark_green\"}"]},EntityTag:{NoGravity:1b,Invulnerable:1b,Small:1b,Marker:1b,Invisible:1b,PersistenceRequired:1b,Tags:["kitcraft_oven","kitcraft_oven_init"]}}
@@ -22,3 +23,4 @@
 #file: ./give/blocks/kitchen_counter
 
 /give @s minecraft:armor_stand{kitcraft:{id:"kitchen_counter_place"},CustomModelData:705105,display:{Name:"{\"translate\":\"Kitchen Counter\",\"italic\":\"false\"}",Lore:["{\"translate\":\"Right-click to place\",\"italic\":\"false\",\"color\":\"dark_green\"}"]},EntityTag:{recipe:"",NoGravity:1b,Invulnerable:1b,Small:1b,Marker:1b,Invisible:1b,PersistenceRequired:1b,Tags:["kitcraft_kitchen_counter","kitcraft_kitchen_counter_init"]}}
+*/

@@ -1,0 +1,210 @@
+#file: ./lemon_tree/main
+
+asat(@e[type=armor_stand,tag=kitcraft_lemon_tree_grow_fruits]) {
+  /function kitcraft:crops/lemon_tree/fruit/plant
+}
+
+asat(@e[type=armor_stand,tag=kitcraft_lemon_tree_init]) {
+  /function kitcraft:crops/lemon_tree/plant
+}
+
+asat(@e[type=armor_stand,tag=kitcraft_lemon_tree_detect_growing]) {
+  /function kitcraft:crops/lemon_tree/grow_detect
+}
+
+asat(@e[type=armor_stand,tag=kitcraft_lemon_tree_fruit]) {
+  /function kitcraft:crops/lemon_tree/fruit/update
+  /function kitcraft:crops/lemon_tree/fruit/harvest
+  /function kitcraft:crops/lemon_tree/fruit/grow_detect
+  /function kitcraft:crops/lemon_tree/fruit/harvest
+}
+
+/function kitcraft:crops/lemon_tree/destroy
+
+#file: ./lemon_tree/plant
+
+if('block ~ ~-1 ~ minecraft:dirt' || 'block ~ ~-1 ~ minecraft:coarse_dirt' || 'block ~ ~-1 ~ minecraft:grass_block') {
+  /setblock ~ ~ ~ minecraft:jungle_sapling
+  /tag @s remove kitcraft_lemon_tree_init
+  /tag @s add kitcraft_lemon_tree_detect_growing
+}
+if(!'block ~ ~-1 ~ minecraft:dirt' && !'block ~ ~-1 ~ minecraft:coarse_dirt' && !'block ~ ~-1 ~ minecraft:grass_block') {
+  /summon item ~ ~ ~ {Item:{id:"minecraft:armor_stand",Count:1b,tag:{CustomModelData:7051001,display:{Lore:["{\"translate\":\"Right-click to place\",\"italic\":\"false\",\"color\":\"dark_green\"}"],Name:"{\"translate\":\"Lemon Tree Sapling\",\"italic\":\"false\"}"},EntityTag:{NoGravity:1b,Small:1b,Invulnerable:1b,PersistenceRequired:1b,Marker:1b,Invisible:1b,id:"minecraft:armor_stand",Tags:["kitcraft_lemon_tree","kitcraft_lemon_tree_init"]},kitcraft:{id: "lemon_tree_sapling"}}}}
+  /kill @s[type=armor_stand]
+}
+
+#file: ./lemon_tree/grow_detect
+
+if('block ~ ~ ~ minecraft:jungle_log') {
+  /tag @s remove kitcraft_lemon_tree_detect_growing
+  /function kitcraft:crops/lemon_tree/detect_base
+  /tag @s add kitcraft_lemon_tree_grow_fruits
+  /execute align xyz positioned ~.5 ~.5 ~.5 run function kitcraft:crops/lemon_tree/grow
+}
+
+#file: ./lemon_tree/detect_base
+
+/tag @s add kitcraft_lemon_tree_base
+if(!'entity @e[type=armor_stand,tag=kitcraft_lemon_tree,distance=...5]') {
+  /summon minecraft:armor_stand ~ ~ ~ {NoGravity:1b,Small:1b,Invulnerable:1b,PersistenceRequired:1b,Marker:1b,Invisible:1b,Tags:["kitcraft_lemon_tree_base"]}
+}
+positioned('~1 ~ ~' || '~-1 ~ ~' || '~ ~ ~1' || '~ ~ ~-1') {
+  if('block ~ ~ ~ minecraft:jungle_log' && !'entity @e[type=armor_stand,tag=kitcraft_lemon_tree_base,distance=...5]') {
+    /function kitcraft:crops/lemon_tree/detect_base
+  }
+}
+
+#file: ./lemon_tree/grow
+
+if('block ~ ~-1 ~ air') {
+  if('block ~1 ~ ~ minecraft:jungle_leaves' || 'block ~1 ~ ~ minecraft:jungle_log') {
+    if('block ~-1 ~ ~ minecraft:jungle_leaves' || 'block ~-1 ~ ~ minecraft:jungle_log') {
+      if('block ~ ~ ~1 minecraft:jungle_leaves' || 'block ~ ~ ~1 minecraft:jungle_log') {
+        if('block ~ ~ ~-1 minecraft:jungle_leaves' || 'block ~ ~ ~-1 minecraft:jungle_log') {
+          /summon armor_stand ~ ~ ~ {NoGravity:1b,Invisible:1b,Marker:1b,Tags:["kitcraft_lemon_tree_fruit_init"]}
+        }
+      }
+    }
+  }
+}
+
+
+#GO ON
+/execute align xz run summon area_effect_cloud ~.5 ~ ~.5 {NoGravity:1b,Radius:0.1f,Duration:0,Tags:["kitcraft_tree_detect"]}
+positioned('~1 ~ ~' || '~-1 ~ ~' || '~ ~1 ~' || '~ ~ ~1' || '~ ~ ~-1' || '~1 ~ ~1' || '~-1 ~ ~1' || '~1 ~ ~-1' || '~-1 ~ ~-1') {
+  if('block ~ ~ ~ minecraft:jungle_log' || 'block ~ ~ ~ minecraft:jungle_leaves') {
+    if(!'entity @e[type=area_effect_cloud,distance=...75,tag=kitcraft_tree_detect]') {
+      /function kitcraft:crops/lemon_tree/grow
+    }
+  }
+}
+
+#file: ./lemon_tree/destroy
+asat(@e[type=armor_stand,tag=kitcraft_lemon_tree_base,tag=!kitcraft_lemon_tree_detect_growing]) {
+  if(!'block ~ ~ ~ minecraft:jungle_log') {
+    /function kitcraft:crops/lemon_tree/destroy_tree
+    /kill @s
+  }
+}
+
+asat(@e[type=armor_stand,tag=kitcraft_lemon_tree,tag=kitcraft_lemon_tree_detect_growing]) {
+  if(!'block ~ ~ ~ minecraft:jungle_sapling' && !'block ~ ~ ~ minecraft:jungle_log') {
+    /kill @s[type=armor_stand]
+  }
+}
+
+asat(@e[type=armor_stand,tag=kitcraft_lemon_tree,tag=kitcraft_lemon_tree_detect_growing,limit=1,sort=random]) {
+  if('entity @e[type=armor_stand,tag=kitcraft_lemon_tree,tag=!kitcraft_lemon_tree_growing,distance=.1..2]') {
+    /kill @s
+  }
+}
+
+
+asat(@e[type=armor_stand,tag=kitcraft_lemon_tree_fruit]) {
+  align('y'), if(!'block ~ ~1 ~ minecraft:jungle_leaves') {
+    /function kitcraft:crops/lemon_tree/fruit/destroy
+  }
+  if(!'entity @e[type=armor_stand,tag=kitcraft_lemon_tree,distance=..50]') {
+    /function kitcraft:crops/lemon_tree/fruit/destroy
+  }
+}
+asat(@e[type=armor_stand,tag=kitcraft_lemon_tree_fruit_vis]) {
+  if(!'entity @e[type=armor_stand,tag=kitcraft_lemon_tree_fruit,distance=...5]') {
+    /kill @s[type=armor_stand]
+  }
+}
+
+#file: ./lemon_tree/destroy_tree
+
+if('block ~ ~ ~ minecraft:jungle_log') {
+  /setblock ~ ~ ~ air destroy
+}
+if('block ~ ~ ~ minecraft:jungle_leaves') {
+  /scoreboard players set @p kc_random_range 32
+  /function kitcraft:random/main
+  if('score @p kc_random matches 1') {
+    /summon item ~ ~ ~ {Item:{id:"minecraft:armor_stand",Count:1b,tag:{CustomModelData:7051001,display:{Lore:["{\"translate\":\"Right-click to place\",\"italic\":\"false\",\"color\":\"dark_green\"}"],Name:"{\"translate\":\"Lemon Tree Sapling\",\"italic\":\"false\"}"},EntityTag:{NoGravity:1b,Small:1b,Invulnerable:1b,PersistenceRequired:1b,Marker:1b,Invisible:1b,id:"minecraft:armor_stand",Tags:["kitcraft_lemon_tree","kitcraft_lemon_tree_init"]},kitcraft:{id: "lemon_tree_sapling"}}}}
+  }
+  /scoreboard players reset @p kc_random
+  /setblock ~ ~ ~ air replace
+}
+
+positioned('~1 ~ ~' || '~-1 ~ ~' || '~ ~1 ~' || '~ ~-1 ~' || '~ ~ ~1' || '~ ~ ~-1' || '~1 ~ ~1' || '~-1 ~ ~1' || '~1 ~ ~-1' || '~-1 ~ ~-1') {
+  if('block ~ ~ ~ minecraft:jungle_log' || 'block ~ ~ ~ minecraft:jungle_leaves') {
+    /function kitcraft:crops/lemon_tree/destroy_tree
+  }
+}
+
+#file: ./lemon_tree/fruit/plant
+
+/tag @s remove kitcraft_lemon_tree_grow_fruits
+
+asat(@e[type=armor_stand,tag=kitcraft_lemon_tree_fruit_init,distance=..50]) {
+  /scoreboard players set @s kc_random_range 8
+}
+/function kitcraft:random/main
+asat(@e[type=armor_stand,tag=kitcraft_lemon_tree_fruit_init,distance=..50]) {
+  if('score @s kc_random matches 4..8') {
+    /kill @s[type=armor_stand]
+  }
+  positioned('~ ~-1 ~'), align('xyz') {
+    /summon armor_stand ~.5 ~.5 ~.5 {NoGravity:1b,Invulnerable:1b,Marker:1b,Invisible:1b,DisabledSlots:4144959,Tags:["kitcraft_lemon_tree_fruit_vis"],ArmorItems:[{},{},{},{}]}
+    /summon armor_stand ~.5 ~.5 ~.5 {NoGravity:1b,Invulnerable:1b,ShowArms:1b,Small:1b,Invisible:1b,Tags:["kitcraft_lemon_tree_fruit"],NoBasePlate:1b,Pose:{RightArm:[180f,0f,0f]},DisabledSlots:4144702,HandItems:[{},{}]}
+    asat(@e[tag=kitcraft_lemon_tree_fruit,limit=1,sort=nearest]) {
+      /function kitcraft:crops/lemon_tree/fruit/set_growth_time
+    }
+  }
+  /kill @s[type=armor_stand]
+}
+
+#file: ./lemon_tree/fruit/update
+
+if(!'score @s kc_growth_time matches 1..') {
+  /scoreboard players add @s kc_growth_time 1
+}
+
+if('score @s kc_growth_time <= @s kc_req_g_time') {
+  /scoreboard players add @s kc_growth_time 1
+}
+
+#file: ./lemon_tree/fruit/set_growth_time
+
+/scoreboard players set @s kc_random_range 6000
+/function kitcraft:random/main
+/scoreboard players set @s kc_req_g_time 12000
+/scoreboard players operation @s kc_req_g_time += @s kc_random
+/scoreboard players reset @s kc_random
+
+#file: ./lemon_tree/fruit/grow_detect
+
+if('score @s kc_growth_time = @s kc_req_g_time' && 'entity @s[tag=!kitcraft_fruit_grown]') {
+  /function kitcraft:crops/lemon_tree/fruit/grow
+}
+
+#file: ./lemon_tree/fruit/grow
+
+/tag @s add kitcraft_fruit_grown
+/replaceitem entity @s weapon.mainhand minecraft:dead_bubble_coral{display:{Name:"{\"translate\":\"Lemon\",\"italic\":false}"},CustomModelData:7051001,kitcraft:{id:"lemon",NoPlacing:1}} 1
+as(@e[type=armor_stand,tag=kitcraft_lemon_tree_fruit_vis,limit=1,sort=nearest]) {
+  /replaceitem entity @s armor.head minecraft:dead_tube_coral{CustomModelData:7050001} 1
+}
+
+#file: ./lemon_tree/fruit/harvest
+
+if(!'entity @s[nbt={HandItems:[{id:"minecraft:dead_bubble_coral"},{}]}]' && 'entity @s[tag=kitcraft_fruit_grown]') {
+  /scoreboard players set @s kc_growth_time 0
+  /replaceitem entity @e[type=armor_stand,tag=kitcraft_lemon_tree_fruit_vis,limit=1,sort=nearest] armor.head air
+  /function kitcraft:crops/lemon_tree/fruit/set_growth_time
+  /tag @s remove kitcraft_fruit_grown
+}
+
+#file: ./lemon_tree/fruit/destroy
+
+if('data entity @s HandItems[0].id') {
+  /execute align xyz run summon item ~.5 ~.5 ~.5 {Tags:["kitcraft_break_fruit"],Item:{id:"minecraft:arrow",Count:1b}}
+  /data modify entity @e[type=item,limit=1,sort=nearest,tag=kitcraft_break_fruit] Item.id set from entity @s HandItems[0].id
+  /data modify entity @e[type=item,limit=1,sort=nearest,tag=kitcraft_break_fruit] Item.Count set from entity @s HandItems[0].Count
+  /data modify entity @e[type=item,limit=1,sort=nearest,tag=kitcraft_break_fruit] Item.tag set from entity @s HandItems[0].tag
+}
+
+/kill @s[type=armor_stand]

@@ -900,3 +900,131 @@ if('entity @s[tag=kitcraft_kitchen_counter_crafted_ender_cookie]' && 'block ~ ~ 
 /replaceitem block ~ ~ ~ container.15 minecraft:air
 /tag @s remove kitcraft_kitchen_counter_crafted
 /tag @s remove kitcraft_kitchen_counter_crafted_ender_cookie
+
+#file: ./kitchen_counter/recipes/lemon_juice
+
+if('entity @s[tag=!kitcraft_kitchen_counter_crafted]' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:2b,id:"minecraft:glass_bottle"}]}' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:3b,id:"minecraft:dead_bubble_coral",tag:{kitcraft:{id:"lemon"}}}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:4b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:11b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:12b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:13b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:20b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:21b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:22b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot: 15b}]}') {
+  /function kitcraft:blocks/kitchen_counter/recipes/lemon_juice/1
+}
+if('entity @s[tag=kitcraft_kitchen_counter_crafted_lemon_juice]' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:2b,id:"minecraft:glass_bottle"}]}' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:3b,id:"minecraft:dead_bubble_coral",tag:{kitcraft:{id:"lemon"}}}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:4b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:11b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:12b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:13b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:20b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:21b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:22b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot: 15b,Count:1b,id:"minecraft:dead_bubble_coral",tag:{display:{Name:"{\\"translate\\":\\"Lemon Juice\\",\\"italic\\":false}"},CustomModelData:7052001,kitcraft:{id:"lemon_juice",NoPlacing:1b,containerItem:"bottle"}}}]}') {
+  /function kitcraft:blocks/kitchen_counter/recipes/lemon_juice/2
+}
+if('entity @s[tag=kitcraft_kitchen_counter_crafted_lemon_juice]' && 'block ~ ~ ~ minecraft:barrel') {
+  if(!'block ~ ~ ~ minecraft:barrel{Items:[{Slot:2b,id:"minecraft:glass_bottle"}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/lemon_juice/3
+  }
+  if(!'block ~ ~ ~ minecraft:barrel{Items:[{Slot:3b,id:"minecraft:dead_bubble_coral",tag:{kitcraft:{id:"lemon"}}}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/lemon_juice/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:4b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/lemon_juice/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:11b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/lemon_juice/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:12b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/lemon_juice/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:13b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/lemon_juice/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:20b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/lemon_juice/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:21b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/lemon_juice/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:22b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/lemon_juice/3
+  }
+}
+if('entity @s[tag=kitcraft_kitchen_counter_crafted_lemon_juice]' && 'block ~ ~ ~ minecraft:air') {
+  /kill @e[type=minecraft:item,limit=1,sort=nearest,nbt={Item:{Count:1b,tag:{display:{Name:"{\"translate\":\"Lemon Juice\",\"italic\":false}"},CustomModelData:7052001,kitcraft:{id:"lemon_juice",NoPlacing:1b,containerItem:"bottle"}}, id:"minecraft:dead_bubble_coral"}}]
+}
+
+#file: ./kitchen_counter/recipes/lemon_juice/1
+
+/replaceitem block ~ ~ ~ container.15 minecraft:dead_bubble_coral{display:{Name:"{\"translate\":\"Lemon Juice\",\"italic\":false}"},CustomModelData:7052001,kitcraft:{id:"lemon_juice",NoPlacing:1b,containerItem:"bottle"}} 1
+/tag @s add kitcraft_kitchen_counter_crafted
+/tag @s add kitcraft_kitchen_counter_crafted_lemon_juice
+
+#file: ./kitchen_counter/recipes/lemon_juice/2
+
+/function kitcraft:blocks/kitchen_counter/crafted
+//Add replaceitems here
+/tag @s remove kitcraft_kitchen_counter_crafted
+/tag @s remove kitcraft_kitchen_counter_crafted_lemon_juice
+
+#file: ./kitchen_counter/recipes/lemon_juice/3
+
+/replaceitem block ~ ~ ~ container.15 minecraft:air
+/tag @s remove kitcraft_kitchen_counter_crafted
+/tag @s remove kitcraft_kitchen_counter_crafted_lemon_juice
+
+/*
+if('entity @s[tag=!kitcraft_kitchen_counter_sink]') {
+  /replaceitem block ~ ~ ~ container.11 minecraft:bucket
+} else {
+  /replaceitem block ~ ~ ~ container.11 minecraft:water_bucket
+}
+*/
+
+#file: ./kitchen_counter/recipes/lemon_soda
+
+if('entity @s[tag=!kitcraft_kitchen_counter_crafted]' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:2b,id:"minecraft:dead_bubble_coral",tag:{kitcraft:{id:"lemon_juice"}}}]}' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:3b,id:"minecraft:sugar"}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:4b}]}' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:11b,id:"minecraft:potion",tag:{Potion:"minecraft:water"}}]}' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:12b,id:"minecraft:sugar"}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:13b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:20b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:21b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:22b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot: 15b}]}') {
+  /function kitcraft:blocks/kitchen_counter/recipes/lemon_soda/1
+}
+if('entity @s[tag=kitcraft_kitchen_counter_crafted_lemon_soda]' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:2b,id:"minecraft:dead_bubble_coral",tag:{kitcraft:{id:"lemon_juice"}}}]}' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:3b,id:"minecraft:sugar"}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:4b}]}' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:11b,id:"minecraft:potion",tag:{Potion:"minecraft:water"}}]}' && 'block ~ ~ ~ minecraft:barrel{Items:[{Slot:12b,id:"minecraft:sugar"}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:13b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:20b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:21b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot:22b}]}' && !'block ~ ~ ~ minecraft:barrel{Items:[{Slot: 15b,Count:2b,id:"minecraft:dead_bubble_coral",tag:{display:{Name:"{\\"translate\\":\\"Lemon Soda\\",\\"italic\\":false}",Lore:["{\\"translate\\":\\"Press shift while holding to eat\\",\\"color\\":\\"dark_green\\",\\"italic\\":false}"]},CustomModelData:7050009,kitcraft:{id:"lemon_soda",NoPlacing:1b,containerItem:"bottle",Eatable:2,sat:5,particle:"water",Drink:1,EatNoHunger:1}}}]}') {
+  /function kitcraft:blocks/kitchen_counter/recipes/lemon_soda/2
+}
+if('entity @s[tag=kitcraft_kitchen_counter_crafted_lemon_soda]' && 'block ~ ~ ~ minecraft:barrel') {
+  if(!'block ~ ~ ~ minecraft:barrel{Items:[{Slot:2b,id:"minecraft:dead_bubble_coral",tag:{kitcraft:{id:"lemon_juice"}}}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/lemon_soda/3
+  }
+  if(!'block ~ ~ ~ minecraft:barrel{Items:[{Slot:3b,id:"minecraft:sugar"}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/lemon_soda/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:4b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/lemon_soda/3
+  }
+  if(!'block ~ ~ ~ minecraft:barrel{Items:[{Slot:11b,id:"minecraft:potion",tag:{Potion:"minecraft:water"}}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/lemon_soda/3
+  }
+  if(!'block ~ ~ ~ minecraft:barrel{Items:[{Slot:12b,id:"minecraft:sugar"}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/lemon_soda/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:13b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/lemon_soda/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:20b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/lemon_soda/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:21b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/lemon_soda/3
+  }
+  if('block ~ ~ ~ minecraft:barrel{Items:[{Slot:22b}]}') {
+    /function kitcraft:blocks/kitchen_counter/recipes/lemon_soda/3
+  }
+}
+if('entity @s[tag=kitcraft_kitchen_counter_crafted_lemon_soda]' && 'block ~ ~ ~ minecraft:air') {
+  /kill @e[type=minecraft:item,limit=1,sort=nearest,nbt={Item:{Count:2b,tag:{display:{Name:"{\"translate\":\"Lemon Soda\",\"italic\":false}",Lore:["{\"translate\":\"Press shift while holding to eat\",\"color\":\"dark_green\",\"italic\":false}"]},CustomModelData:7050009,kitcraft:{id:"lemon_soda",NoPlacing:1b,containerItem:"bottle",Eatable:2,sat:5,particle:"water",Drink:1,EatNoHunger:1}}, id:"minecraft:dead_bubble_coral"}}]
+}
+
+#file: ./kitchen_counter/recipes/lemon_soda/1
+
+/replaceitem block ~ ~ ~ container.15 minecraft:dead_bubble_coral{display:{Name:"{\"translate\":\"Lemon Soda\",\"italic\":false}",Lore:["{\"translate\":\"Press shift while holding to eat\",\"color\":\"dark_green\",\"italic\":false}"]},CustomModelData:7050009,kitcraft:{id:"lemon_soda",NoPlacing:1b,containerItem:"bottle",Eatable:2,sat:5,particle:"water",Drink:1,EatNoHunger:1}} 2
+/tag @s add kitcraft_kitchen_counter_crafted
+/tag @s add kitcraft_kitchen_counter_crafted_lemon_soda
+
+#file: ./kitchen_counter/recipes/lemon_soda/2
+
+/function kitcraft:blocks/kitchen_counter/crafted
+//Add replaceitems here
+/tag @s remove kitcraft_kitchen_counter_crafted
+/tag @s remove kitcraft_kitchen_counter_crafted_lemon_soda
+
+#file: ./kitchen_counter/recipes/lemon_soda/3
+
+/replaceitem block ~ ~ ~ container.15 minecraft:air
+/tag @s remove kitcraft_kitchen_counter_crafted
+/tag @s remove kitcraft_kitchen_counter_crafted_lemon_soda

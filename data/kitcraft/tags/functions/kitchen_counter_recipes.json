@@ -6,6 +6,8 @@
   "kitcraft:blocks/kitchen_counter/recipes/sweet_dough",
   "kitcraft:blocks/kitchen_counter/recipes/tasty_tnt",
   "kitcraft:blocks/kitchen_counter/recipes/cookie_dough",
-  "kitcraft:blocks/kitchen_counter/recipes/ender_cookie"
+  "kitcraft:blocks/kitchen_counter/recipes/ender_cookie",
+  "kitcraft:blocks/kitchen_counter/recipes/lemon_juice",
+  "kitcraft:blocks/kitchen_counter/recipes/lemon_soda"
   ]
 }

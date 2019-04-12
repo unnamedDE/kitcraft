@@ -8,15 +8,24 @@ tellraw @s {"text":""}
 tellraw @s {"text":""}
 tellraw @s [{"text":"<===== ","color":"aqua"},{"translate":"Kitcraft Creative Menu (Misc)","color":"red"},{"text":" =====>","color":"aqua"}]
 tellraw @s {"text":""}
+tellraw @s [{"text":"<== ","color":"aqua"},{"translate":"Blocks","color":"red"},{"text":" ==>","color":"aqua"}]
 #Cutting Board
-tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/function kitcraft:give/blocks/cutting_board"}},{"text":"] ","color":"reset"},{"translate":"Cutting Board"}]
+tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 11"}},{"text":"] [","color":"reset"},{"text":"16","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 21"}},{"text":"] ","color":"reset"},{"translate":"Cutting Board"}]
 #Kitchen Counter
-tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/function kitcraft:give/blocks/kitchen_counter"}},{"text":"] ","color":"reset"},{"translate":"Kitchen Counter"}]
+tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 12"}},{"text":"] [","color":"reset"},{"text":"16","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 22"}},{"text":"] ","color":"reset"},{"translate":"Kitchen Counter"}]
 #Oven
-tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/function kitcraft:give/blocks/oven"}},{"text":"] ","color":"reset"},{"translate":"Oven"}]
+tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 13"}},{"text":"] [","color":"reset"},{"text":"16","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 23"}},{"text":"] ","color":"reset"},{"translate":"Oven"}]
 #Sink
-tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/function kitcraft:give/blocks/sink"}},{"text":"] ","color":"reset"},{"translate":"Sink"}]
+tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 14"}},{"text":"] [","color":"reset"},{"text":"16","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 24"}},{"text":"] ","color":"reset"},{"translate":"Sink"}]
 #Trashcan
-tellraw @p [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/function kitcraft:give/blocks/trash_can"}},{"text":"] ","color":"reset"},{"translate":"Trashcan"}]
+tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 15"}},{"text":"] [","color":"reset"},{"text":"16","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 25"}},{"text":"] ","color":"reset"},{"translate":"Trashcan"}]
+#Kitchen Tile
+#/tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 16"}},{"text":"] [","color":"reset"},{"text":"64","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 26"}},{"text":"] ","color":"reset"},{"translate":"Kitchen Tile"}]
+tellraw @s {"text":""}
+tellraw @s [{"text":"<== ","color":"aqua"},{"translate":"Misc","color":"red"},{"text":" ==>","color":"aqua"}]
+#Lettuce Seeds
+tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 120"}},{"text":"] [","color":"reset"},{"text":"64","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 220"}},{"text":"] ","color":"reset"},{"translate":"Lettuce Seeds"}]
+#Lemon Tree Sapling
+tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 121"}},{"text":"] [","color":"reset"},{"text":"16","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 221"}},{"text":"] ","color":"reset"},{"translate":"Lemon Tree Sapling"}]
 tellraw @s {"text":""}
 tellraw @s {"text":""}

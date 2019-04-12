@@ -2,6 +2,7 @@
 
 asat(@e[tag=kitcraft_lettuce_setgt]) {
   /scoreboard players operation @s kc_req_g_time += @s kc_random
+  /scoreboard players reset @s kc_random
   /tag @s remove kitcraft_lettuce_setgt
 }
 

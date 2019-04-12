@@ -21,16 +21,26 @@
 /tellraw @s [{"text":"<===== ","color":"aqua"},{"translate":"Kitcraft Creative Menu (Misc)","color":"red"},{"text":" =====>","color":"aqua"}]
 /tellraw @s {"text":""}
 
+/tellraw @s [{"text":"<== ","color":"aqua"},{"translate":"Blocks","color":"red"},{"text":" ==>","color":"aqua"}]
 #Cutting Board
-/tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/function kitcraft:give/blocks/cutting_board"}},{"text":"] ","color":"reset"},{"translate":"Cutting Board"}]
+/tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 11"}},{"text":"] [","color":"reset"},{"text":"16","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 21"}},{"text":"] ","color":"reset"},{"translate":"Cutting Board"}]
 #Kitchen Counter
-/tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/function kitcraft:give/blocks/kitchen_counter"}},{"text":"] ","color":"reset"},{"translate":"Kitchen Counter"}]
+/tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 12"}},{"text":"] [","color":"reset"},{"text":"16","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 22"}},{"text":"] ","color":"reset"},{"translate":"Kitchen Counter"}]
 #Oven
-/tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/function kitcraft:give/blocks/oven"}},{"text":"] ","color":"reset"},{"translate":"Oven"}]
+/tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 13"}},{"text":"] [","color":"reset"},{"text":"16","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 23"}},{"text":"] ","color":"reset"},{"translate":"Oven"}]
 #Sink
-/tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/function kitcraft:give/blocks/sink"}},{"text":"] ","color":"reset"},{"translate":"Sink"}]
+/tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 14"}},{"text":"] [","color":"reset"},{"text":"16","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 24"}},{"text":"] ","color":"reset"},{"translate":"Sink"}]
 #Trashcan
-/tellraw @p [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/function kitcraft:give/blocks/trash_can"}},{"text":"] ","color":"reset"},{"translate":"Trashcan"}]
+/tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 15"}},{"text":"] [","color":"reset"},{"text":"16","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 25"}},{"text":"] ","color":"reset"},{"translate":"Trashcan"}]
+#Kitchen Tile
+#/tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 16"}},{"text":"] [","color":"reset"},{"text":"64","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 26"}},{"text":"] ","color":"reset"},{"translate":"Kitchen Tile"}]
+
+/tellraw @s {"text":""}
+/tellraw @s [{"text":"<== ","color":"aqua"},{"translate":"Misc","color":"red"},{"text":" ==>","color":"aqua"}]
+#Lettuce Seeds
+/tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 120"}},{"text":"] [","color":"reset"},{"text":"64","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 220"}},{"text":"] ","color":"reset"},{"translate":"Lettuce Seeds"}]
+#Lemon Tree Sapling
+/tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 121"}},{"text":"] [","color":"reset"},{"text":"16","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 221"}},{"text":"] ","color":"reset"},{"translate":"Lemon Tree Sapling"}]
 
 /tellraw @s {"text":""}
 /tellraw @s {"text":""}
@@ -56,6 +66,10 @@
 /tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_i 16"}},{"text":"] [","color":"reset"},{"text":"64","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_i 26"}},{"text":"] ","color":"reset"},{"translate":"Sweet Dough"}]
 #Cookie Dough
 /tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_i 17"}},{"text":"] [","color":"reset"},{"text":"64","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_i 27"}},{"text":"] ","color":"reset"},{"translate":"Cookie Dough"}]
+#Lemon
+/tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_i 18"}},{"text":"] [","color":"reset"},{"text":"64","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_i 28"}},{"text":"] ","color":"reset"},{"translate":"Lemon"}]
+#Lemon Juice
+/tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_i 19"}},{"text":"] [","color":"reset"},{"text":"64","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_i 29"}},{"text":"] ","color":"reset"},{"translate":"Lemon Juice"}]
 
 /tellraw @s {"text":""}
 /tellraw @s {"text":""}
@@ -73,6 +87,8 @@
 /tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_f 12"}},{"text":"] [","color":"reset"},{"text":"64","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_f 22"}},{"text":"] ","color":"reset"},{"translate":"Tasty TNT"}]
 #Ender Cookie
 /tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_f 13"}},{"text":"] [","color":"reset"},{"text":"64","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_f 23"}},{"text":"] ","color":"reset"},{"translate":"Ender Cookie"}]
+#Lemon Soda
+/tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_f 14"}},{"text":"] [","color":"reset"},{"text":"64","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_f 24"}},{"text":"] ","color":"reset"},{"translate":"Lemon Soda"}]
 
 
 /tellraw @s {"text":""}
@@ -144,6 +160,24 @@ if('score @s kc_c_menu_i matches 27') {
   /give @s dead_bubble_coral{CustomModelData: 7050007, display:{Name:"{\"translate\":\"Cookie Dough\",\"italic\":false}"},kitcraft:{id:"cookie_dough",NoPlacing:1,Cookable:1}} 64
   /scoreboard players reset @s kc_c_menu_i
 }
+
+if('score @s kc_c_menu_i matches 18') {
+  /give @s dead_bubble_coral{CustomModelData: 7051001, display:{Name:"{\"translate\":\"Lemon\",\"italic\":false}"},kitcraft:{id:"lemon",NoPlacing:1}}
+  /scoreboard players reset @s kc_c_menu_i
+}
+if('score @s kc_c_menu_i matches 28') {
+  /give @s dead_bubble_coral{CustomModelData: 7051001, display:{Name:"{\"translate\":\"Lemon\",\"italic\":false}"},kitcraft:{id:"lemon",NoPlacing:1}} 64
+  /scoreboard players reset @s kc_c_menu_i
+}
+
+if('score @s kc_c_menu_i matches 19') {
+  /give @s dead_bubble_coral{display:{Name:"{\"translate\":\"Lemon Juice\",\"italic\":false}"},CustomModelData:7052001,kitcraft:{id:"lemon_juice",NoPlacing:1b,containerItem:"bottle"}}
+  /scoreboard players reset @s kc_c_menu_i
+}
+if('score @s kc_c_menu_i matches 29') {
+  /give @s dead_bubble_coral{display:{Name:"{\"translate\":\"Lemon Juice\",\"italic\":false}"},CustomModelData:7052001,kitcraft:{id:"lemon_juice",NoPlacing:1b,containerItem:"bottle"}} 64
+  /scoreboard players reset @s kc_c_menu_i
+}
 #
 #FOOD
 #
@@ -172,4 +206,87 @@ if('score @s kc_c_menu_f matches 13') {
 if('score @s kc_c_menu_f matches 23') {
   /give @s dead_bubble_coral{CustomModelData:7050008,display:{Name:"{\"translate\":\"Ender Cookie\",\"italic\":false}"},kitcraft:{id:"ender_cookie",Eatable:2,sat:3,particle:"ender",NoPlacing:1,EatNoHunger:1}} 64
   /scoreboard players reset @s kc_c_menu_f
+}
+
+if('score @s kc_c_menu_f matches 14') {
+  /give @s dead_bubble_coral{display:{Name:"{\"translate\":\"Lemon Soda\",\"italic\":false}",Lore:["{\"translate\":\"Press shift while holding to eat\",\"color\":\"dark_green\",\"italic\":false}"]},CustomModelData:7050009,kitcraft:{id:"lemon_soda",NoPlacing:1b,containerItem:"bottle",Eatable:2,sat:5,particle:"water",Drink:1,EatNoHunger:1}}
+  /scoreboard players reset @s kc_c_menu_f
+}
+if('score @s kc_c_menu_f matches 24') {
+  /give @s dead_bubble_coral{display:{Name:"{\"translate\":\"Lemon Soda\",\"italic\":false}",Lore:["{\"translate\":\"Press shift while holding to eat\",\"color\":\"dark_green\",\"italic\":false}"]},CustomModelData:7050009,kitcraft:{id:"lemon_soda",NoPlacing:1b,containerItem:"bottle",Eatable:2,sat:5,particle:"water",Drink:1,EatNoHunger:1}} 64
+  /scoreboard players reset @s kc_c_menu_f
+}
+#
+#MISC
+#
+if('score @s kc_c_menu_m matches 11') {
+  /give @s minecraft:armor_stand{kitcraft:{id:"cutting_board_place"},CustomModelData:705102,display:{Name:"{\"translate\":\"Cutting Board\",\"italic\":\"false\"}",Lore:["{\"translate\":\"Right-click to place\",\"italic\":\"false\",\"color\":\"dark_green\"}"]},EntityTag:{NoGravity:1b,Invulnerable:1b,Small:1b,Marker:1b,Invisible:1b,PersistenceRequired:1b,Tags:["kitcraft_cutting_board","kitcraft_cutting_board_init"]}}
+  /scoreboard players reset @s kc_c_menu_m
+}
+if('score @s kc_c_menu_m matches 21') {
+  /give @s minecraft:armor_stand{kitcraft:{id:"cutting_board_place"},CustomModelData:705102,display:{Name:"{\"translate\":\"Cutting Board\",\"italic\":\"false\"}",Lore:["{\"translate\":\"Right-click to place\",\"italic\":\"false\",\"color\":\"dark_green\"}"]},EntityTag:{NoGravity:1b,Invulnerable:1b,Small:1b,Marker:1b,Invisible:1b,PersistenceRequired:1b,Tags:["kitcraft_cutting_board","kitcraft_cutting_board_init"]}} 16
+  /scoreboard players reset @s kc_c_menu_m
+}
+
+if('score @s kc_c_menu_m matches 12') {
+  /give @s minecraft:armor_stand{kitcraft:{id:"kitchen_counter_place"},CustomModelData:705105,display:{Name:"{\"translate\":\"Kitchen Counter\",\"italic\":\"false\"}",Lore:["{\"translate\":\"Right-click to place\",\"italic\":\"false\",\"color\":\"dark_green\"}"]},EntityTag:{recipe:"",NoGravity:1b,Invulnerable:1b,Small:1b,Marker:1b,Invisible:1b,PersistenceRequired:1b,Tags:["kitcraft_kitchen_counter","kitcraft_kitchen_counter_init"]}}
+  /scoreboard players reset @s kc_c_menu_m
+}
+if('score @s kc_c_menu_m matches 22') {
+  /give @s minecraft:armor_stand{kitcraft:{id:"kitchen_counter_place"},CustomModelData:705105,display:{Name:"{\"translate\":\"Kitchen Counter\",\"italic\":\"false\"}",Lore:["{\"translate\":\"Right-click to place\",\"italic\":\"false\",\"color\":\"dark_green\"}"]},EntityTag:{recipe:"",NoGravity:1b,Invulnerable:1b,Small:1b,Marker:1b,Invisible:1b,PersistenceRequired:1b,Tags:["kitcraft_kitchen_counter","kitcraft_kitchen_counter_init"]}} 16
+  /scoreboard players reset @s kc_c_menu_m
+}
+
+if('score @s kc_c_menu_m matches 13') {
+  /give @s minecraft:armor_stand{kitcraft:{id:"oven_place"},CustomModelData:705101,display:{Name:"{\"translate\":\"Oven\",\"italic\":\"false\"}",Lore:["{\"translate\":\"Right-click to place\",\"italic\":\"false\",\"color\":\"dark_green\"}"]},EntityTag:{NoGravity:1b,Invulnerable:1b,Small:1b,Marker:1b,Invisible:1b,PersistenceRequired:1b,Tags:["kitcraft_oven","kitcraft_oven_init"]}}
+  /scoreboard players reset @s kc_c_menu_m
+}
+if('score @s kc_c_menu_m matches 23') {
+  /give @s minecraft:armor_stand{kitcraft:{id:"oven_place"},CustomModelData:705101,display:{Name:"{\"translate\":\"Oven\",\"italic\":\"false\"}",Lore:["{\"translate\":\"Right-click to place\",\"italic\":\"false\",\"color\":\"dark_green\"}"]},EntityTag:{NoGravity:1b,Invulnerable:1b,Small:1b,Marker:1b,Invisible:1b,PersistenceRequired:1b,Tags:["kitcraft_oven","kitcraft_oven_init"]}} 16
+  /scoreboard players reset @s kc_c_menu_m
+}
+
+if('score @s kc_c_menu_m matches 14') {
+  /give @s minecraft:armor_stand{kitcraft:{id:"sink_place"},display:{Name:"{\"translate\":\"Sink\",\"italic\":false}",Lore:["{\"translate\":\"Right-click to place\",\"color\":\"dark_green\",\"italic\":false}"]},CustomModelData:705103,EntityTag:{NoGravity:1b,Invulnerable:1b,Small:1b,Marker:1b,Invisible:1b,PersistenceRequired:1b,Tags:["kitcraft_sink","kitcraft_sink_init"]}}
+  /scoreboard players reset @s kc_c_menu_m
+}
+if('score @s kc_c_menu_m matches 24') {
+  /give @s minecraft:armor_stand{kitcraft:{id:"sink_place"},display:{Name:"{\"translate\":\"Sink\",\"italic\":false}",Lore:["{\"translate\":\"Right-click to place\",\"color\":\"dark_green\",\"italic\":false}"]},CustomModelData:705103,EntityTag:{NoGravity:1b,Invulnerable:1b,Small:1b,Marker:1b,Invisible:1b,PersistenceRequired:1b,Tags:["kitcraft_sink","kitcraft_sink_init"]}} 16
+  /scoreboard players reset @s kc_c_menu_m
+}
+
+if('score @s kc_c_menu_m matches 15') {
+  /give @s minecraft:armor_stand{CustomModelData:705104,kitcraft:{id:"trash_can_place"},display:{Name:"{\"translate\":\"Trashcan\",\"italic\":\"false\"}",Lore:["{\"translate\":\"Right-click to place\",\"italic\":\"false\",\"color\":\"dark_green\"}"]},EntityTag:{NoGravity:1b,Invulnerable:1b,Small:1b,Marker:1b,Invisible:1b,PersistenceRequired:1b,Tags:["kitcraft_trash_can","kitcraft_trash_can_init"]}}
+  /scoreboard players reset @s kc_c_menu_m
+}
+if('score @s kc_c_menu_m matches 25') {
+  /give @s minecraft:armor_stand{CustomModelData:705104,kitcraft:{id:"trash_can_place"},display:{Name:"{\"translate\":\"Trashcan\",\"italic\":\"false\"}",Lore:["{\"translate\":\"Right-click to place\",\"italic\":\"false\",\"color\":\"dark_green\"}"]},EntityTag:{NoGravity:1b,Invulnerable:1b,Small:1b,Marker:1b,Invisible:1b,PersistenceRequired:1b,Tags:["kitcraft_trash_can","kitcraft_trash_can_init"]}} 16
+  /scoreboard players reset @s kc_c_menu_m
+}
+
+if('score @s kc_c_menu_m matches 16') {
+  /give @s minecraft:firework_rocket{kitcraft:{id:"kitchen_tile"},display:{Name:"{\"translate\":\"Kitchen Tile\",\"italic\":false}",Lore:["{\"translate\":\"Right-click to place\",\"color\":\"dark_green\",\"italic\":false}"]},CustomModelData:705001,Fireworks:{}}
+  /scoreboard players reset @s kc_c_menu_m
+}
+if('score @s kc_c_menu_m matches 26') {
+  /give @s minecraft:firework_rocket{kitcraft:{id:"kitchen_tile"},display:{Name:"{\"translate\":\"Kitchen Tile\",\"italic\":false}",Lore:["{\"translate\":\"Right-click to place\",\"color\":\"dark_green\",\"italic\":false}"]},CustomModelData:705001,Fireworks:{}} 64
+  /scoreboard players reset @s kc_c_menu_m
+}
+
+if('score @s kc_c_menu_m matches 120') {
+  /give @s minecraft:firework_rocket{kitcraft:{id:"lettuce_seeds"},display:{Name:"{\"translate\":\"Lettuce Seeds\",\"italic\":false}",Lore:["{\"translate\":\"Right-click to plant\",\"color\":\"dark_green\",\"italic\":false}"]},CustomModelData:7050001,Fireworks:{}}
+  /scoreboard players reset @s kc_c_menu_m
+}
+if('score @s kc_c_menu_m matches 220') {
+  /give @s minecraft:firework_rocket{kitcraft:{id:"lettuce_seeds"},display:{Name:"{\"translate\":\"Lettuce Seeds\",\"italic\":false}",Lore:["{\"translate\":\"Right-click to plant\",\"color\":\"dark_green\",\"italic\":false}"]},CustomModelData:7050001,Fireworks:{}} 64
+  /scoreboard players reset @s kc_c_menu_m
+}
+
+if('score @s kc_c_menu_m matches 121') {
+  /give @s minecraft:armor_stand{CustomModelData:7051001,display:{Lore:["{\"translate\":\"Right-click to place\",\"italic\":\"false\",\"color\":\"dark_green\"}"],Name:"{\"translate\":\"Lemon Tree Sapling\",\"italic\":\"false\"}"},EntityTag:{NoGravity:1b,Small:1b,Invulnerable:1b,PersistenceRequired:1b,Marker:1b,Invisible:1b,id:"minecraft:armor_stand",Tags:["kitcraft_lemon_tree","kitcraft_lemon_tree_init"]},kitcraft:{id: "lemon_tree_sapling"}}
+  /scoreboard players reset @s kc_c_menu_m
+}
+if('score @s kc_c_menu_m matches 221') {
+  /give @s minecraft:armor_stand{CustomModelData:7051001,display:{Lore:["{\"translate\":\"Right-click to place\",\"italic\":\"false\",\"color\":\"dark_green\"}"],Name:"{\"translate\":\"Lemon Tree Sapling\",\"italic\":\"false\"}"},EntityTag:{NoGravity:1b,Small:1b,Invulnerable:1b,PersistenceRequired:1b,Marker:1b,Invisible:1b,id:"minecraft:armor_stand",Tags:["kitcraft_lemon_tree","kitcraft_lemon_tree_init"]},kitcraft:{id: "lemon_tree_sapling"}} 16
+  /scoreboard players reset @s kc_c_menu_m
 }

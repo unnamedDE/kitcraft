@@ -14,5 +14,7 @@ tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":
 tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_f 12"}},{"text":"] [","color":"reset"},{"text":"64","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_f 22"}},{"text":"] ","color":"reset"},{"translate":"Tasty TNT"}]
 #Ender Cookie
 tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_f 13"}},{"text":"] [","color":"reset"},{"text":"64","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_f 23"}},{"text":"] ","color":"reset"},{"translate":"Ender Cookie"}]
+#Lemon Soda
+tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_f 14"}},{"text":"] [","color":"reset"},{"text":"64","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_f 24"}},{"text":"] ","color":"reset"},{"translate":"Lemon Soda"}]
 tellraw @s {"text":""}
 tellraw @s {"text":""}

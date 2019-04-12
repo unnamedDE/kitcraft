@@ -6,4 +6,4 @@
 ######
 data modify entity @s SelectedItem.tag.kitcraft.Eatable set value 100
 clear @s minecraft:dead_bubble_coral{kitcraft:{Eatable:100}} 1
-data modify entity @s SelectedItem.tag.kitcraft.Eatable set value 2
+data modify entity @s SelectedItem.tag.kitcraft.Eatable set value 2

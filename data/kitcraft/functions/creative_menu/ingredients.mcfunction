@@ -22,5 +22,9 @@ tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":
 tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_i 16"}},{"text":"] [","color":"reset"},{"text":"64","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_i 26"}},{"text":"] ","color":"reset"},{"translate":"Sweet Dough"}]
 #Cookie Dough
 tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_i 17"}},{"text":"] [","color":"reset"},{"text":"64","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_i 27"}},{"text":"] ","color":"reset"},{"translate":"Cookie Dough"}]
+#Lemon
+tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_i 18"}},{"text":"] [","color":"reset"},{"text":"64","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_i 28"}},{"text":"] ","color":"reset"},{"translate":"Lemon"}]
+#Lemon Juice
+tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_i 19"}},{"text":"] [","color":"reset"},{"text":"64","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_i 29"}},{"text":"] ","color":"reset"},{"translate":"Lemon Juice"}]
 tellraw @s {"text":""}
 tellraw @s {"text":""}
