@@ -21,6 +21,8 @@ tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":
 tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 15"}},{"text":"] [","color":"reset"},{"text":"16","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 25"}},{"text":"] ","color":"reset"},{"translate":"Trashcan"}]
 #Kitchen Tile
 #/tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 16"}},{"text":"] [","color":"reset"},{"text":"64","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 26"}},{"text":"] ","color":"reset"},{"translate":"Kitchen Tile"}]
+#Crop Harvester
+tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 17"}},{"text":"] [","color":"reset"},{"text":"16","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 27"}},{"text":"] ","color":"reset"},{"translate":"Crop Harvester"}]
 tellraw @s {"text":""}
 tellraw @s [{"text":"<== ","color":"aqua"},{"translate":"Misc","color":"red"},{"text":" ==>","color":"aqua"}]
 #Lettuce Seeds

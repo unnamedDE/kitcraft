@@ -1,0 +1,102 @@
+#file: ./crop_harvester/main
+
+/function kitcraft:blocks/crop_harvester/place/detect
+
+asat(@e[tag=kitcraft_crop_harvester]) {
+  if(!'block ~ ~ ~ minecraft:cobblestone') {
+    /function kitcraft:blocks/crop_harvester/destroy
+  }
+  /scoreboard players reset @s kc_count
+  //function kitcraft:blocks/crop_harvester/harvest
+}
+
+/execute as @e[type=armor_stand,tag=kitcraft_crop_harvester_vis] run data merge entity @s {Fire:1000s}
+
+/kill @e[type=armor_stand,tag=kitcraft_crop_harvester_detect]
+
+#file: ./crop_harvester/schedule/a
+
+/schedule function kitcraft:blocks/crop_harvester/schedule/b 5s
+asat(@e[tag=kitcraft_crop_harvester]) {
+  /function kitcraft:blocks/crop_harvester/harvest
+}
+
+#file: ./crop_harvester/schedule/b
+
+/schedule function kitcraft:blocks/crop_harvester/schedule/a 5s
+asat(@e[tag=kitcraft_crop_harvester]) {
+  /function kitcraft:blocks/crop_harvester/harvest
+}
+
+#file: ./crop_harvester/place/detect
+
+asat('@e[type=armor_stand,tag=kitcraft_crop_harvester_init]') {
+  /function kitcraft:blocks/crop_harvester/place/place
+}
+
+#file: ./crop_harvester/place/place
+
+/tag @s remove kitcraft_crop_harvester_init
+/setblock ~ ~ ~ cobblestone
+/execute align xyz run summon armor_stand ~0.5 ~0.5 ~0.5 {Tags: ["kitcraft_crop_harvester_vis"],Invisible:1,Marker:1,NoGravity:1,ArmorItems:[{},{},{},{id:"minecraft:armor_stand",Count:1b,tag:{CustomModelData:705106}}]}
+
+#file: ./crop_harvester/destroy
+
+/kill @s[type=armor_stand]
+/kill @e[type=armor_stand,tag=kitcraft_crop_harvester_vis,limit=1,sort=nearest]
+/data merge entity @e[type=item,limit=1,sort=nearest,distance=..2,nbt={Item:{id:"minecraft:cobblestone",Count:1b}}] {Item:{id:"minecraft:armor_stand",Count:1b,tag:{CustomModelData:705106,kitcraft:{id:"crop_harvester_place"},display:{Name:"{\"translate\":\"Crop Harvester\",\"italic\":\"false\"}",Lore:["{\"translate\":\"Right-click to place\",\"italic\":\"false\",\"color\":\"dark_green\"}"]},EntityTag:{NoGravity:1b,Invulnerable:1b,Small:1b,Marker:1b,Invisible:1b,PersistenceRequired:1b,Tags:["kitcraft_crop_harvester","kitcraft_crop_harvester_init"]}}}}
+
+#file: ./crop_harvester/harvest
+
+if('block ~ ~ ~ minecraft:farmland') {
+  /execute align xz run summon armor_stand ~.5 ~ ~.5 {NoGravity:1b,Marker:1b,Small:1b,Invisible:1b,Tags:["kitcraft_crop_harvester_detect"]}
+  if('block ~ ~1 ~ minecraft:wheat[age=7]') {
+    /setblock ~ ~1 ~ minecraft:wheat[age=0] destroy
+  }
+  if('block ~ ~1 ~ minecraft:potatoes[age=7]') {
+    /setblock ~ ~1 ~ minecraft:potatoes[age=0] destroy
+  }
+  if('block ~ ~1 ~ minecraft:beetroots[age=3]') {
+    /setblock ~ ~1 ~ minecraft:beetroots[age=0] destroy
+  }
+  if('block ~ ~1 ~ minecraft:carrots[age=7]') {
+    /setblock ~ ~1 ~ minecraft:carrots[age=0] destroy
+  }
+}
+if('block ~ ~ ~ minecraft:dirt') {
+  /execute align xz run summon armor_stand ~.5 ~ ~.5 {NoGravity:1b,Marker:1b,Small:1b,Invisible:1b,Tags:["kitcraft_crop_harvester_detect"]}
+  if('block ~ ~1 ~ minecraft:pumpkin') {
+    /setblock ~ ~1 ~ air destroy
+  }
+  if('block ~ ~1 ~ minecraft:melon') {
+    /setblock ~ ~1 ~ air destroy
+  }
+  if('block ~ ~1 ~ minecraft:sugar_cane' && 'block ~ ~2 ~ minecraft:sugar_cane') {
+    /setblock ~ ~2 ~ air destroy
+  }
+  if('block ~ ~1 ~ minecraft:bamboo' && 'block ~ ~2 ~ minecraft:bamboo') {
+    /setblock ~ ~2 ~ air destroy
+  }
+  if('block ~ ~1 ~ minecraft:kelp_plant' && 'block ~ ~2 ~ minecraft:kelp') {
+    /setblock ~ ~2 ~ water destroy
+  }
+}
+
+positioned('~1 ~ ~' || '~-1 ~ ~' || '~ ~ ~1' ||'~ ~ ~-1' ) {
+  if('block ~ ~ ~ minecraft:farmland' || 'block ~ ~ ~ minecraft:dirt') {
+    if(!'entity @e[type=armor_stand,distance=...75,tag=kitcraft_crop_harvester_detect]') {
+      /scoreboard players add @s kc_count 1
+      if('score @s kc_count matches ..121') {
+        /function kitcraft:blocks/crop_harvester/harvest
+      }
+    }
+  }
+  if('block ~ ~ ~ minecraft:farmland' || 'block ~ ~ ~ minecraft:dirt') {
+    if(!'entity @e[type=armor_stand,distance=...75,tag=kitcraft_crop_harvester_detect]') {
+      /scoreboard players add @s kc_count 1
+      if('score @s kc_count matches ..121') {
+        /function kitcraft:blocks/crop_harvester/harvest
+      }
+    }
+  }
+}

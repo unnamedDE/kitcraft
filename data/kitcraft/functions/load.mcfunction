@@ -25,6 +25,7 @@ scoreboard objectives add kc_req_g_time dummy "Required Growth Time"
 scoreboard objectives add kc_c_menu_f dummy "Creative Menu Item ID"
 scoreboard objectives add kc_c_menu_i dummy "Creative Menu Item ID"
 scoreboard objectives add kc_c_menu_m dummy "Creative Menu Item ID"
+scoreboard objectives add kc_count dummy "Counter"
 scoreboard objectives add kc_random dummy
 scoreboard objectives add kc_random_range dummy
 
@@ -38,3 +39,5 @@ scoreboard players set 1 kc_numbers 1
 scoreboard players set -1 kc_numbers -1
 scoreboard players set 2 kc_numbers 2
 scoreboard players set -2 kc_numbers -2
+
+schedule function kitcraft:blocks/crop_harvester/schedule/a 1t

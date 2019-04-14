@@ -34,6 +34,8 @@
 /tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 15"}},{"text":"] [","color":"reset"},{"text":"16","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 25"}},{"text":"] ","color":"reset"},{"translate":"Trashcan"}]
 #Kitchen Tile
 #/tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 16"}},{"text":"] [","color":"reset"},{"text":"64","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 26"}},{"text":"] ","color":"reset"},{"translate":"Kitchen Tile"}]
+#Crop Harvester
+/tellraw @s [{"text":"► ["},{"text":"1","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 17"}},{"text":"] [","color":"reset"},{"text":"16","color":"green","clickEvent":{"action":"run_command","value":"/scoreboard players set @s kc_c_menu_m 27"}},{"text":"] ","color":"reset"},{"translate":"Crop Harvester"}]
 
 /tellraw @s {"text":""}
 /tellraw @s [{"text":"<== ","color":"aqua"},{"translate":"Misc","color":"red"},{"text":" ==>","color":"aqua"}]
@@ -270,6 +272,15 @@ if('score @s kc_c_menu_m matches 16') {
 }
 if('score @s kc_c_menu_m matches 26') {
   /give @s minecraft:firework_rocket{kitcraft:{id:"kitchen_tile"},display:{Name:"{\"translate\":\"Kitchen Tile\",\"italic\":false}",Lore:["{\"translate\":\"Right-click to place\",\"color\":\"dark_green\",\"italic\":false}"]},CustomModelData:705001,Fireworks:{}} 64
+  /scoreboard players reset @s kc_c_menu_m
+}
+
+if('score @s kc_c_menu_m matches 17') {
+  /give @s minecraft:armor_stand{CustomModelData:705106,kitcraft:{id:"crop_harvester_place"},display:{Name:"{\"translate\":\"Crop Harvester\",\"italic\":\"false\"}",Lore:["{\"translate\":\"Right-click to place\",\"italic\":\"false\",\"color\":\"dark_green\"}"]},EntityTag:{NoGravity:1b,Invulnerable:1b,Small:1b,Marker:1b,Invisible:1b,PersistenceRequired:1b,Tags:["kitcraft_crop_harvester","kitcraft_crop_harvester_init"]}}
+  /scoreboard players reset @s kc_c_menu_m
+}
+if('score @s kc_c_menu_m matches 27') {
+  /give @s minecraft:armor_stand{CustomModelData:705106,kitcraft:{id:"crop_harvester_place"},display:{Name:"{\"translate\":\"Crop Harvester\",\"italic\":\"false\"}",Lore:["{\"translate\":\"Right-click to place\",\"italic\":\"false\",\"color\":\"dark_green\"}"]},EntityTag:{NoGravity:1b,Invulnerable:1b,Small:1b,Marker:1b,Invisible:1b,PersistenceRequired:1b,Tags:["kitcraft_crop_harvester","kitcraft_crop_harvester_init"]}} 16
   /scoreboard players reset @s kc_c_menu_m
 }
 

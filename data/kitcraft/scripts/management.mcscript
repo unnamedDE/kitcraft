@@ -21,7 +21,10 @@
 /scoreboard objectives remove kc_numbers
 /scoreboard objectives remove kc_random
 /scoreboard objectives remove kc_random_range
-/scoreboard objectives remove kc_creative_menu
+/scoreboard objectives remove kc_c_menu_i
+/scoreboard objectives remove kc_c_menu_f
+/scoreboard objectives remove kc_c_menu_m
+/scoreboard objectives remove kc_count
 /*
 #
 /kill @e[type=armor_stand,tag=kitcraft_oven]
@@ -32,6 +35,11 @@
 /kill @e[type=armor_stand,tag=kitcraft_kitchen_counter]
 /kill @e[type=armor_stand,tag=kitcraft_lettuce]
 /kill @e[type=armor_stand,tag=kitcraft_lettuce_vis]
+/kill @e[type=armor_stand,tag=kitcraft_crop_harvester]
+/kill @e[type=armor_stand,tag=kitcraft_crop_harvester_vis]
+/kill @e[type=armor_stand,tag=kitcraft_lemon_tree]
+/kill @e[type=armor_stand,tag=kitcraft_lemon_tree_fruit]
+/kill @e[type=armor_stand,tag=kitcraft_lemon_tree_fruit_vis]
 */
 #
 /tellraw @s {"text":"Successfully uninstalled kitcraft version $(version)","color":"blue","hoverEvent":{"action":"show_text","value":":("}}
