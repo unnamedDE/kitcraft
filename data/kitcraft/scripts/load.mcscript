@@ -38,3 +38,4 @@
 /scoreboard players set -2 kc_numbers -2
 #
 /schedule function kitcraft:blocks/crop_harvester/schedule/a 1t
+/schedule function kitcraft:blocks/fruit_picker/schedule/a 1t

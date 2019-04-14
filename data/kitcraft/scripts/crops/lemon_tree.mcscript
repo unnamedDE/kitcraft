@@ -19,16 +19,22 @@ asat(@e[type=armor_stand,tag=kitcraft_lemon_tree_fruit]) {
   /function kitcraft:crops/lemon_tree/fruit/harvest
 }
 
+as(@a[nbt={SelectedItem:{id:"minecraft:dead_bubble_coral",tag:{kitcraft:{id:"lemon"},CustomModelData:7051000}}}]) {
+  /data modify entity @s SelectedItem.tag.CustomModelData set value 7051001
+}
+as(@e[type=item,nbt={Item:{id:"minecraft:dead_bubble_coral",tag:{kitcraft:{id:"lemon"},CustomModelData:7051000}}}]) {
+  /data modify entity @s Item.tag.CustomModelData set value 7051001
+}
+
 /function kitcraft:crops/lemon_tree/destroy
 
 #file: ./lemon_tree/plant
 
-if('block ~ ~-1 ~ minecraft:dirt' || 'block ~ ~-1 ~ minecraft:coarse_dirt' || 'block ~ ~-1 ~ minecraft:grass_block') {
+if('block ~ ~-1 ~ #kitcraft:tree_plantable') {
   /setblock ~ ~ ~ minecraft:jungle_sapling
   /tag @s remove kitcraft_lemon_tree_init
   /tag @s add kitcraft_lemon_tree_detect_growing
-}
-if(!'block ~ ~-1 ~ minecraft:dirt' && !'block ~ ~-1 ~ minecraft:coarse_dirt' && !'block ~ ~-1 ~ minecraft:grass_block') {
+} else {
   /summon item ~ ~ ~ {Item:{id:"minecraft:armor_stand",Count:1b,tag:{CustomModelData:7051001,display:{Lore:["{\"translate\":\"Right-click to place\",\"italic\":\"false\",\"color\":\"dark_green\"}"],Name:"{\"translate\":\"Lemon Tree Sapling\",\"italic\":\"false\"}"},EntityTag:{NoGravity:1b,Small:1b,Invulnerable:1b,PersistenceRequired:1b,Marker:1b,Invisible:1b,id:"minecraft:armor_stand",Tags:["kitcraft_lemon_tree","kitcraft_lemon_tree_init"]},kitcraft:{id: "lemon_tree_sapling"}}}}
   /kill @s[type=armor_stand]
 }
@@ -184,7 +190,7 @@ if('score @s kc_growth_time = @s kc_req_g_time' && 'entity @s[tag=!kitcraft_frui
 #file: ./lemon_tree/fruit/grow
 
 /tag @s add kitcraft_fruit_grown
-/replaceitem entity @s weapon.mainhand minecraft:dead_bubble_coral{display:{Name:"{\"translate\":\"Lemon\",\"italic\":false}"},CustomModelData:7051001,kitcraft:{id:"lemon",NoPlacing:1}} 1
+/replaceitem entity @s weapon.mainhand minecraft:dead_bubble_coral{display:{Name:"{\"translate\":\"Lemon\",\"italic\":false}"},CustomModelData:7051000,kitcraft:{id:"lemon",NoPlacing:1}} 1
 as(@e[type=armor_stand,tag=kitcraft_lemon_tree_fruit_vis,limit=1,sort=nearest]) {
   /replaceitem entity @s armor.head minecraft:dead_tube_coral{CustomModelData:7050001} 1
 }

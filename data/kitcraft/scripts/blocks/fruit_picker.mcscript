@@ -1,0 +1,74 @@
+#file: ./fruit_picker/main
+
+/function kitcraft:blocks/fruit_picker/place/detect
+
+asat(@e[tag=kitcraft_fruit_picker]) {
+  if(!'block ~ ~ ~ minecraft:dirt') {
+    /function kitcraft:blocks/fruit_picker/destroy
+  }
+  /scoreboard players reset @s kc_count
+  //function kitcraft:blocks/fruit_picker/harvest
+}
+
+/execute as @e[type=armor_stand,tag=kitcraft_fruit_picker_vis] run data merge entity @s {Fire:1000s}
+
+/kill @e[type=armor_stand,tag=kitcraft_fruit_picker_detect]
+
+#file: ./fruit_picker/schedule/a
+
+/schedule function kitcraft:blocks/fruit_picker/schedule/b 15s
+asat(@e[tag=kitcraft_fruit_picker]), align('xyz'), positioned('~.5 ~.5 ~.5') {
+  /function kitcraft:blocks/fruit_picker/harvest
+}
+
+#file: ./fruit_picker/schedule/b
+
+/schedule function kitcraft:blocks/fruit_picker/schedule/a 15s
+asat(@e[tag=kitcraft_fruit_picker]), align('xyz'), positioned('~.5 ~.5 ~.5') {
+  /function kitcraft:blocks/fruit_picker/harvest
+}
+
+#file: ./fruit_picker/place/detect
+
+asat('@e[type=armor_stand,tag=kitcraft_fruit_picker_init]') {
+  /function kitcraft:blocks/fruit_picker/place/place
+}
+
+#file: ./fruit_picker/place/place
+
+/tag @s remove kitcraft_fruit_picker_init
+/setblock ~ ~ ~ dirt
+/execute align xyz run summon armor_stand ~0.5 ~0.5 ~0.5 {Tags: ["kitcraft_fruit_picker_vis"],Invisible:1,Marker:1,NoGravity:1,ArmorItems:[{},{},{},{id:"minecraft:armor_stand",Count:1b,tag:{CustomModelData:705107}}]}
+
+#file: ./fruit_picker/destroy
+
+/kill @s[type=armor_stand]
+/kill @e[type=armor_stand,tag=kitcraft_fruit_picker_vis,limit=1,sort=nearest]
+/data merge entity @e[type=item,limit=1,sort=nearest,distance=..2,nbt={Item:{id:"minecraft:dirt",Count:1b}}] {Item:{id:"minecraft:armor_stand",Count:1b,tag:{CustomModelData:705107,kitcraft:{id:"fruit_picker_place"},display:{Name:"{\"translate\":\"Fruit Picker\",\"italic\":\"false\"}",Lore:["{\"translate\":\"Right-click to place\",\"italic\":\"false\",\"color\":\"dark_green\"}"]},EntityTag:{NoGravity:1b,Invulnerable:1b,Small:1b,Marker:1b,Invisible:1b,PersistenceRequired:1b,Tags:["kitcraft_fruit_picker","kitcraft_fruit_picker_init"]}}}}
+
+#file: ./fruit_picker/harvest
+
+if('block ~ ~ ~ #minecraft:leaves') {
+  align('y'), as('@e[type=armor_stand,tag=kitcraft_fruit_grown,distance=...5]') {
+    /function kitcraft:blocks/fruit_picker/harvest_fruit
+  }
+}
+
+/execute align xz run summon area_effect_cloud ~.5 ~ ~.5 {NoGravity:1b,Radius:0.1f,Duration:0,Tags:["kitcraft_fruit_picker_detect"]}
+positioned('~1 ~ ~' || '~-1 ~ ~' || '~ ~1 ~' || '~ ~ ~1' || '~ ~ ~-1' || '~1 ~ ~1' || '~-1 ~ ~1' || '~1 ~ ~-1' || '~-1 ~ ~-1') {
+  if('block ~ ~ ~ #minecraft:logs' || 'block ~ ~ ~ #minecraft:leaves') {
+    if(!'entity @e[type=area_effect_cloud,distance=...75,tag=kitcraft_fruit_picker_detect]') {
+      /function kitcraft:blocks/fruit_picker/harvest
+    }
+  }
+}
+
+#file: ./fruit_picker/harvest_fruit
+
+/summon item ~ ~-1 ~ {Item:{id:"minecraft:arrow",Count:1b},Tags:["kitcraft_fruit_picker_harvested_fruit"]}
+positioned('~ ~-1 ~') {
+  /data modify entity @e[type=minecraft:item,tag=kitcraft_fruit_picker_harvested_fruit,limit=1,sort=nearest] Item.id set from entity @s HandItems[0].id
+  /data modify entity @e[type=minecraft:item,tag=kitcraft_fruit_picker_harvested_fruit,limit=1,sort=nearest] Item.Count set from entity @s HandItems[0].Count
+  /data modify entity @e[type=minecraft:item,tag=kitcraft_fruit_picker_harvested_fruit,limit=1,sort=nearest] Item.tag set from entity @s HandItems[0].tag
+}
+/replaceitem entity @s weapon.mainhand air

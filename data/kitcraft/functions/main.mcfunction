@@ -18,6 +18,7 @@ function kitcraft:blocks/sink/main
 function kitcraft:blocks/trash_can/main
 function kitcraft:blocks/kitchen_counter/main
 function kitcraft:blocks/crop_harvester/main
+function kitcraft:blocks/fruit_picker/main
 function kitcraft:blocks/kitchen_tile/main
 
 #Crops

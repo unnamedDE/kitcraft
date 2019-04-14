@@ -11,4 +11,6 @@ execute as @e[type=armor_stand,tag=kitcraft_lemon_tree_fruit] at @s run function
 execute as @e[type=armor_stand,tag=kitcraft_lemon_tree_fruit] at @s run function kitcraft:crops/lemon_tree/fruit/harvest
 execute as @e[type=armor_stand,tag=kitcraft_lemon_tree_fruit] at @s run function kitcraft:crops/lemon_tree/fruit/grow_detect
 execute as @e[type=armor_stand,tag=kitcraft_lemon_tree_fruit] at @s run function kitcraft:crops/lemon_tree/fruit/harvest
+execute as @a[nbt={SelectedItem:{id:"minecraft:dead_bubble_coral",tag:{kitcraft:{id:"lemon"},CustomModelData:7051000}}}] run data modify entity @s SelectedItem.tag.CustomModelData set value 7051001
+execute as @e[type=item,nbt={Item:{id:"minecraft:dead_bubble_coral",tag:{kitcraft:{id:"lemon"},CustomModelData:7051000}}}] run data modify entity @s Item.tag.CustomModelData set value 7051001
 function kitcraft:crops/lemon_tree/destroy
