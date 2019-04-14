@@ -6,4 +6,4 @@
 ######
 tag @s add kitcraft_kitchen_counter_trash_can
 replaceitem block ~ ~ ~ container.0 air
-tellraw @a[tag=kitcraft_receive_debug,distance=..15] [{"text":"kitcraft debug => ","color":"aqua","hoverEvent":{"action":"show_text","value":"Click to stop receiving this messages"},"clickEvent":{"action":"run_command","value":"/tag @s remove kitcraft_receive_debug"}},{"text":"Trashcan for kitchen counter activated","color":"reset","bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"hoverEvent":{"action":"show_text","value":"-no info-"}}]
+localDebug(Trashcan for kitchen counter activated)

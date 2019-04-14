@@ -17,6 +17,9 @@ execute if block ~ ~ ~ minecraft:dirt if block ~ ~1 ~ minecraft:sugar_cane if bl
 execute if block ~ ~ ~ minecraft:dirt if block ~ ~1 ~ minecraft:bamboo if block ~ ~2 ~ minecraft:bamboo run setblock ~ ~2 ~ air destroy
 execute if block ~ ~ ~ minecraft:dirt if block ~ ~1 ~ minecraft:kelp_plant if block ~ ~2 ~ minecraft:kelp run setblock ~ ~2 ~ water destroy
 
+execute if block ~ ~ ~ minecraft:farmland positioned ~ ~1 ~ as @e[type=armor_stand,tag=kitcraft_crop_grown,distance=..1,limit=1,sort=nearest] at @s run function kitcraft:blocks/crop_harvester/harvest_custom
+execute if block ~ ~ ~ minecraft:dirt positioned ~ ~1 ~ as @e[type=armor_stand,tag=kitcraft_crop_grown,distance=..1,limit=1,sort=nearest] at @s run function kitcraft:blocks/crop_harvester/harvest_custom
+
 execute positioned ~1 ~ ~ if block ~ ~ ~ minecraft:farmland unless entity @e[type=armor_stand,distance=...75,tag=kitcraft_crop_harvester_detect] run scoreboard players add @s kc_count 1
 execute positioned ~-1 ~ ~ if block ~ ~ ~ minecraft:farmland unless entity @e[type=armor_stand,distance=...75,tag=kitcraft_crop_harvester_detect] run scoreboard players add @s kc_count 1
 execute positioned ~ ~ ~1 if block ~ ~ ~ minecraft:farmland unless entity @e[type=armor_stand,distance=...75,tag=kitcraft_crop_harvester_detect] run scoreboard players add @s kc_count 1
@@ -48,4 +51,4 @@ execute positioned ~ ~ ~-1 if block ~ ~ ~ minecraft:farmland unless entity @e[ty
 execute positioned ~1 ~ ~ if block ~ ~ ~ minecraft:dirt unless entity @e[type=armor_stand,distance=...75,tag=kitcraft_crop_harvester_detect] if score @s kc_count matches ..121 run function kitcraft:blocks/crop_harvester/harvest
 execute positioned ~-1 ~ ~ if block ~ ~ ~ minecraft:dirt unless entity @e[type=armor_stand,distance=...75,tag=kitcraft_crop_harvester_detect] if score @s kc_count matches ..121 run function kitcraft:blocks/crop_harvester/harvest
 execute positioned ~ ~ ~1 if block ~ ~ ~ minecraft:dirt unless entity @e[type=armor_stand,distance=...75,tag=kitcraft_crop_harvester_detect] if score @s kc_count matches ..121 run function kitcraft:blocks/crop_harvester/harvest
-execute positioned ~ ~ ~-1 if block ~ ~ ~ minecraft:dirt unless entity @e[type=armor_stand,distance=...75,tag=kitcraft_crop_harvester_detect] if score @s kc_count matches ..121 run function kitcraft:blocks/crop_harvester/harvest
+execute positioned ~ ~ ~-1 if block ~ ~ ~ minecraft:dirt unless entity @e[type=armor_stand,distance=...75,tag=kitcraft_crop_harvester_detect] if score @s kc_count matches ..121 run function kitcraft:blocks/crop_harvester/harvest

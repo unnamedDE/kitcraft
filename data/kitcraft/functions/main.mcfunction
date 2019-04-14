@@ -35,4 +35,6 @@ function kitcraft:noplacing/detect
 function kitcraft:eating/main
 function kitcraft:smash_lib/recipes
 function kitcraft:random/main
-execute as @a at @s run function kitcraft:creative_menu/main
+execute as @a at @s run function kitcraft:creative_menu/main
+execute as @e[type=item,nbt={Item:{tag:{kitcraft:{NoPickup:1}}}}] at @s run data modify entity @s PickupDelay set value 5
+execute as @e[type=item,nbt={Item:{tag:{kitcraft:{NoPickup:1}}}}] at @s run tag @s add kitcraft_NoPickup

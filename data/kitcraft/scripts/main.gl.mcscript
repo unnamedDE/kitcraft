@@ -45,3 +45,7 @@ as(@a[tag=!kitcraft_welcome_sent]) {
 asat(@a) {
   /function kitcraft:creative_menu/main
 }
+asat(@e[type=item,nbt={Item:{tag:{kitcraft:{NoPickup:1}}}}]) {
+  /data modify entity @s PickupDelay set value 5
+  /tag @s add kitcraft_NoPickup
+}

@@ -7,7 +7,6 @@ asat(@e[tag=kitcraft_crop_harvester]) {
     /function kitcraft:blocks/crop_harvester/destroy
   }
   /scoreboard players reset @s kc_count
-  //function kitcraft:blocks/crop_harvester/harvest
 }
 
 /execute as @e[type=armor_stand,tag=kitcraft_crop_harvester_vis] run data merge entity @s {Fire:1000s}
@@ -16,14 +15,14 @@ asat(@e[tag=kitcraft_crop_harvester]) {
 
 #file: ./crop_harvester/schedule/a
 
-/schedule function kitcraft:blocks/crop_harvester/schedule/b 5s
+/schedule function kitcraft:blocks/crop_harvester/schedule/b 10s
 asat(@e[tag=kitcraft_crop_harvester]) {
   /function kitcraft:blocks/crop_harvester/harvest
 }
 
 #file: ./crop_harvester/schedule/b
 
-/schedule function kitcraft:blocks/crop_harvester/schedule/a 5s
+/schedule function kitcraft:blocks/crop_harvester/schedule/a 10s
 asat(@e[tag=kitcraft_crop_harvester]) {
   /function kitcraft:blocks/crop_harvester/harvest
 }
@@ -82,6 +81,12 @@ if('block ~ ~ ~ minecraft:dirt') {
   }
 }
 
+if('block ~ ~ ~ minecraft:farmland' || 'block ~ ~ ~ minecraft:dirt') {
+  positioned('~ ~1 ~'), asat(@e[type=armor_stand,tag=kitcraft_crop_grown,distance=..1,limit=1,sort=nearest]) {
+    /function kitcraft:blocks/crop_harvester/harvest_custom
+  }
+}
+
 positioned('~1 ~ ~' || '~-1 ~ ~' || '~ ~ ~1' ||'~ ~ ~-1' ) {
   if('block ~ ~ ~ minecraft:farmland' || 'block ~ ~ ~ minecraft:dirt') {
     if(!'entity @e[type=armor_stand,distance=...75,tag=kitcraft_crop_harvester_detect]') {
@@ -99,4 +104,31 @@ positioned('~1 ~ ~' || '~-1 ~ ~' || '~ ~ ~1' ||'~ ~ ~-1' ) {
       }
     }
   }
+}
+
+#file: ./crop_harvester/harvest_custom
+
+/summon item ~ ~ ~ {Item:{id:"minecraft:arrow",Count:1b},Tags:["kitcraft_crop_harvester_harvested"]}
+/data modify entity @e[type=minecraft:item,tag=kitcraft_crop_harvester_harvested,limit=1,sort=nearest] Item.id set from entity @s HandItems[0].tag.kitcraft.cropDrop.crop.id
+/data modify entity @e[type=minecraft:item,tag=kitcraft_crop_harvester_harvested,limit=1,sort=nearest] Item.Count set from entity @s HandItems[0].tag.kitcraft.cropDrop.crop.Count
+/data modify entity @e[type=minecraft:item,tag=kitcraft_crop_harvester_harvested,limit=1,sort=nearest] Item.tag set from entity @s HandItems[0].tag.kitcraft.cropDrop.crop.tag
+/tag @e[type=minecraft:item,tag=kitcraft_crop_harvester_harvested,limit=1,sort=nearest] remove kitcraft_crop_harvester_harvested
+/summon item ~ ~ ~ {Item:{id:"minecraft:arrow",Count:1b},Tags:["kitcraft_crop_harvester_harvested"]}
+/data modify entity @e[type=minecraft:item,tag=kitcraft_crop_harvester_harvested,limit=1,sort=nearest] Item.id set from entity @s HandItems[0].tag.kitcraft.cropDrop.seed.id
+/data modify entity @e[type=minecraft:item,tag=kitcraft_crop_harvester_harvested,limit=1,sort=nearest] Item.Count set from entity @s HandItems[0].tag.kitcraft.cropDrop.seed.Count
+/data modify entity @e[type=minecraft:item,tag=kitcraft_crop_harvester_harvested,limit=1,sort=nearest] Item.tag set from entity @s HandItems[0].tag.kitcraft.cropDrop.seed.tag
+/tag @e[type=minecraft:item,tag=kitcraft_crop_harvester_harvested,limit=1,sort=nearest] remove kitcraft_crop_harvester_harvested
+/summon item ~ ~ ~ {Item:{id:"minecraft:dead_bubble_coral",Count:1b,tag:{CustomModelData:7051001,kitcraft:{replantCrop:"",NoPickup:1}}},Tags:["kitcraft_crop_harvester_replant"]}
+/data modify entity @e[type=minecraft:item,tag=kitcraft_crop_harvester_replant,limit=1,sort=nearest] Item.tag.kitcraft.replantCrop set from entity @s HandItems[0].tag.kitcraft.cropDrop.replant
+/function #kitcraft:crop_harvester_replant
+/kill @e[type=item,tag=kitcraft_crop_harvester_replant]
+positioned('~ ~-1.5 ~') {
+  /kill @e[type=armor_stand,tag=kitcraft_lettuce_vis,distance=...5,limit=1,sort=nearest]
+}
+/kill @s
+
+#file: ./crop_harvester/replant
+
+asat(@e[type=item,nbt={Item:{tag:{kitcraft:{replantCrop:"lettuce"}}}}]) {
+  /function kitcraft:crops/lettuce/place
 }
