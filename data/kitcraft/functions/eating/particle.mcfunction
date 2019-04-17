@@ -22,6 +22,8 @@ execute at @s[nbt={SelectedItem:{tag:{kitcraft:{particle:"green"}}}}] positioned
 execute at @s[nbt={SelectedItem:{tag:{kitcraft:{particle:"red"}}}}] positioned ~ ~1.2 ~ run particle minecraft:block red_concrete ^ ^ ^0.4 0.4 0.4 0.4 1 0 force @s
 execute at @s[nbt={SelectedItem:{tag:{kitcraft:{particle:"black"}}}}] positioned ~ ~1.2 ~ run particle minecraft:block black_concrete ^ ^ ^0.4 0.4 0.4 0.4 1 0 force @s
 
+#Special
+execute at @s[nbt={SelectedItem:{tag:{kitcraft:{particle:"water"}}}}] positioned ~ ~1.2 ~ run particle minecraft:block water ^ ^ ^0.4 0.4 0.4 0.4 1 0 force @s
 
 
 #Effects

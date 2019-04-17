@@ -7,4 +7,4 @@
 advancement revoke @s only kitcraft:craft_cutting_board_utility
 recipe take @s kitcraft:cutting_board
 clear @s minecraft:structure_void 1
-function kitcraft:give/blocks/cutting_board
+scoreboard players set @s kc_c_menu_m 11

@@ -9,6 +9,7 @@ execute if block ~ ~ ~ minecraft:farmland if block ~ ~1 ~ minecraft:wheat[age=7]
 execute if block ~ ~ ~ minecraft:farmland if block ~ ~1 ~ minecraft:potatoes[age=7] run setblock ~ ~1 ~ minecraft:potatoes[age=0] destroy
 execute if block ~ ~ ~ minecraft:farmland if block ~ ~1 ~ minecraft:beetroots[age=3] run setblock ~ ~1 ~ minecraft:beetroots[age=0] destroy
 execute if block ~ ~ ~ minecraft:farmland if block ~ ~1 ~ minecraft:carrots[age=7] run setblock ~ ~1 ~ minecraft:carrots[age=0] destroy
+execute if block ~ ~ ~ minecraft:farmland if block ~ ~1 ~ minecraft:sweet_berry_bush[age=3] run setblock ~ ~1 ~ minecraft:sweet_berry_bush[age=1] destroy
 
 execute if block ~ ~ ~ minecraft:dirt align xz run summon armor_stand ~.5 ~ ~.5 {NoGravity:1b,Marker:1b,Small:1b,Invisible:1b,Tags:["kitcraft_crop_harvester_detect"]}
 execute if block ~ ~ ~ minecraft:dirt if block ~ ~1 ~ minecraft:pumpkin run setblock ~ ~1 ~ air destroy
@@ -16,6 +17,7 @@ execute if block ~ ~ ~ minecraft:dirt if block ~ ~1 ~ minecraft:melon run setblo
 execute if block ~ ~ ~ minecraft:dirt if block ~ ~1 ~ minecraft:sugar_cane if block ~ ~2 ~ minecraft:sugar_cane run setblock ~ ~2 ~ air destroy
 execute if block ~ ~ ~ minecraft:dirt if block ~ ~1 ~ minecraft:bamboo if block ~ ~2 ~ minecraft:bamboo run setblock ~ ~2 ~ air destroy
 execute if block ~ ~ ~ minecraft:dirt if block ~ ~1 ~ minecraft:kelp_plant if block ~ ~2 ~ minecraft:kelp run setblock ~ ~2 ~ water destroy
+execute if block ~ ~ ~ minecraft:dirt if block ~ ~1 ~ minecraft:sweet_berry_bush[age=3] run setblock ~ ~1 ~ minecraft:sweet_berry_bush[age=1] destroy
 
 execute if block ~ ~ ~ minecraft:farmland positioned ~ ~1 ~ as @e[type=armor_stand,tag=kitcraft_crop_grown,distance=..1,limit=1,sort=nearest] at @s run function kitcraft:blocks/crop_harvester/harvest_custom
 execute if block ~ ~ ~ minecraft:dirt positioned ~ ~1 ~ as @e[type=armor_stand,tag=kitcraft_crop_grown,distance=..1,limit=1,sort=nearest] at @s run function kitcraft:blocks/crop_harvester/harvest_custom

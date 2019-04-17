@@ -156,7 +156,7 @@ asat(@e[type=armor_stand,tag=kitcraft_lemon_tree_fruit_init,distance=..50]) {
   positioned('~ ~-1 ~'), align('xyz') {
     /summon armor_stand ~.5 ~.5 ~.5 {NoGravity:1b,Invulnerable:1b,Marker:1b,Invisible:1b,DisabledSlots:4144959,Tags:["kitcraft_lemon_tree_fruit_vis"],ArmorItems:[{},{},{},{}]}
     /summon armor_stand ~.5 ~.5 ~.5 {NoGravity:1b,Invulnerable:1b,ShowArms:1b,Small:1b,Invisible:1b,Tags:["kitcraft_lemon_tree_fruit"],NoBasePlate:1b,Pose:{RightArm:[180f,0f,0f]},DisabledSlots:4144702,HandItems:[{},{}]}
-    asat(@e[tag=kitcraft_lemon_tree_fruit,limit=1,sort=nearest]) {
+    asat(@e[tag=kitcraft_lemon_tree_fruit]), if(!'score @s kc_req_g_time matches 1..') {
       /function kitcraft:crops/lemon_tree/fruit/set_growth_time
     }
   }

@@ -7,4 +7,4 @@
 advancement revoke @s only kitcraft:craft_trash_can_utility
 recipe take @s kitcraft:trash_can
 clear @s minecraft:structure_void 1
-function kitcraft:give/blocks/trash_can
+scoreboard players set @s kc_c_menu_m 15

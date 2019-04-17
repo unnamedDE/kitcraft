@@ -45,6 +45,13 @@ asat('@e[type=armor_stand,tag=kitcraft_crop_harvester_init]') {
 /kill @e[type=armor_stand,tag=kitcraft_crop_harvester_vis,limit=1,sort=nearest]
 /data merge entity @e[type=item,limit=1,sort=nearest,distance=..2,nbt={Item:{id:"minecraft:cobblestone",Count:1b}}] {Item:{id:"minecraft:armor_stand",Count:1b,tag:{CustomModelData:705106,kitcraft:{id:"crop_harvester_place"},display:{Name:"{\"translate\":\"Crop Harvester\",\"italic\":\"false\"}",Lore:["{\"translate\":\"Right-click to place\",\"italic\":\"false\",\"color\":\"dark_green\"}"]},EntityTag:{NoGravity:1b,Invulnerable:1b,Small:1b,Marker:1b,Invisible:1b,PersistenceRequired:1b,Tags:["kitcraft_crop_harvester","kitcraft_crop_harvester_init"]}}}}
 
+#file: ./crop_harvester/craft
+
+/advancement revoke @s only kitcraft:craft_crop_harvester_utility
+/recipe take @s kitcraft:crop_harvester
+/clear @s minecraft:structure_void 1
+/scoreboard players set @s kc_c_menu_m 17
+
 #file: ./crop_harvester/harvest
 
 if('block ~ ~ ~ minecraft:farmland') {
@@ -60,6 +67,9 @@ if('block ~ ~ ~ minecraft:farmland') {
   }
   if('block ~ ~1 ~ minecraft:carrots[age=7]') {
     /setblock ~ ~1 ~ minecraft:carrots[age=0] destroy
+  }
+  if('block ~ ~1 ~ minecraft:sweet_berry_bush[age=3]') {
+    /setblock ~ ~1 ~ minecraft:sweet_berry_bush[age=1] destroy
   }
 }
 if('block ~ ~ ~ minecraft:dirt') {
@@ -78,6 +88,9 @@ if('block ~ ~ ~ minecraft:dirt') {
   }
   if('block ~ ~1 ~ minecraft:kelp_plant' && 'block ~ ~2 ~ minecraft:kelp') {
     /setblock ~ ~2 ~ water destroy
+  }
+  if('block ~ ~1 ~ minecraft:sweet_berry_bush[age=3]') {
+    /setblock ~ ~1 ~ minecraft:sweet_berry_bush[age=1] destroy
   }
 }
 

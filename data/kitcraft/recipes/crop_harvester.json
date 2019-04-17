@@ -1,0 +1,52 @@
+{
+    "type": "crafting_shaped",
+    "pattern": [
+        "#V#",
+        "iRi",
+        "iii"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:diamond_hoe"
+        },
+        "V": [
+            {
+                "item": "minecraft:carrot"
+            },
+            {
+                "item": "minecraft:potato"
+            },
+            {
+                "item": "minecraft:beetroot"
+            },
+            {
+                "item": "minecraft:wheat"
+            },
+            {
+                "item": "minecraft:melon_slice"
+            },
+            {
+                "item": "minecraft:pumpkin"
+            },
+            {
+                "item": "minecraft:sugar_cane"
+            },
+            {
+                "item": "minecraft:kelp"
+            },
+            {
+                "item": "minecraft:bamboo"
+            }
+        ],
+        "i": {
+            "item": "minecraft:iron_ingot"
+        },
+        "R": {
+            "item": "minecraft:redstone_block"
+        }
+    },
+    "result": {
+        "item": "minecraft:structure_void",
+        "count": 1
+    }
+}

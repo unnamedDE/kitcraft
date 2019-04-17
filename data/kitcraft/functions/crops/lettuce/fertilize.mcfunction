@@ -6,4 +6,4 @@
 ######
 kill @e[type=item,nbt={Item:{id:"minecraft:bone_meal"}},limit=1,sort=nearest]
 scoreboard players add @s kc_growth_time 4000
-execute if score @s kc_growth_time > @s kc_rew_g_time run scoreboard players set @s kc_growth_time 12000
+execute if score @s kc_growth_time > @s kc_req_g_time run scoreboard players operation @s kc_growth_time = @s kc_req_g_time

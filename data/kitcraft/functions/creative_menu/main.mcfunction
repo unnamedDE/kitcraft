@@ -132,6 +132,12 @@ execute if score @s kc_c_menu_m matches 17 run scoreboard players reset @s kc_c_
 execute if score @s kc_c_menu_m matches 27 run give @s minecraft:armor_stand{CustomModelData:705106,kitcraft:{id:"crop_harvester_place"},display:{Name:"{\"translate\":\"Crop Harvester\",\"italic\":\"false\"}",Lore:["{\"translate\":\"Right-click to place\",\"italic\":\"false\",\"color\":\"dark_green\"}"]},EntityTag:{NoGravity:1b,Invulnerable:1b,Small:1b,Marker:1b,Invisible:1b,PersistenceRequired:1b,Tags:["kitcraft_crop_harvester","kitcraft_crop_harvester_init"]}} 16
 execute if score @s kc_c_menu_m matches 27 run scoreboard players reset @s kc_c_menu_m
 
+execute if score @s kc_c_menu_m matches 18 run give @s minecraft:armor_stand{CustomModelData:705107,kitcraft:{id:"fruit_picker_place"},display:{Name:"{\"translate\":\"Fruit Picker\",\"italic\":\"false\"}",Lore:["{\"translate\":\"Right-click to place\",\"italic\":\"false\",\"color\":\"dark_green\"}"]},EntityTag:{NoGravity:1b,Invulnerable:1b,Small:1b,Marker:1b,Invisible:1b,PersistenceRequired:1b,Tags:["kitcraft_fruit_picker","kitcraft_fruit_picker_init"]}}
+execute if score @s kc_c_menu_m matches 18 run scoreboard players reset @s kc_c_menu_m
+
+execute if score @s kc_c_menu_m matches 28 run give @s minecraft:armor_stand{CustomModelData:705107,kitcraft:{id:"fruit_picker_place"},display:{Name:"{\"translate\":\"Fruit Picker\",\"italic\":\"false\"}",Lore:["{\"translate\":\"Right-click to place\",\"italic\":\"false\",\"color\":\"dark_green\"}"]},EntityTag:{NoGravity:1b,Invulnerable:1b,Small:1b,Marker:1b,Invisible:1b,PersistenceRequired:1b,Tags:["kitcraft_fruit_picker","kitcraft_fruit_picker_init"]}} 16
+execute if score @s kc_c_menu_m matches 28 run scoreboard players reset @s kc_c_menu_m
+
 execute if score @s kc_c_menu_m matches 120 run give @s minecraft:firework_rocket{kitcraft:{id:"lettuce_seeds"},display:{Name:"{\"translate\":\"Lettuce Seeds\",\"italic\":false}",Lore:["{\"translate\":\"Right-click to plant\",\"color\":\"dark_green\",\"italic\":false}"]},CustomModelData:7050001,Fireworks:{}}
 execute if score @s kc_c_menu_m matches 120 run scoreboard players reset @s kc_c_menu_m
 

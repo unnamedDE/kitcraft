@@ -57,7 +57,7 @@ positioned('~.5 ~ ~.5'), asat(@e[tag=kitcraft_lettuce_init,limit=1,sort=nearest,
 
 #file: ./lettuce/harvest
 
-if('entity @p[gamemode=!spectator,gamemode=!adventure,distance=...5,scores={kc_sneak=1..}]') {
+if('entity @p[gamemode=!spectator,gamemode=!adventure,distance=...5,scores={kc_sneak=1..},nbt={OnGround:1b}]') {
   positioned('~ ~-1.5 ~') {
     /kill @e[type=armor_stand,tag=kitcraft_lettuce_vis,distance=...5,limit=1,sort=nearest]
   }
@@ -111,6 +111,7 @@ positioned('~ ~-1.5 ~'), as(@e[tag=kitcraft_lettuce_vis,limit=1,sort=nearest,dis
 
 /kill @e[type=item,nbt={Item:{id:"minecraft:bone_meal"}},limit=1,sort=nearest]
 /scoreboard players add @s kc_growth_time 4000
-if('score @s kc_growth_time > @s kc_rew_g_time') {
-  /scoreboard players set @s kc_growth_time 12000
+if('score @s kc_growth_time > @s kc_req_g_time') {
+  //scoreboard players set @s kc_growth_time 12000
+  /scoreboard players operation @s kc_growth_time = @s kc_req_g_time
 }

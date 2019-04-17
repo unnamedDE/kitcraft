@@ -7,4 +7,4 @@
 advancement revoke @s only kitcraft:craft_oven_utility
 recipe take @s kitcraft:oven
 clear @s minecraft:structure_void 1
-function kitcraft:give/blocks/oven
+scoreboard players set @s kc_c_menu_m 13

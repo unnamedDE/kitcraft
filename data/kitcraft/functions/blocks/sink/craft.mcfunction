@@ -7,4 +7,4 @@
 advancement revoke @s only kitcraft:sink_utility
 recipe take @s kitcraft:sink
 clear @s minecraft:structure_void 1
-function kitcraft:give/blocks/sink
+scoreboard players set @s kc_c_menu_m 14

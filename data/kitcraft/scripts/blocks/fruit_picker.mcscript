@@ -46,6 +46,13 @@ asat('@e[type=armor_stand,tag=kitcraft_fruit_picker_init]') {
 /kill @e[type=armor_stand,tag=kitcraft_fruit_picker_vis,limit=1,sort=nearest]
 /data merge entity @e[type=item,limit=1,sort=nearest,distance=..2,nbt={Item:{id:"minecraft:dirt",Count:1b}}] {Item:{id:"minecraft:armor_stand",Count:1b,tag:{CustomModelData:705107,kitcraft:{id:"fruit_picker_place"},display:{Name:"{\"translate\":\"Fruit Picker\",\"italic\":\"false\"}",Lore:["{\"translate\":\"Right-click to place\",\"italic\":\"false\",\"color\":\"dark_green\"}"]},EntityTag:{NoGravity:1b,Invulnerable:1b,Small:1b,Marker:1b,Invisible:1b,PersistenceRequired:1b,Tags:["kitcraft_fruit_picker","kitcraft_fruit_picker_init"]}}}}
 
+#file: ./fruit_picker/craft
+
+/advancement revoke @s only kitcraft:craft_fruit_picker_utility
+/recipe take @s kitcraft:fruit_picker
+/clear @s minecraft:structure_void 1
+/scoreboard players set @s kc_c_menu_m 18
+
 #file: ./fruit_picker/harvest
 
 if('block ~ ~ ~ #minecraft:leaves') {
