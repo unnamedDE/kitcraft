@@ -8,6 +8,8 @@
 
 
 
+#unnamedDE's Lib
+execute unless score kitcraft installed_packs matches 1 run scoreboard players set kitcraft installed_packs 1
 #Welcome
 execute as @a[tag=!kitcraft_welcome_sent] run function kitcraft:welcome
 
@@ -25,6 +27,7 @@ function kitcraft:blocks/kitchen_tile/main
 
 function kitcraft:crops/lettuce/main
 function kitcraft:crops/lemon_tree/main
+function kitcraft:crops/apple_tree/main
 
 #Other
 clear @a light_gray_stained_glass_pane{Placeholder:1}
